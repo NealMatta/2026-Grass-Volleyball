@@ -131,50 +131,29 @@ export async function fetchAll() {
 }
 
 /**
- * Submit or correct a score. Goes through the edge function, which checks the
- * passcode server-side — the anon key cannot write to games directly.
+ * All writes go through the edge function. No passcode — anyone can post a
+ * score. The anon key still can't write to the tables directly (RLS), so the
+ * function stays the single write path where scores get validated.
  */
-export async function submitScore({ gameId, scoreA, scoreB, passcode }) {
+async function callFunction(payload, failure) {
   const res = await fetch(`${SUPABASE_URL}/functions/v1/submit-score`, {
     method: 'POST',
     headers: { ...authHeaders, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ action: 'score', gameId, scoreA, scoreB, passcode }),
+    body: JSON.stringify(payload),
   });
   const body = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(body.error ?? `Submit failed (${res.status})`);
+  if (!res.ok) throw new Error(body.error ?? `${failure} (${res.status})`);
   return body;
 }
+
+/** Submit or correct a score. */
+export const submitScore = ({ gameId, scoreA, scoreB }) =>
+  callFunction({ action: 'score', gameId, scoreA, scoreB }, 'Submit failed');
 
 /** Reopen a final game so it can be corrected. */
-export async function reopenGame({ gameId, passcode }) {
-  const res = await fetch(`${SUPABASE_URL}/functions/v1/submit-score`, {
-    method: 'POST',
-    headers: { ...authHeaders, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ action: 'reopen', gameId, passcode }),
-  });
-  const body = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(body.error ?? `Reopen failed (${res.status})`);
-  return body;
-}
+export const reopenGame = ({ gameId }) =>
+  callFunction({ action: 'reopen', gameId }, 'Reopen failed');
 
 /** Lock or unlock bracket seeding, or record a manual tiebreak decision. */
-export async function updateState({ passcode, bracketLocked, lockedSeeds, manualTiebreaks }) {
-  const res = await fetch(`${SUPABASE_URL}/functions/v1/submit-score`, {
-    method: 'POST',
-    headers: { ...authHeaders, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ action: 'state', passcode, bracketLocked, lockedSeeds, manualTiebreaks }),
-  });
-  const body = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(body.error ?? `Update failed (${res.status})`);
-  return body;
-}
-
-/** Verify a passcode without changing anything. */
-export async function checkPasscode(passcode) {
-  const res = await fetch(`${SUPABASE_URL}/functions/v1/submit-score`, {
-    method: 'POST',
-    headers: { ...authHeaders, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ action: 'check', passcode }),
-  });
-  return res.ok;
-}
+export const updateState = ({ bracketLocked, lockedSeeds, manualTiebreaks }) =>
+  callFunction({ action: 'state', bracketLocked, lockedSeeds, manualTiebreaks }, 'Update failed');

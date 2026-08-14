@@ -6,9 +6,9 @@
  * use, checks that standings, tiebreakers, seeding and the bracket all come
  * out right, then clears every score.
  *
- *   node scripts/dry-run.mjs --passcode <code>          play, verify, reset
- *   node scripts/dry-run.mjs --passcode <code> --keep   leave the scores in
- *   node scripts/dry-run.mjs --passcode <code> --reset  clear scores only
+ *   node scripts/dry-run.mjs          play, verify, reset
+ *   node scripts/dry-run.mjs --keep   leave the scores in
+ *   node scripts/dry-run.mjs --reset  clear scores only
  */
 
 import { computeStandings, unresolvedTies } from '../js/standings.js';
@@ -19,14 +19,8 @@ const ANON =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl4bWtvdGh6cXZ5cHRmdGVkbGVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2NTYzMTIsImV4cCI6MjEwMjIzMjMxMn0.t-N0uqb0dWKKJCWtPZKmZ76SzYw1rt2gUIGYxgUTJeI';
 
 const args = process.argv.slice(2);
-const passcode = args[args.indexOf('--passcode') + 1];
 const KEEP = args.includes('--keep');
 const RESET_ONLY = args.includes('--reset');
-
-if (!passcode || passcode.startsWith('--')) {
-  console.error('Usage: node scripts/dry-run.mjs --passcode <code> [--keep|--reset]');
-  process.exit(1);
-}
 
 const headers = { apikey: ANON, Authorization: `Bearer ${ANON}`, 'Content-Type': 'application/json' };
 
@@ -34,7 +28,7 @@ const call = async (payload) => {
   const res = await fetch(`${URL}/functions/v1/submit-score`, {
     method: 'POST',
     headers,
-    body: JSON.stringify({ ...payload, passcode }),
+    body: JSON.stringify(payload),
   });
   const body = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(`${payload.action} ${payload.gameId ?? ''}: ${body.error ?? res.status}`);

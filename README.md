@@ -63,11 +63,11 @@ Details and the reasoning in [FORMAT.md](docs/FORMAT.md).
 
 ## Entering scores on the day
 
-Share **one passcode** with all six captains. Anyone with it can post a score.
+No login, no passcode. Anyone can post a result.
 
 1. Open the site, tap **Enter a score**
-2. Type the passcode once — that device remembers it for the day
-3. Tap the game you just finished, enter **both** scores, submit
+2. Tap the game you just finished
+3. Enter **both** scores, submit
 4. Standings and the bracket update for everyone within 15 seconds
 
 The bracket seeds itself the moment the 12th pool score lands. If two teams finish dead level on
@@ -75,14 +75,13 @@ wins, head-to-head, differential *and* points scored, the site says so and asks 
 winner rather than guessing. Once the semis start, hit **Lock seeding** so a late correction can't
 reshuffle a game already in progress.
 
-Mistyped a score? Tap the finished game and fix it.
+Mistyped a score? Tap the finished game and fix it. Everything here is reversible, which is what
+makes leaving the door open reasonable — a wrong number is a ten-second correction rather than
+something anyone has to go find the organiser about.
 
-To change the passcode:
-
-```bash
-supabase secrets set ADMIN_PASSCODE=<new-code>
-supabase functions deploy submit-score --no-verify-jwt
-```
+The trade-off, stated plainly: the site is public, so this trusts everyone who has the URL, not
+only the people at the park. To put a passcode back, set an `ADMIN_PASSCODE` secret and reinstate
+the check marked in `supabase/functions/submit-score/index.ts`.
 
 ## Development
 
@@ -94,8 +93,8 @@ npm run gen       # regenerate docs/SCHEDULE.md and supabase/seed.sql from data/
 npm run build     # assemble dist/
 npm run deploy    # build + push to Netlify
 
-npm run dry-run -- --passcode <code>   # play a full tournament, verify, reset
-npm run reset -- --passcode <code>     # clear all scores
+npm run dry-run   # play a full tournament through the live API, verify, reset
+npm run reset     # clear all scores
 ```
 
 **`npm run verify` after any schedule edit.** `verify-schedule.mjs` asserts every team plays
@@ -103,12 +102,8 @@ exactly 4, referees exactly 2, appears once per slot, and that no pairing repeat
 because a hand-written version of the schedule table was wrong once already — Deez Nets had three
 games instead of four.
 
-`docs/SCHEDULE.md` and `supabase/seed.sql` are **generated**. Edit `data/schedule.json` and
-regenerate; don't hand-edit them.
-
-`data/schedule.json` is the single source of truth for the schedule. `verify-schedule.mjs` asserts
-that every team plays exactly 4, referees exactly 2, appears at most once per slot, and that no
-pairing repeats. It exists because a hand-written version of the schedule was wrong once already.
+`data/schedule.json` is the single source of truth. `docs/SCHEDULE.md` and `supabase/seed.sql` are
+**generated** from it — edit the JSON and regenerate, don't hand-edit those.
 
 ### Privacy
 
@@ -126,8 +121,11 @@ The Supabase anon key is in `js/data.js` on purpose — it's public by design an
 read-only access RLS allows. Verified: with that key alone, UPDATE, INSERT and DELETE against
 `games`, `teams` and `tournament_state` all fail to change anything.
 
-Every write goes through the `submit-score` edge function, which checks the passcode against a
-server-side secret before using the service role key. The passcode is not in this repo.
+Score submission is deliberately open — see "Entering scores on the day" above. That's a choice
+about who can write, not a hole in the setup: the browser still cannot touch the tables directly.
+Every write goes through the `submit-score` edge function, which validates scores (whole numbers,
+in range, no ties) and refuses bracket games until both teams are actually known, then writes with
+the service role key that never leaves the server.
 
 ### Layout
 
@@ -135,7 +133,7 @@ server-side secret before using the service role key. The passcode is not in thi
 data/teams.json          rosters — names only
 data/schedule.json       the 8 slots, source of truth
 data/raw/                gitignored — raw signup CSV
-scripts/                 schedule verification + doc generation
+scripts/                 schedule verification, doc generation, dry run
 docs/                    format, rules, schedule, logistics, paper scoresheet
-supabase/                schema + passcode-gated score submission function
+supabase/                schema, RLS policies, score submission function
 ```

@@ -1,16 +1,24 @@
 /**
  * submit-score — the only path that can write to the tournament.
  *
- * RLS gives the anon key read-only access, so scores cannot be changed from the
- * browser directly. This function checks a shared passcode against a secret
- * that never leaves the server, then writes using the service role key.
+ * Open by design: anyone can post a score, no passcode. Neal's call — it's a
+ * friendly tournament and chasing one organiser for every result is worse than
+ * the risk of someone typing the wrong number. Every action is reversible from
+ * the same panel, so a bad entry is a 10-second fix.
  *
- * Secrets (set with `supabase secrets set`):
- *   ADMIN_PASSCODE            the code Neal shares with captains
- *   SUPABASE_URL              (provided automatically)
- *   SUPABASE_SERVICE_ROLE_KEY (provided automatically)
+ * This still isn't a free-for-all write path. RLS gives the anon key read-only
+ * access, so the browser can't touch the tables directly; everything comes
+ * through here, where scores get validated (whole numbers, in range, no ties)
+ * and bracket games are refused until both teams are actually known.
  *
- * Actions: check | score | reopen | state
+ * To put a passcode back: set an ADMIN_PASSCODE secret and reinstate the check
+ * marked below, plus the `check` action and the passcode field in js/admin.js.
+ *
+ * Env (provided automatically by Supabase):
+ *   SUPABASE_URL
+ *   SUPABASE_SERVICE_ROLE_KEY
+ *
+ * Actions: score | reopen | state
  */
 
 import { createClient } from 'jsr:@supabase/supabase-js@2';
@@ -27,28 +35,11 @@ const json = (body: unknown, status = 200) =>
     headers: { ...cors, 'Content-Type': 'application/json' },
   });
 
-/**
- * Constant-time compare. A passcode this short is guessable by brute force
- * regardless, but there's no reason to leak its length or prefix through
- * response timing.
- */
-function safeEqual(a: string, b: string): boolean {
-  const ab = new TextEncoder().encode(a);
-  const bb = new TextEncoder().encode(b);
-  if (ab.length !== bb.length) return false;
-  let diff = 0;
-  for (let i = 0; i < ab.length; i++) diff |= ab[i] ^ bb[i];
-  return diff === 0;
-}
-
 const MAX_SCORE = 99;
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: cors });
   if (req.method !== 'POST') return json({ error: 'Use POST' }, 405);
-
-  const expected = Deno.env.get('ADMIN_PASSCODE');
-  if (!expected) return json({ error: 'Server is missing ADMIN_PASSCODE' }, 500);
 
   let payload: Record<string, unknown>;
   try {
@@ -57,13 +48,9 @@ Deno.serve(async (req) => {
     return json({ error: 'Body must be JSON' }, 400);
   }
 
-  const passcode = String(payload.passcode ?? '');
-  if (!safeEqual(passcode, expected)) {
-    return json({ error: 'Wrong passcode' }, 401);
-  }
+  // ── Passcode check would go here ──
 
   const action = String(payload.action ?? 'score');
-  if (action === 'check') return json({ ok: true });
 
   const db = createClient(
     Deno.env.get('SUPABASE_URL')!,

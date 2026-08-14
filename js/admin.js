@@ -1,16 +1,16 @@
 /**
- * Admin panel — passcode, score entry, corrections, bracket lock.
+ * Score entry — open to anyone, no passcode. Enter a result, fix a mistake,
+ * settle a dead heat, lock the bracket.
  *
- * The passcode is only ever held in this device's localStorage and sent to the
- * edge function for verification. It is never in the source, and the anon key
- * on its own cannot write anything.
+ * Every action here is reversible from this same panel, which is what makes an
+ * open door reasonable: a wrong number is a 10-second correction, not a
+ * problem someone has to go find the organiser about.
  */
 
-import { submitScore, reopenGame, updateState, checkPasscode } from './data.js';
+import { submitScore, reopenGame, updateState } from './data.js';
 import { computeStandings, unresolvedTies, tieKey } from './standings.js';
 import { computeBracket } from './bracket.js';
 
-const PASS_KEY = 'gv2026.passcode';
 const el = (tag, cls, text) => {
   const n = document.createElement(tag);
   if (cls) n.className = cls;
@@ -23,7 +23,6 @@ export function mountAdmin(store) {
   const body = document.getElementById('admin-body');
   const title = document.getElementById('admin-title');
 
-  let passcode = localStorage.getItem(PASS_KEY) ?? '';
   let view = { name: 'list', gameId: null };
 
   const teamName = (id) => store.teams.find((t) => t.id === id)?.name ?? '—';
@@ -33,51 +32,6 @@ export function mountAdmin(store) {
     body.prepend(m);
     if (kind === 'ok') setTimeout(() => m.remove(), 4000);
   };
-
-  /* ------------------------------------------------------------ passcode -- */
-
-  function renderPasscode(message) {
-    title.textContent = 'Captain access';
-    body.textContent = '';
-
-    if (message) say(message, 'error');
-
-    body.append(
-      el('p', null, 'Neal shares one passcode with all six captains. Enter it once — this device will remember it for the day.')
-    );
-
-    const label = el('label', null, 'Passcode');
-    const input = el('input');
-    input.type = 'password';
-    input.autocomplete = 'off';
-    input.setAttribute('inputmode', 'text');
-    label.append(input);
-
-    const go = el('button', 'btn', 'Unlock');
-    go.type = 'button';
-
-    const submit = async () => {
-      const value = input.value.trim();
-      if (!value) return;
-      go.disabled = true;
-      go.textContent = 'Checking…';
-      const ok = await checkPasscode(value).catch(() => false);
-      go.disabled = false;
-      go.textContent = 'Unlock';
-      if (!ok) return renderPasscode('That passcode didn\'t work. Ask Neal.');
-      passcode = value;
-      localStorage.setItem(PASS_KEY, value);
-      render();
-    };
-
-    go.addEventListener('click', submit);
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') { e.preventDefault(); submit(); }
-    });
-
-    body.append(label, go);
-    setTimeout(() => input.focus(), 50);
-  }
 
   /* --------------------------------------------------------- game picker -- */
 
@@ -213,7 +167,7 @@ export function mountAdmin(store) {
       save.disabled = true;
       save.textContent = 'Saving…';
       try {
-        await submitScore({ gameId, scoreA, scoreB, passcode });
+        await submitScore({ gameId, scoreA, scoreB });
         await store.refresh();
         view = { name: 'list' };
         render();
@@ -221,7 +175,6 @@ export function mountAdmin(store) {
       } catch (err) {
         save.disabled = false;
         save.textContent = 'Submit score';
-        if (/passcode/i.test(err.message)) return renderPasscode(err.message);
         say(err.message, 'error');
       }
     });
@@ -233,7 +186,7 @@ export function mountAdmin(store) {
       clear.addEventListener('click', async () => {
         clear.disabled = true;
         try {
-          await reopenGame({ gameId, passcode });
+          await reopenGame({ gameId });
           await store.refresh();
           view = { name: 'list' };
           render();
@@ -275,7 +228,7 @@ export function mountAdmin(store) {
           const next = { ...store.state.manualTiebreaks, [tieKey(tie.ids)]: order };
           btn.disabled = true;
           try {
-            await updateState({ passcode, manualTiebreaks: next });
+            await updateState({ manualTiebreaks: next });
             await store.refresh();
             render();
             say('Tiebreak recorded.', 'ok');
@@ -306,7 +259,7 @@ export function mountAdmin(store) {
       unlock.addEventListener('click', async () => {
         unlock.disabled = true;
         try {
-          await updateState({ passcode, bracketLocked: false, lockedSeeds: null });
+          await updateState({ bracketLocked: false, lockedSeeds: null });
           await store.refresh();
           render();
         } catch (err) { unlock.disabled = false; say(err.message, 'error'); }
@@ -333,7 +286,7 @@ export function mountAdmin(store) {
     lock.addEventListener('click', async () => {
       lock.disabled = true;
       try {
-        await updateState({ passcode, bracketLocked: true, lockedSeeds: bracket.seeds });
+        await updateState({ bracketLocked: true, lockedSeeds: bracket.seeds });
         await store.refresh();
         render();
         say('Bracket locked.', 'ok');
@@ -346,7 +299,6 @@ export function mountAdmin(store) {
   /* ------------------------------------------------------------- render -- */
 
   function render() {
-    if (!passcode) return renderPasscode();
     if (view.name === 'score') return renderScore(view.gameId);
     return renderList();
   }
