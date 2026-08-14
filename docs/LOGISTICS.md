@@ -10,8 +10,7 @@ Lake Shore Dr & Belmont Ave, just south of Belmont Harbor
 
 [Open in Maps](https://maps.app.goo.gl/3XGj2SXXnHnxGyKL7)
 
-Be there by **9:30am** if you're helping set up nets. First serve is 10:00 and slot 1 does not wait
-— 5 minutes late is a forfeit.
+Be there by **9:30am** if you're helping set up nets. First serve is 10:00.
 
 > **If it rains, the tournament is cancelled.** Neal will text captains by 8:00am that morning.
 
@@ -69,7 +68,6 @@ of, and if anyone else can bring a spare as backup, do.
 
 **Bring if you want — none of this is required, all of it makes the day better:**
 - **Snacks to share**
-- **Drinks to share** from Spike Bowl
 - A tent or pop-up canopy — the only shade we'll have
 - A football or a frisbee to toss around between games
 - A cooler, a speaker, camp chairs, a blanket
@@ -78,17 +76,18 @@ of, and if anyone else can bring a spare as backup, do.
 
 ## Scoring, day-of
 
-Scores go on **the website** — Neal will share the link and a passcode with all six captains.
+Scores go on **the website** — Neal will share the link with all six captains.
 
-1. Game ends. Losing team's captain (or anyone) opens the site, taps **Admin**.
-2. Enter the passcode once. It's remembered on that device for the rest of the day.
-3. Tap your game, type both scores, submit.
-4. Standings and the bracket update instantly for everyone.
+1. Game ends. Losing team's captain (or anyone) opens the site, taps **Enter a score**.
+2. Tap your game, type both scores, submit.
+3. Standings and the bracket update for everyone within 15 seconds.
+
+No login, no passcode — anyone can post a result.
 
 **Enter both scores, not just who won.** Point differential is the third tiebreaker for bracket
 seeding — a 21-8 win is worth more than a 21-19 win.
 
-Made a mistake? Any game can be reopened and corrected with the same passcode.
+Made a mistake? Tap the finished game and fix it.
 
 **Paper score sheets are at each court as a backup.** Cell signal at the lakefront is not
 guaranteed, and phones die. If the site isn't cooperating, write it down and Neal will enter it

@@ -16,7 +16,7 @@ AIDS Garden Chicago — 3003 N Lakefront Trail, Chicago, IL 60657
 
 ## Pool play
 
-Games to **21**, win by 2, cap 23. **Hard 21-minute limit — at time, whoever leads wins.**
+Games to **21**, win by 2, cap 23. Slots start 25 minutes apart.
 
 | Slot | Time | Court 1 | Ref | Court 2 | Ref |
 |:--|:--|:--|:--|:--|:--|
@@ -46,7 +46,7 @@ Your off slots and your refereeing slots are the same thing — when you're not 
 
 ## Bracket
 
-Games to **25**, win by 2, cap 27. Hard 30-minute limit.
+Games to **25**, win by 2, cap 27.
 
 Seeds come from pool record. The site computes them automatically.
 

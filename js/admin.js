@@ -132,7 +132,7 @@ export function mountAdmin(store) {
 
     const cap = game.phase === 'pool' ? 23 : 27;
     const target = game.phase === 'pool' ? 21 : 25;
-    body.append(el('p', null, `To ${target}, win by 2, cap ${cap}. If time ran out, enter the score as it stood.`));
+    body.append(el('p', null, `To ${target}, win by 2, cap ${cap}.`));
 
     const pair = el('div', 'score-pair');
 

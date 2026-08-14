@@ -93,8 +93,8 @@ place game would need a third court or a longer day.
 
 Done **~1:50pm**. Total ~3h50m.
 
-Slots are 25 minutes: a 21-minute hard cap on play plus 4 minutes to swap teams on and off. There is
-no slack. **This only works if games end on time** — hence the horn rule.
+Slots are 25 minutes, which includes swapping teams on and off. There is no slack in the day —
+eight slots on two courts is exactly what fits between 10:00 and 1:45.
 
 ---
 

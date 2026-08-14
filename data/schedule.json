@@ -13,8 +13,8 @@
     "rainPolicy": "If it rains, the tournament is cancelled."
   },
   "gameRules": {
-    "pool": { "to": 21, "winBy": 2, "cap": 23, "hardMinutes": 21 },
-    "bracket": { "to": 25, "winBy": 2, "cap": 27, "hardMinutes": 30 }
+    "pool": { "to": 21, "winBy": 2, "cap": 23, "slotMinutes": 25 },
+    "bracket": { "to": 25, "winBy": 2, "cap": 27, "slotMinutes": 30 }
   },
   "tiebreakers": [
     "Wins",

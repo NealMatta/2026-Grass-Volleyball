@@ -34,7 +34,7 @@ bracket seeding.
 | 5 | 11:40 | Perros Calientes | ____ | Bumping Buds | ____ | Tequila Mockingbird | ____________ |
 | 6 | 12:05 | Perros Calientes | ____ | Tequila Mockingbird | ____ | Bumping Buds | ____________ |
 
-Pool games: **to 21**, win by 2, cap 23. **Hard 21-minute limit — at time, whoever leads wins.**
+Pool games: **to 21**, win by 2, cap 23. Slots start 25 minutes apart.
 
 ---
 
@@ -63,7 +63,7 @@ Pool games: **to 21**, win by 2, cap 23. **Hard 21-minute limit — at time, who
 | 8 | 1:15 | 2 | **3rd Place** | ____________ | ____ | ____________ | ____ |
 | 8 | 1:15 | 1 | **FINAL** | ____________ | ____ | ____________ | ____ |
 
-Bracket games: **to 25**, win by 2, cap 27. Hard 30-minute limit.
+Bracket games: **to 25**, win by 2, cap 27.
 
 ---
 

@@ -24,17 +24,17 @@ Borrowed wholesale from Montrose, because they were right.
 
 ## Scoring
 
-| | Points | Win by | Cap | Hard time limit |
-|:--|:--|:--|:--|:--|
-| **Pool games** | 21 | 2 | 23 | 21 minutes |
-| **Bracket games** | 25 | 2 | 27 | 30 minutes |
+| | Points | Win by | Cap |
+|:--|:--|:--|:--|
+| **Pool games** | 21 | 2 | 23 |
+| **Bracket games** | 25 | 2 | 27 |
 
-- **Games must end on time. When time is up, the team ahead wins.** This is the single most
-  important rule for finishing by 2pm. Eight rounds on two courts has no slack in it.
 - **Both scores get recorded, not just the winner.** Point differential is the third tiebreaker for
   bracket seeding, so a 21-8 win is worth more than a 21-19 win. Play the whole game out.
 - Teams enter their score on the website right after the game ends. Paper sheets are at each court
   as a backup.
+- Slots start 25 minutes apart. Keep an eye on the clock — eight slots on two courts is what fits
+  the day.
 
 ## Ball handling
 
@@ -43,9 +43,8 @@ Borrowed wholesale from Montrose, because they were right.
 - **Setting on serve is allowed.**
 - **Players must rotate positions to serve.** No stacking one server.
 
-## Timing and forfeits
+## Timing
 
-- Teams get **5 minutes** after the round start time, then it's a forfeit.
 - Water break between every slot. It's August on the lakefront — actually drink it.
 
 ---
@@ -53,9 +52,6 @@ Borrowed wholesale from Montrose, because they were right.
 ## [GRASS] What's different from sand
 
 These are the adaptations. Sand rules assume things that aren't true on a field.
-
-**Footwear** — Sneakers, turf shoes, or barefoot, your call. **No metal cleats.** Non-issue in sand,
-a real one here.
 
 **No antennas** — Portable nets don't have them.
 - The ball must cross **between the poles**.

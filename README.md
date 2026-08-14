@@ -25,8 +25,8 @@ Live standings, bracket and schedule. Send this link to the captains.
 
 **Day-of TL;DR**
 
-- Be there **9:30** if you're on net setup, **10:00** to play. 5 minutes late = forfeit.
-- Pool games to **21**, hard 21-minute cap. **At time, whoever leads wins.**
+- Be there **9:30** if you're on net setup, **10:00** to play.
+- Pool games to **21**, win by 2, cap 23. Bracket games to **25**.
 - **When you're not playing, you're refereeing.** Two slots each.
 - Enter **both scores** after every game — point differential decides bracket seeding.
 - Bring water. There's no shade on the courts.
