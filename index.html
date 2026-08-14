@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026 Grass Volleyball</title>
+<meta name="description" content="Six teams, two courts, one Saturday on the Chicago lakefront. Live scores, standings and bracket.">
+<meta name="theme-color" content="#12351F">
+
+<meta property="og:title" content="2026 Grass Volleyball">
+<meta property="og:description" content="Saturday August 22 · AIDS Garden Chicago · 6 teams, 2 courts, done by 1:45.">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏐</text></svg>">
+</head>
+<body>
+
+<div id="offline" hidden class="offline-banner">
+  Showing the printed schedule — live scores couldn't load. Pull to refresh when you have signal.
+</div>
+
+<header class="hero">
+  <!-- A court chalked onto the grass: the whole page's organising motif. -->
+  <svg class="hero-court" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g fill="none" stroke="#F2F5E8" stroke-width="2.5" opacity=".55">
+      <rect x="90" y="60" width="620" height="290"/>
+      <line x1="400" y1="60" x2="400" y2="350"/>
+      <line x1="245" y1="60" x2="245" y2="350" stroke-dasharray="7 9" opacity=".6"/>
+      <line x1="555" y1="60" x2="555" y2="350" stroke-dasharray="7 9" opacity=".6"/>
+    </g>
+    <g stroke="#F2F5E8" stroke-width="3" opacity=".8">
+      <line x1="400" y1="34" x2="400" y2="60"/>
+      <line x1="400" y1="350" x2="400" y2="376"/>
+    </g>
+  </svg>
+
+  <div class="hero-inner">
+    <p class="eyebrow">First annual · Chicago</p>
+    <h1><span class="year">2026</span> Grass Volleyball</h1>
+
+    <div class="hero-meta">
+      <span>Saturday, August 22</span>
+      <span class="sep">·</span>
+      <span>10:00am</span>
+      <span class="sep">·</span>
+      <a class="pin" href="https://maps.app.goo.gl/3XGj2SXXnHnxGyKL7" target="_blank" rel="noopener">
+        <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true">
+          <path d="M8 0a8 8 0 0 0-8 8c0 5.5 8 12 8 12s8-6.5 8-12a8 8 0 0 0-8-8Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/>
+        </svg>
+        AIDS Garden Chicago
+      </a>
+    </div>
+
+    <p class="rain">Six teams, two courts, five to six games each. Done by 1:45pm.<br>
+      If it rains, it's cancelled — captains get a text by 8am.</p>
+  </div>
+</header>
+
+<nav class="statusbar" aria-label="Tournament status">
+  <div class="statusbar-inner">
+    <span class="live-dot" aria-hidden="true"></span>
+    <span class="status-text" id="status-text">Loading…</span>
+    <span class="navlinks">
+      <a href="#now">Now</a>
+      <a href="#standings">Standings</a>
+      <a href="#bracket">Bracket</a>
+      <a href="#teams">Teams</a>
+      <a href="#schedule">Schedule</a>
+      <a href="#rules">Rules</a>
+      <a href="#logistics">Getting there</a>
+    </span>
+  </div>
+</nav>
+
+<main>
+
+<section class="section" id="now">
+  <div class="section-head">
+    <h2>On the courts</h2>
+    <p>Both courts, right now. Whoever isn't playing is refereeing.</p>
+  </div>
+  <div class="court-grid" id="now-grid"></div>
+</section>
+
+<section class="section" id="standings">
+  <div class="section-head">
+    <h2>Standings</h2>
+    <p>Top four make the bracket. Ties break on head-to-head, then point differential — so play the whole game out.</p>
+  </div>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">#</th><th scope="col">Team</th>
+          <th scope="col">W</th><th scope="col">L</th>
+          <th scope="col">PF</th><th scope="col">PA</th><th scope="col">Diff</th>
+        </tr>
+      </thead>
+      <tbody id="standings-body"></tbody>
+    </table>
+  </div>
+  <div id="tie-flags"></div>
+</section>
+
+<section class="section" id="bracket">
+  <div class="section-head">
+    <h2>Bracket</h2>
+    <p>Seeded automatically the moment the last pool game is in.</p>
+  </div>
+  <div id="bracket-grid"></div>
+</section>
+
+<section class="section" id="teams">
+  <div class="section-head">
+    <h2>The teams</h2>
+    <p>Tap a team for the roster.</p>
+  </div>
+  <div class="court-grid" id="teams-grid"></div>
+</section>
+
+<section class="section" id="schedule">
+  <div class="section-head">
+    <h2>Full schedule</h2>
+    <p>Every team plays four pool games and referees two. Games end on time — at the horn, whoever leads wins.</p>
+  </div>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Slot</th><th scope="col">Time</th>
+          <th scope="col">Court 1</th><th scope="col">Result</th>
+          <th scope="col">Court 2</th><th scope="col">Result</th>
+        </tr>
+      </thead>
+      <tbody id="schedule-body"></tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section" id="rules">
+  <div class="section-head">
+    <h2>Rules</h2>
+  </div>
+
+  <div class="vibe">
+    <p><strong>Vibes are everything.</strong> If your goal is to dominate every single game, this might not be the tournament for you.</p>
+    <p>The goal is to have a good time, make new friends, and play some competitive games.</p>
+  </div>
+
+  <div class="rules-grid">
+    <div>
+      <h3>Scoring</h3>
+      <ul>
+        <li>Pool games to <strong>21</strong>, win by 2, cap 23</li>
+        <li>Bracket games to <strong>25</strong>, win by 2, cap 27</li>
+        <li><strong>Hard time limit.</strong> At the horn, whoever leads wins</li>
+        <li>Record <strong>both scores</strong> — differential decides seeding</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Ball handling</h3>
+      <ul>
+        <li>No open-hand tipping — closed fist or 2+ knuckles</li>
+        <li>No set over unless your shoulders are square to the net</li>
+        <li>Setting on serve is allowed</li>
+        <li>Rotate positions to serve</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Playing on grass</h3>
+      <ul>
+        <li>Sneakers, turf shoes or barefoot. <strong>No metal cleats</strong></li>
+        <li><strong>No antennas.</strong> Ball must cross between the poles. Pole or guy-line is out; net cable between the poles is live</li>
+        <li>Ball touching the line is in. No line and genuinely disputed? <strong>Replay it</strong></li>
+        <li>Lets are live</li>
+        <li>Uneven ground: play it where it lies. Anyone may call an unsafe stop and replay the point</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Refereeing</h3>
+      <ul>
+        <li>Not playing? You're refereeing. Two slots each</li>
+        <li>Referees handle <strong>score, rotation, in/out</strong></li>
+        <li>Everything else is self-called — net touches, lifts, foot faults</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Teams</h3>
+      <ul>
+        <li>Coed 4s. No gender requirement</li>
+        <li>Short-handed is fine — three is allowed</li>
+        <li>5 minutes past start time is a forfeit</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Tiebreakers</h3>
+      <ul>
+        <li>1. Wins</li>
+        <li>2. Head-to-head</li>
+        <li>3. Point differential</li>
+        <li>4. Points scored</li>
+        <li>5. Rock paper scissors</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="logistics">
+  <div class="section-head">
+    <h2>Getting there &amp; what to bring</h2>
+    <p>AIDS Garden Chicago, 3003 N Lakefront Trail — Lake Shore Dr &amp; Belmont, just south of Belmont Harbor.</p>
+  </div>
+
+  <div class="logistics-grid">
+    <div>
+      <h3>Getting there</h3>
+      <ul>
+        <li>It's on the Lakefront Trail — <strong>no parking at the venue</strong></li>
+        <li>Belmont Harbor lot is closest and fills early</li>
+        <li>CTA: Belmont Red/Brown/Purple, then #77 bus east</li>
+        <li>Biking is easily the least stressful option</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Timing</h3>
+      <ul>
+        <li><strong>9:30</strong> if you're on net setup</li>
+        <li><strong>10:00</strong> first serve — slot 1 does not wait</li>
+        <li>12:30 break, standings posted</li>
+        <li>Final at 1:15, done by 1:45</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Definitely bring</h3>
+      <ul>
+        <li><strong>Water.</strong> More than you think — no shade on the courts</li>
+        <li>Sunscreen</li>
+        <li>A ball if you have one</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Bring if you want</h3>
+      <ul>
+        <li><strong>Snacks to share</strong></li>
+        <li><strong>Drinks to share</strong> from Spike Bowl</li>
+        <li>A tent or canopy — the only shade we'll have</li>
+        <li>A football or a frisbee to toss around between games</li>
+        <li>A cooler, a speaker, camp chairs, a blanket</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Nets</h3>
+      <ul>
+        <li>Court 1 — Deez Nets, set up with Bumping Buds</li>
+        <li>Court 2 — Tequila Mockingbird, set up with Perros Calientes</li>
+        <li>Only two nets exist. Michael and Grant, we're counting on you</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<button class="admin-fab" id="admin-open">Enter a score</button>
+
+<dialog class="admin" id="admin-dialog">
+  <form method="dialog" class="admin-head">
+    <h2 id="admin-title">Enter a score</h2>
+    <button value="close" aria-label="Close">✕</button>
+  </form>
+  <div class="admin-body" id="admin-body"></div>
+</dialog>
+
+<footer>
+  <p>Built for the first (hopefully annual) grass volleyball tournament in Chicago.<br>
+  Player contact details are never stored or shown here.</p>
+</footer>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

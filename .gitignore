@@ -1,0 +1,27 @@
+# Raw signup data — contains emails and phone numbers.
+# This repo is PUBLIC. Nothing in here may ever be committed.
+data/raw/
+*.csv
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Supabase local state
+supabase/.temp/
+supabase/.branches/
+
+# Netlify
+.netlify/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Node
+node_modules/
+dist/

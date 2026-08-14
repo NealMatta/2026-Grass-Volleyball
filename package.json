@@ -1,0 +1,13 @@
+{
+  "name": "2026-grass-volleyball",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "verify": "node scripts/verify-schedule.mjs && node scripts/test-standings.mjs",
+    "gen": "node scripts/gen-schedule-doc.mjs && node scripts/gen-seed-sql.mjs",
+    "build": "node scripts/build-site.mjs",
+    "deploy": "npm run build && netlify deploy --prod --dir dist",
+    "dry-run": "node scripts/dry-run.mjs",
+    "reset": "node scripts/dry-run.mjs --reset"
+  }
+}

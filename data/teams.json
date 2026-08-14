@@ -1,0 +1,72 @@
+{
+  "_comment": "NO emails or phone numbers. Ever. This repo is public and this file ships to the browser.",
+  "teams": [
+    {
+      "id": "deez-nets",
+      "name": "Deez Nets",
+      "seed": 1,
+      "captain": "Michael Keo",
+      "players": ["Michael Keo", "Cynthia", "Claire", "Nick"],
+      "hasNet": true,
+      "colorA": "#2D3561",
+      "colorB": "#5B6BC0",
+      "blurb": "Bringing a net and the pun. Both essential."
+    },
+    {
+      "id": "haikyuties",
+      "name": "Haikyuties",
+      "seed": 2,
+      "captain": "Janna Remperas",
+      "players": ["Janna Remperas", "Shan"],
+      "rosterPending": 2,
+      "hasNet": false,
+      "colorA": "#FF6B35",
+      "colorB": "#F7931E",
+      "blurb": "Fly high. Anime rules apply."
+    },
+    {
+      "id": "tequila-mockingbird",
+      "name": "Tequila Mockingbird",
+      "seed": 3,
+      "captain": "Grant McLean",
+      "players": ["Grant McLean", "Neil McLean", "Shannon O'Donoghue", "Peter Kress"],
+      "hasNet": true,
+      "colorA": "#B4D33A",
+      "colorB": "#E8B33D",
+      "blurb": "Best team name in the field and they know it."
+    },
+    {
+      "id": "cinnamon-rolls",
+      "name": "Cinnamon Rolls",
+      "seed": 4,
+      "captain": "Neal Matta",
+      "players": ["Neal Matta", "Will", "Alanah", "Amy"],
+      "hasNet": false,
+      "colorA": "#D98E5F",
+      "colorB": "#A0522D",
+      "blurb": "Your host's team. Sweet, warm, rolls a lot."
+    },
+    {
+      "id": "perros-calientes",
+      "name": "Perros Calientes",
+      "seed": 5,
+      "captain": "Alfonso",
+      "players": ["Alfonso", "Hina", "Asher", "Medhi"],
+      "hasNet": false,
+      "colorA": "#E63946",
+      "colorB": "#F4A261",
+      "blurb": "Hot dogs. Served on grass."
+    },
+    {
+      "id": "bumping-buds",
+      "name": "Bumping Buds",
+      "seed": 6,
+      "captain": "Jamie Kolar",
+      "players": ["Jamie Kolar", "Kim", "Elvis", "Diego"],
+      "hasNet": false,
+      "colorA": "#E056A0",
+      "colorB": "#9B59B6",
+      "blurb": "Here for the bump and the buds."
+    }
+  ]
+}

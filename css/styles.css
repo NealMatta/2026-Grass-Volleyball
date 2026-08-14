@@ -1,0 +1,764 @@
+/* 2026 Grass Volleyball
+ *
+ * Visual idea: a court chalked onto grass. Courts here are improvised — cones
+ * and chalk on a public field — so the whole page is built from chalk lines on
+ * turf rather than cards floating on white. Palette is Chicago lakefront in
+ * August: sun-baked olive grass, Lake Michigan blue, bleached line white.
+ *
+ * Contrast is deliberately high. This gets read on a phone, outdoors, at noon.
+ */
+
+@font-face { font-family: 'ArchivoFallback'; src: local('Helvetica Neue'), local('Arial'); }
+
+:root {
+  --turf-deep:  #12351F;
+  --turf:       #1B4D2E;
+  --turf-lit:   #2A6B3F;
+  --turf-line:  #3D7F52;
+
+  --chalk:      #F2F5E8;
+  --chalk-dim:  #B9C4AC;
+  --chalk-faint:#7E8C75;
+
+  --lake:       #35B4D6;
+  --sun:        #FFC93C;
+  --clay:       #FF6B45;
+
+  --ink:        #0B1F12;
+
+  --gap:  clamp(1rem, 3vw, 2rem);
+  --rule: 2px;
+
+  --f-display: 'Archivo', 'ArchivoFallback', system-ui, sans-serif;
+  --f-body:    'Archivo', 'ArchivoFallback', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+
+body {
+  margin: 0;
+  background: var(--turf-deep);
+  color: var(--chalk);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.55;
+  font-variant-numeric: tabular-nums;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, .display {
+  font-family: var(--f-display);
+  font-weight: 900;
+  font-stretch: 125%;
+  line-height: .95;
+  letter-spacing: -.02em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+a { color: var(--lake); }
+a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible {
+  outline: 3px solid var(--sun);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------- hero ---- */
+
+.hero {
+  position: relative;
+  padding: clamp(2rem, 6vw, 4rem) var(--gap) clamp(3rem, 8vw, 5rem);
+  background:
+    radial-gradient(120% 90% at 70% 0%, rgba(255,201,60,.16), transparent 60%),
+    linear-gradient(180deg, var(--turf) 0%, var(--turf-deep) 100%);
+  overflow: hidden;
+}
+
+/* The chalked court behind the title. */
+.hero-court {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: .5;
+}
+
+.hero-inner { position: relative; max-width: 1100px; margin: 0 auto; }
+
+.eyebrow {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-stretch: 75%;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  font-size: .8rem;
+  color: var(--sun);
+  margin: 0 0 1rem;
+}
+
+/* "VOLLEYBALL" is 10 characters of expanded black — the widest thing on the
+ * page. These values keep it on one line at both ends: it must not run off
+ * the right edge at 1200px, and must not break mid-word at 360px. */
+.hero h1 {
+  font-size: clamp(2.1rem, 10.5vw, 7rem);
+  color: var(--chalk);
+  text-shadow: 0 4px 0 rgba(0,0,0,.18);
+}
+
+@media (max-width: 30rem) {
+  .hero h1 { font-stretch: 100%; }
+}
+
+.hero h1 .year { display: block; color: var(--sun); }
+
+.hero-meta {
+  margin-top: clamp(1.5rem, 4vw, 2.5rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem 2rem;
+  align-items: center;
+  font-size: clamp(1rem, 2.4vw, 1.3rem);
+  font-weight: 600;
+}
+
+.hero-meta .sep { color: var(--chalk-faint); }
+
+.pin {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  color: var(--chalk);
+  text-decoration: none;
+  border-bottom: var(--rule) solid var(--lake);
+  padding-bottom: 2px;
+}
+.pin:hover { color: var(--lake); }
+.pin svg { flex: none; }
+
+.rain {
+  margin-top: 1.5rem;
+  display: inline-block;
+  border-left: 3px solid var(--clay);
+  padding: .35rem 0 .35rem .85rem;
+  color: var(--chalk-dim);
+  font-size: .95rem;
+}
+
+/* --------------------------------------------------------- status bar ---- */
+
+.statusbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--ink);
+  border-bottom: var(--rule) solid var(--turf-line);
+}
+
+.statusbar-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: .6rem var(--gap);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.live-dot {
+  width: .6rem; height: .6rem; border-radius: 50%;
+  background: var(--sun);
+  box-shadow: 0 0 0 0 rgba(255,201,60,.7);
+  animation: pulse 2s infinite;
+  flex: none;
+}
+@keyframes pulse {
+  70%  { box-shadow: 0 0 0 .5rem rgba(255,201,60,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,201,60,0); }
+}
+
+.status-text { font-weight: 600; font-size: .95rem; }
+.status-text strong { color: var(--sun); }
+
+.navlinks {
+  margin-left: auto;
+  display: flex;
+  gap: .25rem;
+  flex-wrap: wrap;
+}
+.navlinks a {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-stretch: 75%;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: .72rem;
+  color: var(--chalk-dim);
+  text-decoration: none;
+  padding: .35rem .5rem;
+  border-radius: 3px;
+}
+.navlinks a:hover { color: var(--ink); background: var(--sun); }
+
+/* ------------------------------------------------------------ sections ---- */
+
+.section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 7vw, 4.5rem) var(--gap);
+  border-top: var(--rule) dashed var(--turf-line);
+}
+.section:first-of-type { border-top: 0; }
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.75rem;
+}
+.section-head h2 { font-size: clamp(1.8rem, 5vw, 3rem); }
+.section-head p { margin: 0; color: var(--chalk-dim); font-size: .95rem; max-width: 46ch; }
+
+/* --------------------------------------------------------------- cards ---- */
+
+.court-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+}
+
+.court-card {
+  border: var(--rule) solid var(--turf-line);
+  background: linear-gradient(180deg, rgba(255,255,255,.04), transparent);
+  padding: 1.1rem 1.25rem;
+  position: relative;
+}
+
+.court-card.is-live { border-color: var(--sun); }
+.court-card.is-done { opacity: .62; }
+
+.court-tag {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-stretch: 75%;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-size: .7rem;
+  color: var(--chalk-faint);
+  margin-bottom: .6rem;
+}
+.is-live .court-tag { color: var(--sun); }
+
+.matchup { display: grid; gap: .4rem; }
+
+.side {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  font-family: var(--f-display);
+  font-weight: 900;
+  font-stretch: 100%;
+  font-size: clamp(1.05rem, 3vw, 1.35rem);
+  text-transform: uppercase;
+}
+.side .swatch { width: .55rem; height: 1.4rem; flex: none; }
+.side .score { margin-left: auto; font-size: 1.5rem; color: var(--sun); }
+.side.lost { color: var(--chalk-faint); }
+.side.lost .score { color: var(--chalk-faint); }
+.side.tbd { color: var(--chalk-faint); font-stretch: 75%; font-weight: 700; font-size: .9rem; }
+
+.reffed { margin-top: .7rem; font-size: .8rem; color: var(--chalk-faint); }
+.reffed b { color: var(--chalk-dim); font-weight: 600; }
+
+/* ----------------------------------------------------------- standings ---- */
+
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+table { border-collapse: collapse; width: 100%; min-width: 34rem; }
+
+th, td { text-align: right; padding: .6rem .5rem; border-bottom: 1px solid var(--turf-line); }
+th:first-child, td:first-child { text-align: left; }
+th:nth-child(2), td:nth-child(2) { text-align: left; }
+
+/* Schedule is a matchup table, not a numeric one — everything reads left,
+ * headers included, so the column labels sit above their content. */
+#schedule th, #schedule td { text-align: left; }
+#schedule th:nth-child(1), #schedule td:nth-child(1) { width: 3.5rem; }
+#schedule th:nth-child(2), #schedule td:nth-child(2) { width: 4.5rem; }
+/* Six columns need more room than the default before they start crushing. */
+#schedule table { min-width: 46rem; }
+#schedule .match-cell  { width: 32%; }
+#schedule .result-cell { width: 5.5rem; white-space: nowrap; }
+
+#schedule .vs { color: var(--chalk-faint); }
+#schedule .ref-line { font-size: .75rem; color: var(--chalk-faint); margin-top: .15rem; }
+
+.result-cell {
+  font-family: var(--f-display);
+  font-weight: 900;
+  font-size: 1.02rem;
+}
+.result-cell .won  { color: var(--sun); }
+.result-cell .lost { color: var(--chalk-faint); }
+.result-cell .dash { color: var(--chalk-faint); margin: 0 .15rem; font-weight: 400; }
+.result-cell .pending { color: var(--turf-line); font-weight: 400; }
+
+thead th {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-stretch: 75%;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: .68rem;
+  color: var(--chalk-faint);
+  border-bottom-color: var(--chalk-faint);
+}
+
+tbody tr.seeded-in { background: rgba(255,201,60,.07); }
+
+.rank {
+  font-family: var(--f-display);
+  font-weight: 900;
+  font-size: 1.1rem;
+  color: var(--sun);
+  width: 2.5rem;
+}
+.team-cell { display: flex; align-items: center; gap: .55rem; font-weight: 600; }
+.team-cell .swatch { width: .45rem; height: 1.1rem; flex: none; }
+
+td.num { font-variant-numeric: tabular-nums; }
+td.pos { color: var(--lake); }
+td.neg { color: var(--clay); }
+
+.tie-flag {
+  margin-top: 1rem;
+  border: var(--rule) solid var(--clay);
+  padding: .9rem 1.1rem;
+  background: rgba(255,107,69,.08);
+}
+.tie-flag h3 { font-size: 1rem; color: var(--clay); margin-bottom: .4rem; }
+.tie-flag p { margin: 0; font-size: .9rem; color: var(--chalk-dim); }
+
+/* ------------------------------------------------------------- bracket ---- */
+
+.round-label {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-stretch: 75%;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  font-size: .68rem;
+  color: var(--chalk-faint);
+  margin-bottom: .7rem;
+  white-space: nowrap;
+}
+
+/* Grid, not flex: an SVG's intrinsic sizing fights flex-basis and lets the
+ * connector columns swallow the match columns. Explicit tracks can't. */
+.bracket-tree {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    clamp(1.75rem, 4vw, 3.25rem)
+    minmax(0, 1fr)
+    clamp(1.75rem, 4vw, 3.25rem)
+    minmax(0, 12rem);
+  align-items: stretch;
+  min-height: 20rem;
+}
+
+.bracket-tree .round {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Equal rows with each match centred in its own row puts two matches at exactly
+ * 25% / 75% and one at exactly 50% — which is what the connector paths are
+ * drawn against. (space-around plus a gap lands a few px off.) */
+.bracket-tree .matches {
+  flex: 1;
+  display: grid;
+  grid-auto-rows: 1fr;
+  min-height: 0;
+}
+.bracket-tree .matches > * { align-self: center; }
+
+.conn-col { display: flex; flex-direction: column; min-width: 0; }
+.conn {
+  display: block;
+  width: 100%;
+  flex: 1;          /* fills exactly the height the .matches area occupies */
+  min-height: 0;
+  overflow: visible;
+}
+.conn path { fill: none; stroke: var(--turf-line); stroke-width: 2; }
+
+.match {
+  border: var(--rule) solid var(--turf-line);
+  background: linear-gradient(180deg, rgba(255,255,255,.035), transparent);
+  padding: .6rem .75rem;
+}
+
+.match-label {
+  font-family: var(--f-display);
+  font-weight: 700; font-stretch: 75%;
+  text-transform: uppercase; letter-spacing: .1em;
+  font-size: .58rem;
+  color: var(--chalk-faint);
+  margin-bottom: .5rem;
+}
+
+.match-side {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-family: var(--f-display);
+  font-weight: 900;
+  font-stretch: 100%;
+  text-transform: uppercase;
+  font-size: clamp(.8rem, 1.6vw, .98rem);
+  line-height: 1.55;
+}
+.match-side + .match-side { border-top: 1px solid rgba(255,255,255,.07); }
+.match-side .swatch { width: .4rem; height: 1.1rem; flex: none; }
+.match-side .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.match-side .s { margin-left: auto; padding-left: .5rem; font-size: 1.1rem; }
+.match-side.won .s { color: var(--sun); }
+.match-side.lost { color: var(--chalk-faint); }
+.match-side.lost .s { color: var(--chalk-faint); }
+.match-side.tbd {
+  color: var(--chalk-faint); font-weight: 700; font-stretch: 75%;
+  font-size: .72rem; letter-spacing: .06em;
+}
+
+.champion {
+  border: var(--rule) solid var(--sun);
+  background: linear-gradient(180deg, rgba(255,201,60,.2), transparent);
+  padding: 1.1rem .9rem;
+  text-align: center;
+}
+.champion.pending { border-color: var(--turf-line); background: none; }
+.champion .trophy { font-size: 1.6rem; line-height: 1; margin-bottom: .4rem; }
+.champion.pending .trophy { filter: grayscale(1) opacity(.3); }
+.champion .label {
+  font-stretch: 75%; letter-spacing: .18em; font-size: .62rem;
+  color: var(--sun); font-family: var(--f-display); font-weight: 700;
+  text-transform: uppercase;
+}
+.champion.pending .label { color: var(--chalk-faint); }
+.champion .name {
+  font-family: var(--f-display); font-weight: 900; font-stretch: 110%;
+  text-transform: uppercase;
+  font-size: clamp(1rem, 2.4vw, 1.35rem);
+  line-height: 1.05;
+  margin-top: .3rem;
+}
+
+.third-place { margin-top: 2.25rem; max-width: 22rem; }
+/* Section-level labels that follow a block need their own air. */
+#bracket-grid > .round-label { margin-top: 2.25rem; }
+
+.placings { list-style: none; margin: .25rem 0 0; padding: 0; display: grid; gap: .35rem; max-width: 24rem; }
+.placings li { display: flex; align-items: center; gap: .55rem; font-size: .93rem; }
+.placings .place {
+  font-family: var(--f-display); font-weight: 900; color: var(--sun);
+  width: 1.4rem; flex: none;
+}
+.placings .swatch { width: .4rem; height: 1rem; flex: none; }
+
+/* Stacked on narrow screens — elbow connectors don't survive a phone. */
+@media (max-width: 48rem) {
+  .bracket-tree { grid-template-columns: 1fr; min-height: 0; gap: 1.25rem; }
+  .bracket-tree .matches { grid-auto-rows: auto; gap: .75rem; }
+  .conn-col { display: none; }
+  .third-place { max-width: none; }
+}
+
+/* --------------------------------------------------------------- teams ---- */
+
+.team-card {
+  border: var(--rule) solid var(--turf-line);
+  padding: 0;
+  overflow: hidden;
+}
+.team-card > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 1.15rem 1.25rem;
+  position: relative;
+}
+.team-card > summary::-webkit-details-marker { display: none; }
+
+.team-name {
+  font-family: var(--f-display);
+  font-weight: 900;
+  font-stretch: 110%;
+  text-transform: uppercase;
+  font-size: clamp(1.3rem, 4vw, 1.8rem);
+  line-height: .95;
+}
+.team-sub {
+  margin-top: .45rem;
+  font-size: .82rem;
+  color: var(--chalk-dim);
+  display: flex;
+  gap: .75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.chip {
+  font-family: var(--f-display);
+  font-weight: 700; font-stretch: 75%;
+  text-transform: uppercase; letter-spacing: .09em;
+  font-size: .64rem;
+  padding: .18rem .45rem;
+  border: 1px solid currentColor;
+}
+.chip.net { color: var(--sun); }
+
+/* Opaque, because the gradient now lives on the card behind it. */
+.team-body { padding: 1.25rem; background: var(--turf-deep); }
+.roster { list-style: none; margin: 0; padding: 0; display: grid; gap: .3rem; }
+.roster li { display: flex; gap: .5rem; align-items: baseline; font-size: .95rem; }
+.roster .cap {
+  font-family: var(--f-display); font-weight: 700; font-stretch: 75%;
+  font-size: .6rem; letter-spacing: .1em; color: var(--sun);
+  text-transform: uppercase;
+}
+.roster .pending { color: var(--chalk-faint); font-style: italic; }
+.team-tagline {
+  margin: .6rem 0 0;
+  font-size: .88rem;
+  font-style: italic;
+  line-height: 1.35;
+  max-width: 32ch;
+}
+
+/* ------------------------------------------------------------ schedule ---- */
+
+.slot-row td.slot-n {
+  font-family: var(--f-display); font-weight: 900; color: var(--sun); font-size: 1rem;
+}
+tr.is-live-row { background: rgba(255,201,60,.1); }
+tr.is-done-row { color: var(--chalk-faint); }
+
+/* --------------------------------------------------------------- rules ---- */
+
+.rules-grid { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); }
+.rules-grid h3 { font-size: 1rem; color: var(--sun); margin-bottom: .5rem; font-stretch: 100%; }
+.rules-grid ul { margin: 0; padding-left: 1.1rem; display: grid; gap: .4rem; }
+.rules-grid li { font-size: .93rem; }
+.rules-grid strong { color: var(--chalk); }
+
+.vibe {
+  border: var(--rule) solid var(--sun);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+  background: rgba(255,201,60,.07);
+}
+.vibe p { margin: 0; font-size: clamp(1rem, 2.6vw, 1.15rem); }
+.vibe p + p { margin-top: .5rem; color: var(--chalk-dim); font-size: .95rem; }
+
+/* ----------------------------------------------------------- logistics ---- */
+
+.logistics-grid { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); }
+.logistics-grid h3 { font-size: .95rem; color: var(--lake); margin-bottom: .5rem; font-stretch: 100%; }
+.logistics-grid ul { margin: 0; padding-left: 1.1rem; display: grid; gap: .35rem; font-size: .92rem; }
+
+/* --------------------------------------------------------------- admin ---- */
+
+.admin-fab {
+  position: fixed;
+  right: 1rem; bottom: 1rem;
+  z-index: 60;
+  font-family: var(--f-display); font-weight: 900; font-stretch: 100%;
+  text-transform: uppercase; letter-spacing: .06em;
+  font-size: .85rem;
+  background: var(--sun); color: var(--ink);
+  border: 0; padding: .85rem 1.15rem;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0,0,0,.4);
+}
+.admin-fab:hover { background: var(--chalk); }
+
+dialog.admin {
+  border: var(--rule) solid var(--sun);
+  background: var(--turf-deep);
+  color: var(--chalk);
+  max-width: min(34rem, 94vw);
+  width: 100%;
+  padding: 0;
+}
+dialog.admin::backdrop { background: rgba(0,0,0,.72); }
+
+.admin-head {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-bottom: var(--rule) solid var(--turf-line);
+}
+.admin-head h2 { font-size: 1.2rem; }
+.admin-head button { margin-left: auto; background: none; border: 0; color: var(--chalk-dim); font-size: 1.4rem; cursor: pointer; line-height: 1; }
+
+.admin-body { padding: 1.25rem; display: grid; gap: 1rem; max-height: 70vh; overflow-y: auto; }
+
+label { display: grid; gap: .3rem; font-size: .85rem; color: var(--chalk-dim); }
+input, select {
+  font: inherit;
+  background: var(--ink);
+  color: var(--chalk);
+  border: var(--rule) solid var(--turf-line);
+  padding: .6rem .7rem;
+  width: 100%;
+}
+input[type="number"] { font-family: var(--f-display); font-weight: 900; font-size: 1.6rem; text-align: center; }
+
+.score-pair { display: grid; grid-template-columns: 1fr auto 1fr; gap: .75rem; align-items: end; }
+.score-pair .vs { padding-bottom: .8rem; color: var(--chalk-faint); font-weight: 700; }
+
+.btn {
+  font-family: var(--f-display); font-weight: 900; font-stretch: 100%;
+  text-transform: uppercase; letter-spacing: .06em;
+  background: var(--sun); color: var(--ink);
+  border: 0; padding: .8rem 1rem; cursor: pointer; font-size: .9rem;
+}
+.btn:hover { background: var(--chalk); }
+.btn.ghost { background: none; color: var(--chalk-dim); border: var(--rule) solid var(--turf-line); }
+.btn.ghost:hover { color: var(--chalk); border-color: var(--chalk-dim); background: none; }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+
+.msg { font-size: .88rem; padding: .6rem .75rem; border-left: 3px solid var(--lake); background: rgba(53,180,214,.1); }
+.msg.error { border-color: var(--clay); background: rgba(255,107,69,.12); color: #FFC9BA; }
+.msg.ok { border-color: var(--sun); background: rgba(255,201,60,.12); }
+
+.game-picker { display: grid; gap: .4rem; }
+.game-option {
+  display: flex; align-items: center; gap: .6rem;
+  padding: .6rem .7rem;
+  border: var(--rule) solid var(--turf-line);
+  background: none; color: var(--chalk);
+  cursor: pointer; text-align: left; font: inherit; width: 100%;
+}
+.game-option:hover { border-color: var(--sun); }
+.game-option .when { font-size: .72rem; color: var(--chalk-faint); font-family: var(--f-display); font-stretch: 75%; letter-spacing: .08em; }
+.game-option .who { font-weight: 600; font-size: .92rem; }
+.game-option .done { margin-left: auto; font-size: .8rem; color: var(--sun); }
+.game-option.next { border-color: var(--sun); }
+
+/* ------------------------------------------------------------- motion ---- */
+
+/* Signature moment: the court gets chalked onto the grass on load. */
+.hero-court rect, .hero-court line {
+  stroke-dasharray: var(--len, 2000);
+  stroke-dashoffset: var(--len, 2000);
+  animation: chalk 1.4s cubic-bezier(.3, .8, .3, 1) forwards;
+}
+.hero-court rect            { --len: 1900; animation-delay: .15s; }
+.hero-court line:nth-of-type(1) { --len: 300; animation-delay: .75s; }
+.hero-court line:nth-of-type(2) { --len: 300; animation-delay: .95s; }
+.hero-court line:nth-of-type(3) { --len: 300; animation-delay: 1.05s; }
+.hero-court g:last-of-type line  { --len: 30;  animation-delay: 1.2s; }
+
+@keyframes chalk { to { stroke-dashoffset: 0; } }
+
+/* Hero copy arrives after the lines are down. */
+.hero .eyebrow,
+.hero h1,
+.hero-meta,
+.hero .rain { animation: rise .7s cubic-bezier(.2, .7, .3, 1) both; }
+.hero .eyebrow  { animation-delay: .1s; }
+.hero h1        { animation-delay: .2s; }
+.hero-meta      { animation-delay: .45s; }
+.hero .rain     { animation-delay: .6s; }
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(1.5rem); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Sections rise as you scroll to them. */
+.reveal {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition: opacity .6s cubic-bezier(.2, .7, .3, 1), transform .6s cubic-bezier(.2, .7, .3, 1);
+}
+.reveal.in { opacity: 1; transform: none; }
+
+/* A score landing should feel like it landed. */
+@keyframes pop {
+  0%   { transform: scale(.55); opacity: 0; }
+  62%  { transform: scale(1.14); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.side .score.fresh { animation: pop .5s cubic-bezier(.2, .9, .3, 1.3) both; }
+
+/* The row that just changed position holds a highlight for a beat. */
+@keyframes settle {
+  from { background: rgba(255, 201, 60, .28); }
+  to   { background: transparent; }
+}
+tbody tr.moved { animation: settle 1.4s ease-out both; }
+
+.court-card.is-live { animation: breathe 3.5s ease-in-out infinite; }
+@keyframes breathe {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 201, 60, 0); }
+  50%      { box-shadow: 0 0 0 .35rem rgba(255, 201, 60, .09); }
+}
+
+@media (hover: hover) {
+  .team-card, .court-card { transition: transform .25s ease, border-color .25s ease; }
+  .team-card:hover { transform: translateY(-3px); }
+  .game-option { transition: border-color .2s ease, transform .2s ease; }
+  .game-option:hover:not(:disabled) { transform: translateX(3px); }
+  .btn, .admin-fab { transition: transform .15s ease, background .2s ease; }
+  .btn:hover:not(:disabled), .admin-fab:hover { transform: translateY(-2px); }
+}
+
+/* Nothing above may hide content when motion is turned down. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; }
+  .hero-court rect, .hero-court line { stroke-dashoffset: 0; }
+  .hero .eyebrow, .hero h1, .hero-meta, .hero .rain { opacity: 1; transform: none; }
+}
+
+/* -------------------------------------------------------------- footer ---- */
+
+footer {
+  border-top: var(--rule) dashed var(--turf-line);
+  padding: 2rem var(--gap) 3rem;
+  text-align: center;
+  color: var(--chalk-faint);
+  font-size: .82rem;
+}
+footer a { color: var(--chalk-dim); }
+
+.offline-banner {
+  background: var(--clay); color: var(--ink);
+  text-align: center; padding: .5rem 1rem;
+  font-weight: 600; font-size: .88rem;
+}
+
+/* --------------------------------------------------------------- print ---- */
+
+@media print {
+  :root { --chalk: #000; --chalk-dim: #333; --chalk-faint: #555; --turf-line: #999; }
+  body { background: #fff; color: #000; }
+  .hero { background: none; padding: 0 0 1rem; }
+  .hero-court, .statusbar, .admin-fab, .navlinks, dialog { display: none !important; }
+  .hero h1 { font-size: 2rem; color: #000; }
+  .hero h1 .year { display: inline; color: #000; }
+  .section { padding: .75rem 0; border-top: 1px solid #999; break-inside: avoid; }
+  .court-card, .team-card, .champion, .vibe, .tie-flag { border: 1px solid #999; background: none; }
+  .side .score, .rank, .champion .label { color: #000; }
+  table { min-width: 0; font-size: 11px; }
+  tbody tr.seeded-in, tr.is-live-row { background: #eee; }
+  a { text-decoration: none; color: #000; }
+  .team-card > summary { background: none !important; }
+  details { open: true; }
+}
