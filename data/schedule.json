@@ -29,8 +29,8 @@
       "time": "10:00",
       "phase": "pool",
       "games": [
-        { "id": "p1", "court": 1, "a": "deez-nets", "b": "bumping-buds", "ref": "tequila-mockingbird" },
-        { "id": "p2", "court": 2, "a": "haikyuties", "b": "perros-calientes", "ref": "cinnamon-rolls" }
+        { "id": "p1", "court": 1, "a": "cinnamon-rolls", "b": "cerve-aces", "ref": "deez-nets" },
+        { "id": "p2", "court": 2, "a": "perros-calientes", "b": "bumping-buds", "ref": "haikyuties" }
       ]
     },
     {
@@ -38,8 +38,8 @@
       "time": "10:25",
       "phase": "pool",
       "games": [
-        { "id": "p3", "court": 1, "a": "bumping-buds", "b": "cinnamon-rolls", "ref": "deez-nets" },
-        { "id": "p4", "court": 2, "a": "haikyuties", "b": "tequila-mockingbird", "ref": "perros-calientes" }
+        { "id": "p3", "court": 1, "a": "haikyuties", "b": "perros-calientes", "ref": "cinnamon-rolls" },
+        { "id": "p4", "court": 2, "a": "deez-nets", "b": "tequila-mockingbird", "ref": "cerve-aces" }
       ]
     },
     {
@@ -47,8 +47,8 @@
       "time": "10:50",
       "phase": "pool",
       "games": [
-        { "id": "p5", "court": 1, "a": "tequila-mockingbird", "b": "cinnamon-rolls", "ref": "haikyuties" },
-        { "id": "p6", "court": 2, "a": "deez-nets", "b": "perros-calientes", "ref": "bumping-buds" }
+        { "id": "p5", "court": 1, "a": "deez-nets", "b": "cerve-aces", "ref": "perros-calientes" },
+        { "id": "p6", "court": 2, "a": "cinnamon-rolls", "b": "bumping-buds", "ref": "tequila-mockingbird" }
       ]
     },
     {
@@ -56,8 +56,8 @@
       "time": "11:15",
       "phase": "pool",
       "games": [
-        { "id": "p7", "court": 1, "a": "bumping-buds", "b": "haikyuties", "ref": "cinnamon-rolls" },
-        { "id": "p8", "court": 2, "a": "deez-nets", "b": "tequila-mockingbird", "ref": "perros-calientes" }
+        { "id": "p7", "court": 1, "a": "haikyuties", "b": "cinnamon-rolls", "ref": "deez-nets" },
+        { "id": "p8", "court": 2, "a": "tequila-mockingbird", "b": "perros-calientes", "ref": "bumping-buds" }
       ]
     },
     {
@@ -65,8 +65,8 @@
       "time": "11:40",
       "phase": "pool",
       "games": [
-        { "id": "p9", "court": 1, "a": "cinnamon-rolls", "b": "haikyuties", "ref": "deez-nets" },
-        { "id": "p10", "court": 2, "a": "perros-calientes", "b": "bumping-buds", "ref": "tequila-mockingbird" }
+        { "id": "p9", "court": 1, "a": "haikyuties", "b": "cerve-aces", "ref": "tequila-mockingbird" },
+        { "id": "p10", "court": 2, "a": "deez-nets", "b": "bumping-buds", "ref": "cinnamon-rolls" }
       ]
     },
     {
@@ -74,23 +74,32 @@
       "time": "12:05",
       "phase": "pool",
       "games": [
-        { "id": "p11", "court": 1, "a": "deez-nets", "b": "cinnamon-rolls", "ref": "haikyuties" },
-        { "id": "p12", "court": 2, "a": "perros-calientes", "b": "tequila-mockingbird", "ref": "bumping-buds" }
+        { "id": "p11", "court": 1, "a": "perros-calientes", "b": "cerve-aces", "ref": "bumping-buds" },
+        { "id": "p12", "court": 2, "a": "tequila-mockingbird", "b": "cinnamon-rolls", "ref": "haikyuties" }
       ]
     },
     {
       "slot": 7,
-      "time": "12:40",
+      "time": "12:30",
+      "phase": "pool",
+      "games": [
+        { "id": "p13", "court": 1, "a": "deez-nets", "b": "haikyuties", "ref": "cerve-aces" },
+        { "id": "p14", "court": 2, "a": "tequila-mockingbird", "b": "bumping-buds", "ref": "perros-calientes" }
+      ]
+    },
+    {
+      "slot": 8,
+      "time": "1:05",
       "phase": "bracket",
-      "note": "12:30 break — standings posted, bracket seeded",
+      "note": "12:55 break — standings posted, bracket seeded",
       "games": [
         { "id": "sf1", "court": 1, "label": "Semifinal 1", "a": { "seed": 1 }, "b": { "seed": 4 } },
         { "id": "sf2", "court": 2, "label": "Semifinal 2", "a": { "seed": 2 }, "b": { "seed": 3 } }
       ]
     },
     {
-      "slot": 8,
-      "time": "1:15",
+      "slot": 9,
+      "time": "1:40",
       "phase": "bracket",
       "games": [
         { "id": "final", "court": 1, "label": "Final", "a": { "winnerOf": "sf1" }, "b": { "winnerOf": "sf2" } },

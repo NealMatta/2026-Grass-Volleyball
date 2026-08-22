@@ -103,10 +103,11 @@ export function finalPlacings(bracket) {
     placings.push({ place: 3, teamId: winnerOf(third) });
     placings.push({ place: 4, teamId: loserOf(third) });
   }
-  // 5th and 6th are pool record only — there is no slot for a 5th place game.
-  if (bracket.seeds.length === 6) {
-    placings.push({ place: 5, teamId: bracket.seeds[4] });
-    placings.push({ place: 6, teamId: bracket.seeds[5] });
+  // Everyone below the top four places on pool record alone — the bracket is
+  // four teams and both courts are busy for both bracket slots, so there is no
+  // room for a 5th place game. Works for any field size.
+  for (let i = 4; i < bracket.seeds.length; i += 1) {
+    placings.push({ place: i + 1, teamId: bracket.seeds[i] });
   }
   return placings;
 }

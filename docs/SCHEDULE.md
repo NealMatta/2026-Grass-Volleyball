@@ -20,29 +20,33 @@ Games to **21**, win by 2, cap 23. Slots start 25 minutes apart.
 
 | Slot | Time | Court 1 | Ref | Court 2 | Ref |
 |:--|:--|:--|:--|:--|:--|
-| 1 | 10:00 | Deez Nets v Bumping Buds | Tequila Mockingbird | Haikyuties v Perros Calientes | Cinnamon Rolls |
-| 2 | 10:25 | Bumping Buds v Cinnamon Rolls | Deez Nets | Haikyuties v Tequila Mockingbird | Perros Calientes |
-| 3 | 10:50 | Tequila Mockingbird v Cinnamon Rolls | Haikyuties | Deez Nets v Perros Calientes | Bumping Buds |
-| 4 | 11:15 | Bumping Buds v Haikyuties | Cinnamon Rolls | Deez Nets v Tequila Mockingbird | Perros Calientes |
-| 5 | 11:40 | Cinnamon Rolls v Haikyuties | Deez Nets | Perros Calientes v Bumping Buds | Tequila Mockingbird |
-| 6 | 12:05 | Deez Nets v Cinnamon Rolls | Haikyuties | Perros Calientes v Tequila Mockingbird | Bumping Buds |
+| 1 | 10:00 | Cinnamon Rolls v Cerve Aces | Deez Nets | Perros Calientes v Bumping Buds | Haikyuties |
+| 2 | 10:25 | Haikyuties v Perros Calientes | Cinnamon Rolls | Deez Nets v Tequila Mockingbird | Cerve Aces |
+| 3 | 10:50 | Deez Nets v Cerve Aces | Perros Calientes | Cinnamon Rolls v Bumping Buds | Tequila Mockingbird |
+| 4 | 11:15 | Haikyuties v Cinnamon Rolls | Deez Nets | Tequila Mockingbird v Perros Calientes | Bumping Buds |
+| 5 | 11:40 | Haikyuties v Cerve Aces | Tequila Mockingbird | Deez Nets v Bumping Buds | Cinnamon Rolls |
+| 6 | 12:05 | Perros Calientes v Cerve Aces | Bumping Buds | Tequila Mockingbird v Cinnamon Rolls | Haikyuties |
+| 7 | 12:30 | Deez Nets v Haikyuties | Cerve Aces | Tequila Mockingbird v Bumping Buds | Perros Calientes |
 
 ### Per-team
 
-| Team | Plays slots | Off (refereeing) | Doesn't face |
-|:--|:--|:--|:--|
-| Deez Nets | 1, 3, 4, 6 | 2, 5 | Haikyuties |
-| Haikyuties | 1, 2, 4, 5 | 3, 6 | Deez Nets |
-| Tequila Mockingbird | 2, 3, 4, 6 | 1, 5 | Bumping Buds |
-| Cinnamon Rolls | 2, 3, 5, 6 | 1, 4 | Perros Calientes |
-| Perros Calientes | 1, 3, 5, 6 | 2, 4 | Cinnamon Rolls |
-| Bumping Buds | 1, 2, 4, 5 | 3, 6 | Tequila Mockingbird |
+| Team | Your day, slot by slot | Plays | Refs | Free | Doesn't face |
+|:--|:--|:--|:--|:--|:--|
+| Deez Nets | R **P** **P** R **P** · **P** | 2, 3, 5, 7 | 1, 4 | 6 | Cinnamon Rolls, Perros Calientes |
+| Haikyuties | R **P** · **P** **P** R **P** | 2, 4, 5, 7 | 1, 6 | 3 | Tequila Mockingbird, Bumping Buds |
+| Tequila Mockingbird | · **P** R **P** R **P** **P** | 2, 4, 6, 7 | 3, 5 | 1 | Haikyuties, Cerve Aces |
+| Cinnamon Rolls | **P** R **P** **P** R **P** · | 1, 3, 4, 6 | 2, 5 | 7 | Deez Nets, Perros Calientes |
+| Perros Calientes | **P** **P** R **P** · **P** R | 1, 2, 4, 6 | 3, 7 | 5 | Deez Nets, Cinnamon Rolls |
+| Bumping Buds | **P** · **P** R **P** R **P** | 1, 3, 5, 7 | 4, 6 | 2 | Haikyuties, Cerve Aces |
+| Cerve Aces | **P** R **P** · **P** **P** R | 1, 3, 5, 6 | 2, 7 | 4 | Tequila Mockingbird, Bumping Buds |
 
-Your off slots and your refereeing slots are the same thing — when you're not playing, you're on a court keeping score. Every team plays 4 and referees 2.
+**P** = playing · **R** = refereeing · **·** = free. Every team plays 4, referees 2 and gets one slot completely off.
+
+The schedule is built so nobody grinds: you never play more than two slots back to back, never sit two slots in a row, and never referee twice running.
 
 ---
 
-## 12:30 break — standings posted, bracket seeded
+## 12:55 break — standings posted, bracket seeded
 
 ## Bracket
 
@@ -52,10 +56,10 @@ Seeds come from pool record. The site computes them automatically.
 
 | Slot | Time | Court 1 | Court 2 |
 |:--|:--|:--|:--|
-| 7 | 12:40 | **Semifinal 1** — Seed #1 v Seed #4 | **Semifinal 2** — Seed #2 v Seed #3 |
-| 8 | 1:15 | **Final** — Winner of SF1 v Winner of SF2 | **3rd Place** — Loser of SF1 v Loser of SF2 |
+| 8 | 1:05 | **Semifinal 1** — Seed #1 v Seed #4 | **Semifinal 2** — Seed #2 v Seed #3 |
+| 9 | 1:40 | **Final** — Winner of SF1 v Winner of SF2 | **3rd Place** — Loser of SF1 v Loser of SF2 |
 
-Finishes by **1:45pm** — 3h45m start to finish.
+Finishes by **2:10pm** — 4h10m start to finish.
 
 ---
 

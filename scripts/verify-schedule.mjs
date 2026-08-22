@@ -80,20 +80,59 @@ for (const slot of poolSlots) {
   );
 }
 
-// --- Exactly 2 teams free per slot, and they are the referees ----------------
+// --- The right number of teams are free per slot, and refs come from them ----
+// With 7 teams on 2 courts, 4 play and 3 are free — one more free team than
+// there are courts, so the referees are a *subset* of the free teams, not all
+// of them. Each slot has exactly one genuinely idle team.
+const FREE_PER_SLOT = ids.length - COURTS * 2;
 for (const slot of poolSlots) {
   const playing = new Set(slot.games.flatMap((g) => [g.a, g.b]));
   const free = ids.filter((id) => !playing.has(id));
-  const assignedRefs = slot.games.map((g) => g.ref).sort();
+  const assignedRefs = slot.games.map((g) => g.ref);
   check(
-    `Slot ${slot.slot}: exactly ${COURTS} teams free`,
-    free.length === COURTS,
+    `Slot ${slot.slot}: exactly ${FREE_PER_SLOT} teams free`,
+    free.length === FREE_PER_SLOT,
     `${free.length} free (${free.map(name).join(', ')})`
   );
   check(
-    `Slot ${slot.slot}: referees are exactly the free teams`,
-    JSON.stringify(free.slice().sort()) === JSON.stringify(assignedRefs),
+    `Slot ${slot.slot}: every referee is a free team`,
+    assignedRefs.every((r) => free.includes(r)),
     `free=[${free.map(name)}] refs=[${assignedRefs.map(name)}]`
+  );
+}
+
+// --- Rhythm: nobody grinds out a long run, nobody goes cold ------------------
+// The point of these three: a team should never sit three slots and then play
+// four straight. Play in bursts of at most 2, never rest back to back, and
+// never referee two slots running.
+const MAX_PLAY_RUN = 2;
+const slotNums = poolSlots.map((s) => s.slot);
+const runOf = (list) => {
+  // longest run of consecutive slot numbers present in `list`
+  let best = 0;
+  let run = 0;
+  for (const n of slotNums) {
+    run = list.includes(n) ? run + 1 : 0;
+    if (run > best) best = run;
+  }
+  return best;
+};
+for (const id of ids) {
+  const resting = slotNums.filter((n) => !plays[id].includes(n));
+  check(
+    `${name(id)} never plays more than ${MAX_PLAY_RUN} slots in a row`,
+    runOf(plays[id]) <= MAX_PLAY_RUN,
+    `longest run ${runOf(plays[id])} (plays ${plays[id].join(', ')})`
+  );
+  check(
+    `${name(id)} never rests two slots in a row`,
+    runOf(resting) <= 1,
+    `rests ${resting.join(', ')}`
+  );
+  check(
+    `${name(id)} never referees two slots in a row`,
+    runOf(refs[id]) <= 1,
+    `refs ${refs[id].join(', ')}`
   );
 }
 
@@ -138,22 +177,27 @@ for (const slot of schedule.slots) {
 
 // --- Report -------------------------------------------------------------------
 console.log('\n  Pool matrix — who each team faces\n');
-const header = ['Team'.padEnd(22), 'Plays'.padEnd(14), 'Refs'.padEnd(8), 'Misses'];
+const header = ['Team'.padEnd(22), 'Rhythm'.padEnd(18), 'Refs'.padEnd(8), 'Misses'];
 console.log('  ' + header.join(''));
-console.log('  ' + '─'.repeat(66));
+console.log('  ' + '─'.repeat(70));
 for (const id of ids) {
   const faced = poolGames
     .filter((g) => g.a === id || g.b === id)
     .map((g) => (g.a === id ? g.b : g.a));
   const missed = ids.filter((o) => o !== id && !faced.includes(o));
+  // P = playing, r = refereeing, · = genuinely free
+  const rhythm = slotNums
+    .map((n) => (plays[id].includes(n) ? 'P' : refs[id].includes(n) ? 'r' : '·'))
+    .join(' ');
   console.log(
     '  ' +
       name(id).padEnd(22) +
-      `${plays[id].join(',')}`.padEnd(14) +
+      rhythm.padEnd(18) +
       `${refs[id].join(',')}`.padEnd(8) +
       missed.map(name).join(', ')
   );
 }
+console.log('\n  P = playing   r = refereeing   · = free\n');
 
 const passed = checks.length - failures.length;
 console.log(`\n  ${passed}/${checks.length} checks passed`);

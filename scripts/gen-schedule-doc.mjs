@@ -85,22 +85,33 @@ w();
 // --- Per-team -----------------------------------------------------------------
 w('### Per-team');
 w();
-w('| Team | Plays slots | Off (refereeing) | Doesn\'t face |');
-w('|:--|:--|:--|:--|');
+w('| Team | Your day, slot by slot | Plays | Refs | Free | Doesn\'t face |');
+w('|:--|:--|:--|:--|:--|:--|');
 const poolSlots = schedule.slots.filter((x) => x.phase === 'pool');
 for (const id of ids) {
   const plays = poolSlots.filter((s) => s.games.some((g) => g.a === id || g.b === id)).map((s) => s.slot);
   const refsAt = poolSlots.filter((s) => s.games.some((g) => g.ref === id)).map((s) => s.slot);
+  const free = poolSlots.map((s) => s.slot).filter((n) => !plays.includes(n) && !refsAt.includes(n));
   const faced = poolSlots
     .flatMap((s) => s.games)
     .filter((g) => g.a === id || g.b === id)
     .map((g) => (g.a === id ? g.b : g.a));
   const missed = ids.filter((o) => o !== id && !faced.includes(o));
-  w(`| ${name(id)} | ${plays.join(', ')} | ${refsAt.join(', ')} | ${missed.map(name).join(', ')} |`);
+  // Play / Ref / Free strip, in slot order — the quickest way to read your day.
+  const strip = poolSlots
+    .map((s) => (plays.includes(s.slot) ? '**P**' : refsAt.includes(s.slot) ? 'R' : '·'))
+    .join(' ');
+  w(
+    `| ${name(id)} | ${strip} | ${plays.join(', ')} | ${refsAt.join(', ')} | ` +
+      `${free.join(', ')} | ${missed.map(name).join(', ')} |`
+  );
 }
 w();
-w('Your off slots and your refereeing slots are the same thing — when you\'re not playing, you\'re ' +
-  'on a court keeping score. Every team plays 4 and referees 2.');
+w('**P** = playing · **R** = refereeing · **·** = free. Every team plays 4, referees 2 and gets one ' +
+  'slot completely off.');
+w();
+w('The schedule is built so nobody grinds: you never play more than two slots back to back, never ' +
+  'sit two slots in a row, and never referee twice running.');
 w();
 
 // --- Break + bracket ----------------------------------------------------------

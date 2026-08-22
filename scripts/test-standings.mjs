@@ -258,6 +258,28 @@ const deadHeat = () => {
   ]);
 }
 
+// --- 10b. Placings with a seven-team field -----------------------------------
+// The bracket is still four teams, so seeds 5, 6 and 7 all place on pool record.
+{
+  const teams = mkTeams('a', 'b', 'c', 'd', 'e', 'f', 'g');
+  const bracket = {
+    seeds: ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
+    games: [
+      { id: 'final', status: 'final', teamA: 'a', teamB: 'c', scoreA: 25, scoreB: 20 },
+      { id: 'third', status: 'final', teamA: 'd', teamB: 'b', scoreA: 18, scoreB: 25 },
+    ],
+  };
+  check('10b. seven-team placings run to 7th', finalPlacings(bracket), [
+    { place: 1, teamId: 'a' },
+    { place: 2, teamId: 'c' },
+    { place: 3, teamId: 'b' },
+    { place: 4, teamId: 'd' },
+    { place: 5, teamId: 'e' },
+    { place: 6, teamId: 'f' },
+    { place: 7, teamId: 'g' },
+  ]);
+}
+
 // --- 11. winnerOf guards -----------------------------------------------------
 {
   check('11. no winner while scheduled', winnerOf({ status: 'scheduled', teamA: 'a', teamB: 'b' }), null);

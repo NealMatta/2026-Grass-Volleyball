@@ -18,8 +18,10 @@ Borrowed wholesale from Montrose, because they were right.
 ## Format
 
 - **Coed 4s.** Four players on the court per team.
-- **No gender requirement.** (Montrose requires a minimum number of women on court; we don't.)
-- **You may play short-handed.** Three is fine. It's harder, but it's allowed.
+- **At least one woman on the court per team, at all times.** Not just on the roster — on the
+  court, every point. If you can't field one, you can't start the point.
+- **You may play short-handed.** Three is fine. It's harder, but it's allowed — and the
+  one-woman minimum still applies when you're playing with three.
 - **Regular beach 4's rules apply**, with the extras below.
 
 ## Scoring
@@ -33,7 +35,7 @@ Borrowed wholesale from Montrose, because they were right.
   bracket seeding, so a 21-8 win is worth more than a 21-19 win. Play the whole game out.
 - Teams enter their score on the website right after the game ends. Paper sheets are at each court
   as a backup.
-- Slots start 25 minutes apart. Keep an eye on the clock — eight slots on two courts is what fits
+- Slots start 25 minutes apart. Keep an eye on the clock — nine slots on two courts is what fits
   the day.
 
 ## Ball handling
@@ -83,13 +85,15 @@ advantage, **switch at 11** in pool games. If the field is neutral, skip it — 
 
 ## Refereeing
 
-In every pool slot, **two teams are free and each referees one court**. Every team referees exactly
-twice over the day, so the load is even and nobody gets stuck.
+In every pool slot **three teams are free; two of them referee**, one per court. Every team
+referees exactly twice over the day and gets one slot completely off, so the load is even and
+nobody gets stuck.
 
 The referee team is responsible for:
 - Keeping score out loud
 - Watching the serve rotation
 - In/out calls
+- **The one-woman-on-court minimum** — if a team can't field one, the point doesn't start
 
 Not responsible for: net touches, lifts, doubles. Those are self-called.
 

@@ -5,7 +5,7 @@ begin;
 
 -- Teams. Names only: no emails, no phone numbers.
 insert into public.teams (id, name, seed, captain, players, roster_pending, has_net, color_a, color_b, blurb) values (
-  'deez-nets', 'Deez Nets', 1, 'Michael Keo', array['Michael Keo', 'Cynthia', 'Claire', 'Nick']::text[],
+  'deez-nets', 'Deez Nets', 1, 'Michael Keo', array['Michael Keo', 'Cynthia', 'Kevin', 'Nick']::text[],
   0, true, '#2D3561', '#5B6BC0', 'Bringing a net and the pun. Both essential.'
 ) on conflict (id) do update set
   name = excluded.name, seed = excluded.seed, captain = excluded.captain,
@@ -13,8 +13,8 @@ insert into public.teams (id, name, seed, captain, players, roster_pending, has_
   has_net = excluded.has_net, color_a = excluded.color_a,
   color_b = excluded.color_b, blurb = excluded.blurb;
 insert into public.teams (id, name, seed, captain, players, roster_pending, has_net, color_a, color_b, blurb) values (
-  'haikyuties', 'Haikyuties', 2, 'Janna Remperas', array['Janna Remperas', 'Shan']::text[],
-  2, false, '#FF6B35', '#F7931E', 'Fly high. Anime rules apply.'
+  'haikyuties', 'Haikyuties', 2, 'Janna', array['Janna', 'Shan', 'Martin', 'Jackie']::text[],
+  0, false, '#FF6B35', '#F7931E', 'Fly high. Anime rules apply.'
 ) on conflict (id) do update set
   name = excluded.name, seed = excluded.seed, captain = excluded.captain,
   players = excluded.players, roster_pending = excluded.roster_pending,
@@ -52,11 +52,19 @@ insert into public.teams (id, name, seed, captain, players, roster_pending, has_
   players = excluded.players, roster_pending = excluded.roster_pending,
   has_net = excluded.has_net, color_a = excluded.color_a,
   color_b = excluded.color_b, blurb = excluded.blurb;
+insert into public.teams (id, name, seed, captain, players, roster_pending, has_net, color_a, color_b, blurb) values (
+  'cerve-aces', 'Cerve Aces', 7, 'Luke', array['Luke', 'DC Mike', 'Thomas', 'Ally']::text[],
+  0, false, '#0E9594', '#3FC1BE', 'Cervezas and aces, in whichever order the day allows.'
+) on conflict (id) do update set
+  name = excluded.name, seed = excluded.seed, captain = excluded.captain,
+  players = excluded.players, roster_pending = excluded.roster_pending,
+  has_net = excluded.has_net, color_a = excluded.color_a,
+  color_b = excluded.color_b, blurb = excluded.blurb;
 
 -- Games. Scores stay null until a captain submits them.
 insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'p1', 1, 'pool', 1, '10:00', null,
-  'deez-nets', 'bumping-buds', 'tequila-mockingbird',
+  'cinnamon-rolls', 'cerve-aces', 'deez-nets',
   null, null,
   null, null,
   null, null
@@ -69,7 +77,7 @@ insert into public.games (id, slot, phase, court, start_time, label, team_a, tea
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
 insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'p2', 1, 'pool', 2, '10:00', null,
-  'haikyuties', 'perros-calientes', 'cinnamon-rolls',
+  'perros-calientes', 'bumping-buds', 'haikyuties',
   null, null,
   null, null,
   null, null
@@ -82,7 +90,7 @@ insert into public.games (id, slot, phase, court, start_time, label, team_a, tea
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
 insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'p3', 2, 'pool', 1, '10:25', null,
-  'bumping-buds', 'cinnamon-rolls', 'deez-nets',
+  'haikyuties', 'perros-calientes', 'cinnamon-rolls',
   null, null,
   null, null,
   null, null
@@ -95,7 +103,7 @@ insert into public.games (id, slot, phase, court, start_time, label, team_a, tea
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
 insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'p4', 2, 'pool', 2, '10:25', null,
-  'haikyuties', 'tequila-mockingbird', 'perros-calientes',
+  'deez-nets', 'tequila-mockingbird', 'cerve-aces',
   null, null,
   null, null,
   null, null
@@ -108,7 +116,7 @@ insert into public.games (id, slot, phase, court, start_time, label, team_a, tea
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
 insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'p5', 3, 'pool', 1, '10:50', null,
-  'tequila-mockingbird', 'cinnamon-rolls', 'haikyuties',
+  'deez-nets', 'cerve-aces', 'perros-calientes',
   null, null,
   null, null,
   null, null
@@ -121,7 +129,7 @@ insert into public.games (id, slot, phase, court, start_time, label, team_a, tea
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
 insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'p6', 3, 'pool', 2, '10:50', null,
-  'deez-nets', 'perros-calientes', 'bumping-buds',
+  'cinnamon-rolls', 'bumping-buds', 'tequila-mockingbird',
   null, null,
   null, null,
   null, null
@@ -134,7 +142,7 @@ insert into public.games (id, slot, phase, court, start_time, label, team_a, tea
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
 insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'p7', 4, 'pool', 1, '11:15', null,
-  'bumping-buds', 'haikyuties', 'cinnamon-rolls',
+  'haikyuties', 'cinnamon-rolls', 'deez-nets',
   null, null,
   null, null,
   null, null
@@ -147,7 +155,7 @@ insert into public.games (id, slot, phase, court, start_time, label, team_a, tea
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
 insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'p8', 4, 'pool', 2, '11:15', null,
-  'deez-nets', 'tequila-mockingbird', 'perros-calientes',
+  'tequila-mockingbird', 'perros-calientes', 'bumping-buds',
   null, null,
   null, null,
   null, null
@@ -160,7 +168,7 @@ insert into public.games (id, slot, phase, court, start_time, label, team_a, tea
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
 insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'p9', 5, 'pool', 1, '11:40', null,
-  'cinnamon-rolls', 'haikyuties', 'deez-nets',
+  'haikyuties', 'cerve-aces', 'tequila-mockingbird',
   null, null,
   null, null,
   null, null
@@ -173,7 +181,7 @@ insert into public.games (id, slot, phase, court, start_time, label, team_a, tea
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
 insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'p10', 5, 'pool', 2, '11:40', null,
-  'perros-calientes', 'bumping-buds', 'tequila-mockingbird',
+  'deez-nets', 'bumping-buds', 'cinnamon-rolls',
   null, null,
   null, null,
   null, null
@@ -186,7 +194,7 @@ insert into public.games (id, slot, phase, court, start_time, label, team_a, tea
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
 insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'p11', 6, 'pool', 1, '12:05', null,
-  'deez-nets', 'cinnamon-rolls', 'haikyuties',
+  'perros-calientes', 'cerve-aces', 'bumping-buds',
   null, null,
   null, null,
   null, null
@@ -199,7 +207,33 @@ insert into public.games (id, slot, phase, court, start_time, label, team_a, tea
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
 insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'p12', 6, 'pool', 2, '12:05', null,
-  'perros-calientes', 'tequila-mockingbird', 'bumping-buds',
+  'tequila-mockingbird', 'cinnamon-rolls', 'haikyuties',
+  null, null,
+  null, null,
+  null, null
+) on conflict (id) do update set
+  slot = excluded.slot, phase = excluded.phase, court = excluded.court,
+  start_time = excluded.start_time, label = excluded.label,
+  team_a = excluded.team_a, team_b = excluded.team_b, ref_team = excluded.ref_team,
+  a_seed = excluded.a_seed, b_seed = excluded.b_seed,
+  a_winner_of = excluded.a_winner_of, b_winner_of = excluded.b_winner_of,
+  a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
+insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
+  'p13', 7, 'pool', 1, '12:30', null,
+  'deez-nets', 'haikyuties', 'cerve-aces',
+  null, null,
+  null, null,
+  null, null
+) on conflict (id) do update set
+  slot = excluded.slot, phase = excluded.phase, court = excluded.court,
+  start_time = excluded.start_time, label = excluded.label,
+  team_a = excluded.team_a, team_b = excluded.team_b, ref_team = excluded.ref_team,
+  a_seed = excluded.a_seed, b_seed = excluded.b_seed,
+  a_winner_of = excluded.a_winner_of, b_winner_of = excluded.b_winner_of,
+  a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
+insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
+  'p14', 7, 'pool', 2, '12:30', null,
+  'tequila-mockingbird', 'bumping-buds', 'perros-calientes',
   null, null,
   null, null,
   null, null
@@ -213,7 +247,7 @@ insert into public.games (id, slot, phase, court, start_time, label, team_a, tea
 
 -- Bracket rows reference semifinal ids, so they must land after the pool rows.
 insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
-  'sf1', 7, 'bracket', 1, '12:40', 'Semifinal 1',
+  'sf1', 8, 'bracket', 1, '1:05', 'Semifinal 1',
   null, null, null,
   1, 4,
   null, null,
@@ -226,7 +260,7 @@ insert into public.games (id, slot, phase, court, start_time, label, team_a, tea
   a_winner_of = excluded.a_winner_of, b_winner_of = excluded.b_winner_of,
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
 insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
-  'sf2', 7, 'bracket', 2, '12:40', 'Semifinal 2',
+  'sf2', 8, 'bracket', 2, '1:05', 'Semifinal 2',
   null, null, null,
   2, 3,
   null, null,
@@ -239,7 +273,7 @@ insert into public.games (id, slot, phase, court, start_time, label, team_a, tea
   a_winner_of = excluded.a_winner_of, b_winner_of = excluded.b_winner_of,
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
 insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
-  'final', 8, 'bracket', 1, '1:15', 'Final',
+  'final', 9, 'bracket', 1, '1:40', 'Final',
   null, null, null,
   null, null,
   'sf1', 'sf2',
@@ -252,7 +286,7 @@ insert into public.games (id, slot, phase, court, start_time, label, team_a, tea
   a_winner_of = excluded.a_winner_of, b_winner_of = excluded.b_winner_of,
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
 insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
-  'third', 8, 'bracket', 2, '1:15', '3rd Place',
+  'third', 9, 'bracket', 2, '1:40', '3rd Place',
   null, null, null,
   null, null,
   null, null,

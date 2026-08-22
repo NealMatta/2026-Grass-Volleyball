@@ -6,7 +6,7 @@
       "name": "Deez Nets",
       "seed": 1,
       "captain": "Michael Keo",
-      "players": ["Michael Keo", "Cynthia", "Claire", "Nick"],
+      "players": ["Michael Keo", "Cynthia", "Kevin", "Nick"],
       "hasNet": true,
       "colorA": "#2D3561",
       "colorB": "#5B6BC0",
@@ -16,9 +16,9 @@
       "id": "haikyuties",
       "name": "Haikyuties",
       "seed": 2,
-      "captain": "Janna Remperas",
-      "players": ["Janna Remperas", "Shan"],
-      "rosterPending": 2,
+      "captain": "Janna",
+      "players": ["Janna", "Shan", "Martin", "Jackie"],
+      "rosterPending": 0,
       "hasNet": false,
       "colorA": "#FF6B35",
       "colorB": "#F7931E",
@@ -67,6 +67,17 @@
       "colorA": "#E056A0",
       "colorB": "#9B59B6",
       "blurb": "Here for the bump and the buds."
+    },
+    {
+      "id": "cerve-aces",
+      "name": "Cerve Aces",
+      "seed": 7,
+      "captain": "Luke",
+      "players": ["Luke", "DC Mike", "Thomas", "Ally"],
+      "hasNet": false,
+      "colorA": "#0E9594",
+      "colorB": "#3FC1BE",
+      "blurb": "Cervezas and aces, in whichever order the day allows."
     }
   ]
 }

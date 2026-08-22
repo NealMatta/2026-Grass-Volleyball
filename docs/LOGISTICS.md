@@ -40,8 +40,8 @@ summer Saturday.
 | 1 | Deez Nets | Michael Keo |
 | 2 | Tequila Mockingbird | Grant McLean |
 
-**If either net doesn't show, the tournament format breaks.** 12 pool games at 25 minutes each is
-5 hours on a single court — it does not fit in the day. Michael and Grant: please confirm the week
+**If either net doesn't show, the tournament format breaks.** 14 pool games at 25 minutes each is
+close to 6 hours on a single court — it does not fit in the day. Michael and Grant: please confirm the week
 of, and if anyone else can bring a spare as backup, do.
 
 **Setup, 9:30am:** net owners plus one other team each.
@@ -76,7 +76,7 @@ of, and if anyone else can bring a spare as backup, do.
 
 ## Scoring, day-of
 
-Scores go on **the website** — Neal will share the link with all six captains.
+Scores go on **the website** — Neal will share the link with all seven captains.
 
 1. Game ends. Losing team's captain (or anyone) opens the site, taps **Enter a score**.
 2. Tap your game, type both scores, submit.
@@ -97,12 +97,13 @@ later — don't hold up the schedule over it.
 
 ## Format at a glance
 
-- **6 slots of pool play**, everyone plays 4 games
-- **When you're not playing, you're refereeing** — 2 slots each, load is even
-- **12:30 break**, standings posted, bracket seeded automatically
-- **Semifinals at 12:40**, #1v#4 and #2v#3
-- **Final + 3rd place game at 1:15**
-- **Done by ~1:45pm**
+- **7 slots of pool play**, everyone plays 4 games
+- **When you're not playing you're usually refereeing** — 2 ref slots each, plus one slot fully off
+- **Never more than 2 games in a row**, and never two slots off in a row
+- **12:55 break**, standings posted, bracket seeded automatically
+- **Semifinals at 1:05**, #1v#4 and #2v#3
+- **Final + 3rd place game at 1:40**
+- **Done by ~2:10pm**
 
 Full detail in [FORMAT.md](FORMAT.md), [SCHEDULE.md](SCHEDULE.md), and [RULES.md](RULES.md).
 

@@ -268,7 +268,7 @@ function renderNow(slots) {
     heading.textContent =
       live === slot.slot
         ? 'Playing right now. Whoever isn\'t playing is refereeing.'
-        : `Up next — slot ${slot.slot} at ${slot.time}. Whoever isn't playing is refereeing.`;
+        : `Up next — slot ${slot.slot} at ${slot.time}. Two of the teams sitting out are refereeing.`;
   }
 
   const bracket = currentBracket();
@@ -438,14 +438,15 @@ function renderBracket() {
   const tree = el('div', 'bracket-tree');
 
   const semisCol = el('div', 'round');
-  semisCol.append(el('div', 'round-label', 'Semifinals · 12:40'));
+  const semisTime = sf1?.time ?? sf2?.time;
+  semisCol.append(el('div', 'round-label', semisTime ? `Semifinals · ${semisTime}` : 'Semifinals'));
   const semisMatches = el('div', 'matches');
   if (sf1) semisMatches.append(matchBox(sf1));
   if (sf2) semisMatches.append(matchBox(sf2));
   semisCol.append(semisMatches);
 
   const finalCol = el('div', 'round');
-  finalCol.append(el('div', 'round-label', 'Final · 1:15'));
+  finalCol.append(el('div', 'round-label', final?.time ? `Final · ${final.time}` : 'Final'));
   const finalMatches = el('div', 'matches');
   if (final) finalMatches.append(matchBox(final));
   finalCol.append(finalMatches);
@@ -472,7 +473,7 @@ function renderBracket() {
   // --- 3rd place sits outside the tree; it isn't on the path to the title ---
   if (third) {
     const side = el('div', 'third-place');
-    side.append(el('div', 'round-label', '3rd place · 1:15'));
+    side.append(el('div', 'round-label', third.time ? `3rd place · ${third.time}` : '3rd place'));
     side.append(matchBox(third));
     grid.append(side);
   }
