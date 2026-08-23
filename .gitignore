@@ -25,3 +25,6 @@ Thumbs.db
 # Node
 node_modules/
 dist/
+
+# Playwright MCP scratch output
+.playwright-mcp/

@@ -1,2 +1,0 @@
-[   30243ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8002/data/schedule.json:0
-[   45237ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8002/data/schedule.json:0
