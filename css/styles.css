@@ -26,7 +26,7 @@
 
   --ink:        #0B1F12;
 
-  --gap:  clamp(1rem, 3vw, 2rem);
+  --gap:  clamp(1.15rem, 4vw, 2rem);
   --rule: 2px;
 
   --f-display: 'Archivo', 'ArchivoFallback', system-ui, sans-serif;
@@ -864,7 +864,7 @@ footer a { color: var(--chalk-dim); }
 }
 .history-page .backlink:hover { color: var(--chalk); }
 
-.history-page .pagehead { padding: clamp(1rem, 3vw, 1.75rem) 0 clamp(1.5rem, 4vw, 2.25rem); }
+.history-page .pagehead { padding-block: clamp(1rem, 3vw, 1.75rem) clamp(1.5rem, 4vw, 2.25rem); }
 .history-page .pagehead h1 { font-size: clamp(1.9rem, 6.5vw, 3.9rem); margin: .7rem 0 0; }
 .history-page .pagehead h1 .year { display: block; color: var(--sun); }
 .history-page .pagehead-sub {
@@ -1034,7 +1034,7 @@ footer a { color: var(--chalk-dim); }
 /* --------------------------------------------------- one day's full record -- */
 
 .history-page .detail { border-top: var(--rule) solid rgba(242,245,232,.12); background: var(--turf-deep); }
-.history-page .detail-inner { padding: clamp(1.75rem, 4vw, 2.75rem) 0 clamp(2.5rem, 6vw, 4rem); }
+.history-page .detail-inner { padding-block: clamp(1.75rem, 4vw, 2.75rem) clamp(2.5rem, 6vw, 4rem); }
 
 .history-page .detail-head {
   display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem 1.1rem;
@@ -1126,7 +1126,7 @@ footer a { color: var(--chalk-dim); }
 /* ----------------------------------------------------- who played that day -- */
 
 .history-page .past-teams { border-top: var(--rule) solid rgba(242,245,232,.12); background: var(--ink); }
-.history-page .past-teams-inner { padding: clamp(1.75rem, 4vw, 2.75rem) 0 clamp(2.5rem, 6vw, 4rem); }
+.history-page .past-teams-inner { padding-block: clamp(1.75rem, 4vw, 2.75rem) clamp(2.5rem, 6vw, 4rem); }
 .history-page .past-teams h2 { font-size: clamp(1.3rem, 3.4vw, 2rem); margin-top: .5rem; }
 
 .history-page .past-team-grid {
