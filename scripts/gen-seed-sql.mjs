@@ -59,16 +59,16 @@ for (const slot of schedule.slots) {
     rows.push({
       phase: slot.phase,
       sql:
-        `insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (\n` +
+        `insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (\n` +
         `  ${q(g.id)}, ${num(slot.slot)}, ${q(slot.phase)}, ${num(g.court)}, ${q(slot.time)}, ${q(g.label ?? null)},\n` +
-        `  ${typeof g.a === 'string' ? q(g.a) : 'null'}, ${typeof g.b === 'string' ? q(g.b) : 'null'}, ${q(g.ref ?? null)},\n` +
+        `  ${typeof g.a === 'string' ? q(g.a) : 'null'}, ${typeof g.b === 'string' ? q(g.b) : 'null'},\n` +
         `  ${sideSeed(g.a)}, ${sideSeed(g.b)},\n` +
         `  ${sideRef(g.a, 'winnerOf')}, ${sideRef(g.b, 'winnerOf')},\n` +
         `  ${sideRef(g.a, 'loserOf')}, ${sideRef(g.b, 'loserOf')}\n` +
         `) on conflict (id) do update set\n` +
         `  slot = excluded.slot, phase = excluded.phase, court = excluded.court,\n` +
         `  start_time = excluded.start_time, label = excluded.label,\n` +
-        `  team_a = excluded.team_a, team_b = excluded.team_b, ref_team = excluded.ref_team,\n` +
+        `  team_a = excluded.team_a, team_b = excluded.team_b,\n` +
         `  a_seed = excluded.a_seed, b_seed = excluded.b_seed,\n` +
         `  a_winner_of = excluded.a_winner_of, b_winner_of = excluded.b_winner_of,\n` +
         `  a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;`,

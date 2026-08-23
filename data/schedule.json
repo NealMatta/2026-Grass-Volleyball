@@ -31,8 +31,8 @@
       "time": "10:00",
       "phase": "pool",
       "games": [
-        { "id": "p1", "court": 1, "a": "cinnamon-rolls", "b": "cerve-aces", "ref": "deez-nets" },
-        { "id": "p2", "court": 2, "a": "perros-calientes", "b": "bumping-buds", "ref": "haikyuties" }
+        { "id": "p1", "court": 1, "a": "cinnamon-rolls", "b": "cerve-aces" },
+        { "id": "p2", "court": 2, "a": "perros-calientes", "b": "bumping-buds" }
       ]
     },
     {
@@ -40,8 +40,8 @@
       "time": "10:25",
       "phase": "pool",
       "games": [
-        { "id": "p3", "court": 1, "a": "haikyuties", "b": "perros-calientes", "ref": "cinnamon-rolls" },
-        { "id": "p4", "court": 2, "a": "deez-nets", "b": "tequila-mockingbird", "ref": "cerve-aces" }
+        { "id": "p3", "court": 1, "a": "haikyuties", "b": "perros-calientes" },
+        { "id": "p4", "court": 2, "a": "deez-nets", "b": "tequila-mockingbird" }
       ]
     },
     {
@@ -49,8 +49,8 @@
       "time": "10:50",
       "phase": "pool",
       "games": [
-        { "id": "p5", "court": 1, "a": "deez-nets", "b": "cerve-aces", "ref": "perros-calientes" },
-        { "id": "p6", "court": 2, "a": "cinnamon-rolls", "b": "bumping-buds", "ref": "tequila-mockingbird" }
+        { "id": "p5", "court": 1, "a": "deez-nets", "b": "cerve-aces" },
+        { "id": "p6", "court": 2, "a": "cinnamon-rolls", "b": "bumping-buds" }
       ]
     },
     {
@@ -58,8 +58,8 @@
       "time": "11:15",
       "phase": "pool",
       "games": [
-        { "id": "p7", "court": 1, "a": "haikyuties", "b": "cinnamon-rolls", "ref": "deez-nets" },
-        { "id": "p8", "court": 2, "a": "tequila-mockingbird", "b": "perros-calientes", "ref": "bumping-buds" }
+        { "id": "p7", "court": 1, "a": "haikyuties", "b": "cinnamon-rolls" },
+        { "id": "p8", "court": 2, "a": "tequila-mockingbird", "b": "perros-calientes" }
       ]
     },
     {
@@ -67,8 +67,8 @@
       "time": "11:40",
       "phase": "pool",
       "games": [
-        { "id": "p9", "court": 1, "a": "haikyuties", "b": "cerve-aces", "ref": "tequila-mockingbird" },
-        { "id": "p10", "court": 2, "a": "deez-nets", "b": "bumping-buds", "ref": "cinnamon-rolls" }
+        { "id": "p9", "court": 1, "a": "haikyuties", "b": "cerve-aces" },
+        { "id": "p10", "court": 2, "a": "deez-nets", "b": "bumping-buds" }
       ]
     },
     {
@@ -76,8 +76,8 @@
       "time": "12:05",
       "phase": "pool",
       "games": [
-        { "id": "p11", "court": 1, "a": "perros-calientes", "b": "cerve-aces", "ref": "bumping-buds" },
-        { "id": "p12", "court": 2, "a": "tequila-mockingbird", "b": "cinnamon-rolls", "ref": "haikyuties" }
+        { "id": "p11", "court": 1, "a": "perros-calientes", "b": "cerve-aces" },
+        { "id": "p12", "court": 2, "a": "tequila-mockingbird", "b": "cinnamon-rolls" }
       ]
     },
     {
@@ -85,8 +85,8 @@
       "time": "12:30",
       "phase": "pool",
       "games": [
-        { "id": "p13", "court": 1, "a": "deez-nets", "b": "haikyuties", "ref": "cerve-aces" },
-        { "id": "p14", "court": 2, "a": "tequila-mockingbird", "b": "bumping-buds", "ref": "perros-calientes" }
+        { "id": "p13", "court": 1, "a": "deez-nets", "b": "haikyuties" },
+        { "id": "p14", "court": 2, "a": "tequila-mockingbird", "b": "bumping-buds" }
       ]
     },
     {

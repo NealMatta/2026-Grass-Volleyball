@@ -57,7 +57,7 @@ w();
 w('**Write down BOTH scores, not just the winner.** Point differential is the third tiebreaker for');
 w('bracket seeding.');
 w();
-w(`**Every team needs at least one woman on the court at all times.** Referees enforce this — if a`);
+w(`**Every team needs at least one woman on the court at all times.** Call it yourselves — if a`);
 w('team can\'t field one, the point does not start.');
 w();
 w('---');
@@ -70,14 +70,13 @@ w();
 for (let court = 1; court <= t.courts; court += 1) {
   w(`### Court ${court}`);
   w();
-  w('| Slot | Time | Team A | Score | Team B | Score | Ref | Winner |');
-  w('|:--|:--|:--|:--:|:--|:--:|:--|:--|');
+  w('| Slot | Time | Team A | Score | Team B | Score | Winner |');
+  w('|:--|:--|:--|:--:|:--|:--:|:--|');
   for (const s of poolSlots) {
     const g = s.games.find((x) => x.court === court);
     if (!g) continue;
     w(
-      `| ${s.slot} | ${s.time} | ${name(g.a)} | ${SCORE} | ${name(g.b)} | ${SCORE} | ` +
-        `${name(g.ref)} | ${BLANK} |`
+      `| ${s.slot} | ${s.time} | ${name(g.a)} | ${SCORE} | ${name(g.b)} | ${SCORE} | ${BLANK} |`
     );
   }
   w();

@@ -77,7 +77,6 @@ const mapGame = (g) => ({
   label: g.label,
   teamA: g.team_a,
   teamB: g.team_b,
-  refTeam: g.ref_team,
   aSeed: g.a_seed,
   bSeed: g.b_seed,
   aWinnerOf: g.a_winner_of,

@@ -30,22 +30,22 @@ So: **near round robin → seeded bracket.**
 
 ### Pool play — 7 slots, 14 games
 
-Each team plays **4 of the 6** other teams. In every slot, exactly 4 teams play, **2 of the 3 free
-teams referee**, one per court, and one team is genuinely off.
+Each team plays **4 of the 6** other teams. In every slot exactly 4 teams play and **3 are off** —
+genuinely off, because games are self-called.
 
-| Team | Your day, slot by slot | Plays | Refs | Free | Doesn't face |
-|:--|:--|:--|:--|:--|:--|
-| Deez Nets | R **P** **P** R **P** · **P** | 2, 3, 5, 7 | 1, 4 | 6 | Cinnamon Rolls, Perros Calientes |
-| Haikyuties | R **P** · **P** **P** R **P** | 2, 4, 5, 7 | 1, 6 | 3 | Tequila Mockingbird, Bumping Buds |
-| Tequila Mockingbird | · **P** R **P** R **P** **P** | 2, 4, 6, 7 | 3, 5 | 1 | Haikyuties, Cerve Aces |
-| Cinnamon Rolls | **P** R **P** **P** R **P** · | 1, 3, 4, 6 | 2, 5 | 7 | Deez Nets, Perros Calientes |
-| Perros Calientes | **P** **P** R **P** · **P** R | 1, 2, 4, 6 | 3, 7 | 5 | Deez Nets, Cinnamon Rolls |
-| Bumping Buds | **P** · **P** R **P** R **P** | 1, 3, 5, 7 | 4, 6 | 2 | Haikyuties, Cerve Aces |
-| Cerve Aces | **P** R **P** · **P** **P** R | 1, 3, 5, 6 | 2, 7 | 4 | Tequila Mockingbird, Bumping Buds |
+| Team | Your day, slot by slot | Plays | Off | Doesn't face |
+|:--|:--|:--|:--|:--|
+| Deez Nets | · **P** **P** · **P** · **P** | 2, 3, 5, 7 | 1, 4, 6 | Cinnamon Rolls, Perros Calientes |
+| Haikyuties | · **P** · **P** **P** · **P** | 2, 4, 5, 7 | 1, 3, 6 | Tequila Mockingbird, Bumping Buds |
+| Tequila Mockingbird | · **P** · **P** · **P** **P** | 2, 4, 6, 7 | 1, 3, 5 | Haikyuties, Cerve Aces |
+| Cinnamon Rolls | **P** · **P** **P** · **P** · | 1, 3, 4, 6 | 2, 5, 7 | Deez Nets, Perros Calientes |
+| Perros Calientes | **P** **P** · **P** · **P** · | 1, 2, 4, 6 | 3, 5, 7 | Deez Nets, Cinnamon Rolls |
+| Bumping Buds | **P** · **P** · **P** · **P** | 1, 3, 5, 7 | 2, 4, 6 | Haikyuties, Cerve Aces |
+| Cerve Aces | **P** · **P** · **P** **P** · | 1, 3, 5, 6 | 2, 4, 7 | Tequila Mockingbird, Bumping Buds |
 
-**P** = playing · **R** = refereeing · **·** = free.
+**P** = playing · **·** = off.
 
-Every team plays 4, referees 2, and gets one slot completely off. Ref load is perfectly even.
+Every team plays 4 pool games. Games are self-called, so a slot off is genuinely off.
 
 ### The rhythm rule
 
@@ -54,11 +54,9 @@ back to back after sitting for three slots. So the schedule is built to three mo
 
 - **Never more than 2 games in a row.** You play at most a pair, then you're off.
 - **Never two slots off in a row.** You don't go cold waiting around.
-- **Never referee two slots in a row.** Ref duty is spread out, not stacked.
 
 Read any row above left to right and you'll see the same shape: short bursts of play broken up by a
-ref slot or a rest. `scripts/verify-schedule.mjs` asserts all three — they're invariants, not good
-intentions.
+slot off. `scripts/verify-schedule.mjs` asserts both — they're invariants, not good intentions.
 
 ### Why 4 games each and not more
 
@@ -156,7 +154,7 @@ plays 2–3, top team from each pod plus best record to a short final round). De
 at noon.
 
 **A team doesn't show up.** With 6 teams, fall back to the six-team schedule — 6 slots, 12 games,
-everyone plays 4 and refs 2, done by ~1:45. It's in the git history; regenerate it rather than
+everyone plays 4, done by ~1:45. It's in the git history; regenerate it rather than
 improvise. With 5 teams, run a true full round robin — 10 games, 5 slots, everyone plays everyone,
 top 2 to a final.
 

@@ -3,7 +3,7 @@
 
 # Score Sheet — Court ______
 
-**2026 Grass Volleyball · Saturday, August 22 · AIDS Garden Chicago**
+**Neal's Grass Volleyball Tournament · Saturday, August 22 · AIDS Garden Chicago**
 
 Paper backup. Use this if the website isn't cooperating — cell signal at the lakefront isn't
 guaranteed and phones die. Hand it to Neal at the break.
@@ -11,7 +11,7 @@ guaranteed and phones die. Hand it to Neal at the break.
 **Write down BOTH scores, not just the winner.** Point differential is the third tiebreaker for
 bracket seeding.
 
-**Every team needs at least one woman on the court at all times.** Referees enforce this — if a
+**Every team needs at least one woman on the court at all times.** Call it yourselves — if a
 team can't field one, the point does not start.
 
 ---
@@ -20,27 +20,27 @@ team can't field one, the point does not start.
 
 ### Court 1
 
-| Slot | Time | Team A | Score | Team B | Score | Ref | Winner |
-|:--|:--|:--|:--:|:--|:--:|:--|:--|
-| 1 | 10:00 | Cinnamon Rolls | ____ | Cerve Aces | ____ | Deez Nets | ____________ |
-| 2 | 10:25 | Haikyuties | ____ | Perros Calientes | ____ | Cinnamon Rolls | ____________ |
-| 3 | 10:50 | Deez Nets | ____ | Cerve Aces | ____ | Perros Calientes | ____________ |
-| 4 | 11:15 | Haikyuties | ____ | Cinnamon Rolls | ____ | Deez Nets | ____________ |
-| 5 | 11:40 | Haikyuties | ____ | Cerve Aces | ____ | Tequila Mockingbird | ____________ |
-| 6 | 12:05 | Perros Calientes | ____ | Cerve Aces | ____ | Bumping Buds | ____________ |
-| 7 | 12:30 | Deez Nets | ____ | Haikyuties | ____ | Cerve Aces | ____________ |
+| Slot | Time | Team A | Score | Team B | Score | Winner |
+|:--|:--|:--|:--:|:--|:--:|:--|
+| 1 | 10:00 | Cinnamon Rolls | ____ | Cerve Aces | ____ | ____________ |
+| 2 | 10:25 | Haikyuties | ____ | Perros Calientes | ____ | ____________ |
+| 3 | 10:50 | Deez Nets | ____ | Cerve Aces | ____ | ____________ |
+| 4 | 11:15 | Haikyuties | ____ | Cinnamon Rolls | ____ | ____________ |
+| 5 | 11:40 | Haikyuties | ____ | Cerve Aces | ____ | ____________ |
+| 6 | 12:05 | Perros Calientes | ____ | Cerve Aces | ____ | ____________ |
+| 7 | 12:30 | Deez Nets | ____ | Haikyuties | ____ | ____________ |
 
 ### Court 2
 
-| Slot | Time | Team A | Score | Team B | Score | Ref | Winner |
-|:--|:--|:--|:--:|:--|:--:|:--|:--|
-| 1 | 10:00 | Perros Calientes | ____ | Bumping Buds | ____ | Haikyuties | ____________ |
-| 2 | 10:25 | Deez Nets | ____ | Tequila Mockingbird | ____ | Cerve Aces | ____________ |
-| 3 | 10:50 | Cinnamon Rolls | ____ | Bumping Buds | ____ | Tequila Mockingbird | ____________ |
-| 4 | 11:15 | Tequila Mockingbird | ____ | Perros Calientes | ____ | Bumping Buds | ____________ |
-| 5 | 11:40 | Deez Nets | ____ | Bumping Buds | ____ | Cinnamon Rolls | ____________ |
-| 6 | 12:05 | Tequila Mockingbird | ____ | Cinnamon Rolls | ____ | Haikyuties | ____________ |
-| 7 | 12:30 | Tequila Mockingbird | ____ | Bumping Buds | ____ | Perros Calientes | ____________ |
+| Slot | Time | Team A | Score | Team B | Score | Winner |
+|:--|:--|:--|:--:|:--|:--:|:--|
+| 1 | 10:00 | Perros Calientes | ____ | Bumping Buds | ____ | ____________ |
+| 2 | 10:25 | Deez Nets | ____ | Tequila Mockingbird | ____ | ____________ |
+| 3 | 10:50 | Cinnamon Rolls | ____ | Bumping Buds | ____ | ____________ |
+| 4 | 11:15 | Tequila Mockingbird | ____ | Perros Calientes | ____ | ____________ |
+| 5 | 11:40 | Deez Nets | ____ | Bumping Buds | ____ | ____________ |
+| 6 | 12:05 | Tequila Mockingbird | ____ | Cinnamon Rolls | ____ | ____________ |
+| 7 | 12:30 | Tequila Mockingbird | ____ | Bumping Buds | ____ | ____________ |
 
 Pool games: **to 21**, win by 2, cap 23. Slots start 25 minutes apart.
 

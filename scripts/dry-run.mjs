@@ -50,7 +50,7 @@ const load = async () => {
     teams: teams.map((t) => ({ ...t, colorA: t.color_a, colorB: t.color_b })),
     games: games.map((g) => ({
       id: g.id, slot: g.slot, phase: g.phase, court: g.court, label: g.label,
-      teamA: g.team_a, teamB: g.team_b, refTeam: g.ref_team,
+      teamA: g.team_a, teamB: g.team_b, forfeitBy: g.forfeit_by,
       aSeed: g.a_seed, bSeed: g.b_seed,
       aWinnerOf: g.a_winner_of, bWinnerOf: g.b_winner_of,
       aLoserOf: g.a_loser_of, bLoserOf: g.b_loser_of,
@@ -84,12 +84,29 @@ if (RESET_ONLY) {
 }
 
 // --- Pool results -------------------------------------------------------------
-// Chosen to produce a clean ranking with one genuine head-to-head tiebreak:
-// Cinnamon Rolls and Haikyuties both finish 2-2, and Cinnamon won the meeting.
+// Built so the head-to-head tiebreaker actually gets exercised, rather than
+// happening to agree with point differential.
+//
+// Cinnamon Rolls and Haikyuties both finish 2-2 and are the ONLY teams on 2-2,
+// so it is a clean two-way tie. Haikyuties finish +25; Cinnamon finish -8.
+// Cinnamon must still rank higher, because Cinnamon won the meeting (p7). If
+// the chain ever regresses to differential-first, Haikyuties jumps 33 points
+// of margin ahead of them and this fails loudly.
 const POOL = [
-  ['p1', 21, 12], ['p2', 21, 18], ['p3', 15, 21], ['p4', 17, 21],
-  ['p5', 21, 19], ['p6', 21, 14], ['p7', 11, 21], ['p8', 21, 19],
-  ['p9', 21, 16], ['p10', 21, 13], ['p11', 21, 17], ['p12', 12, 21],
+  ['p1', 21, 19],   // Cinnamon d Cerve
+  ['p2', 21, 18],   // Perros d Buds
+  ['p3', 21, 5],    // Haikyuties d Perros  — fat margin, on purpose
+  ['p4', 21, 17],   // Deez d Tequila
+  ['p5', 21, 9],    // Deez d Cerve
+  ['p6', 14, 21],   // Buds d Cinnamon
+  ['p7', 15, 21],   // Cinnamon d Haikyuties — THE head-to-head
+  ['p8', 21, 16],   // Tequila d Perros
+  ['p9', 21, 4],    // Haikyuties d Cerve   — fat margin, on purpose
+  ['p10', 21, 13],  // Deez d Buds
+  ['p11', 17, 21],  // Cerve d Perros
+  ['p12', 21, 12],  // Tequila d Cinnamon
+  ['p13', 21, 19],  // Deez d Haikyuties
+  ['p14', 21, 15],  // Tequila d Buds
 ];
 
 console.log('\n  Dry run — playing a full tournament through the live API\n');
@@ -120,23 +137,25 @@ check('records are right', standings.map((r) => `${r.id} ${r.wins}-${r.losses}`)
   'tequila-mockingbird 3-1',
   'cinnamon-rolls 2-2',
   'haikyuties 2-2',
+  'cerve-aces 1-3',
   'perros-calientes 1-3',
-  'bumping-buds 0-4',
+  'bumping-buds 1-3',
 ]);
 check('no unresolved ties', unresolvedTies(standings), []);
 
-// Cinnamon and Haikyuties are both 2-2. Cinnamon won the head-to-head (p9),
-// so it must rank higher — even though this is the earlier tiebreaker than
-// point differential.
+// Cinnamon and Haikyuties are both 2-2. Cinnamon won the head-to-head (p7), so
+// it ranks higher despite finishing 33 points of differential behind.
 const cin = standings.find((r) => r.id === 'cinnamon-rolls');
 const hai = standings.find((r) => r.id === 'haikyuties');
 check('2-2 tie broken by head-to-head, not differential', cin.rank < hai.rank, true);
 
 let bracket = computeBracket(teams, games, { manualTiebreaks: state.manual_tiebreaks ?? {} });
 check('bracket is seedable', bracket.seedable, true);
-check('seed order', bracket.seeds, [
-  'deez-nets', 'tequila-mockingbird', 'cinnamon-rolls', 'haikyuties', 'perros-calientes', 'bumping-buds',
-]);
+const EXPECTED_SEEDS = [
+  'deez-nets', 'tequila-mockingbird', 'cinnamon-rolls', 'haikyuties',
+  'cerve-aces', 'perros-calientes', 'bumping-buds',
+];
+check('seed order', bracket.seeds, EXPECTED_SEEDS);
 
 console.log('\n  Locking the bracket');
 await call({ action: 'state', bracketLocked: true, lockedSeeds: bracket.seeds });
@@ -146,14 +165,16 @@ check('locked seeds stored', state.locked_seeds, bracket.seeds);
 
 // A late correction must NOT move the semifinals now.
 console.log('\n  Correcting a pool score after locking (must not reshuffle)');
-await call({ action: 'score', gameId: 'p1', scoreA: 5, scoreB: 21 }); // Deez now lose
+// Cinnamon lose p1 heavily — enough to drop them below Haikyuties if seeding
+// were still live. Locked, so nothing may move.
+await call({ action: 'score', gameId: 'p1', scoreA: 5, scoreB: 21 });
 ({ teams, games, state } = await load());
 bracket = computeBracket(teams, games, {
   manualTiebreaks: state.manual_tiebreaks ?? {},
   lockedSeeds: state.bracket_locked ? state.locked_seeds : null,
 });
-check('locked seeding survives a pool correction', bracket.seeds[0], 'deez-nets');
-await call({ action: 'score', gameId: 'p1', scoreA: 21, scoreB: 12 }); // put it back
+check('locked seeding survives a pool correction', bracket.seeds, EXPECTED_SEEDS);
+await call({ action: 'score', gameId: 'p1', scoreA: 21, scoreB: 19 }); // put it back
 
 console.log('\n  Semifinals');
 ({ teams, games, state } = await load());
@@ -197,10 +218,38 @@ check('final placings', places, [
   { place: 2, teamId: 'cinnamon-rolls' },
   { place: 3, teamId: 'tequila-mockingbird' },
   { place: 4, teamId: 'haikyuties' },
-  { place: 5, teamId: 'perros-calientes' },
-  { place: 6, teamId: 'bumping-buds' },
+  { place: 5, teamId: 'cerve-aces' },
+  { place: 6, teamId: 'perros-calientes' },
+  { place: 7, teamId: 'bumping-buds' },
 ]);
 check('every game is final', games.every((g) => g.status === 'final'), true);
+
+// --- Forfeits ------------------------------------------------------------------
+// A game nobody played. Stored as a nominal 1-0 so standings still resolve a
+// winner, flagged so the site shows "Conceded" instead of that scoreline.
+console.log('\n  Forfeits');
+await call({ action: 'score', gameId: 'p1', forfeitBy: 'cerve-aces' });
+({ teams, games } = await load());
+let p1 = games.find((g) => g.id === 'p1');
+check('forfeit recorded against the conceding team', p1.forfeitBy, 'cerve-aces');
+check('forfeit scores are nominal 1-0 to the other side', [p1.scoreA, p1.scoreB], [1, 0]);
+
+// A team that wasn't in the game cannot concede it.
+let refused = null;
+try {
+  await call({ action: 'score', gameId: 'p1', forfeitBy: 'deez-nets' });
+} catch (err) {
+  refused = err.message;
+}
+check('a team not in the game cannot concede it', refused !== null, true);
+
+// Entering a real score has to clear the flag, or the game keeps reading
+// "Conceded" over a result that was actually played.
+await call({ action: 'score', gameId: 'p1', scoreA: 21, scoreB: 19 });
+({ teams, games } = await load());
+p1 = games.find((g) => g.id === 'p1');
+check('a real score clears the forfeit flag', p1.forfeitBy, null);
+check('a real score is stored as entered', [p1.scoreA, p1.scoreB], [21, 19]);
 
 // --- Reset ---------------------------------------------------------------------
 if (!KEEP) {

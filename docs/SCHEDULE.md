@@ -18,31 +18,31 @@ AIDS Garden Chicago — 3003 N Lakefront Trail, Chicago, IL 60657
 
 Games to **21**, win by 2, cap 23. Slots start 25 minutes apart.
 
-| Slot | Time | Court 1 | Ref | Court 2 | Ref |
-|:--|:--|:--|:--|:--|:--|
-| 1 | 10:00 | Cinnamon Rolls v Cerve Aces | Deez Nets | Perros Calientes v Bumping Buds | Haikyuties |
-| 2 | 10:25 | Haikyuties v Perros Calientes | Cinnamon Rolls | Deez Nets v Tequila Mockingbird | Cerve Aces |
-| 3 | 10:50 | Deez Nets v Cerve Aces | Perros Calientes | Cinnamon Rolls v Bumping Buds | Tequila Mockingbird |
-| 4 | 11:15 | Haikyuties v Cinnamon Rolls | Deez Nets | Tequila Mockingbird v Perros Calientes | Bumping Buds |
-| 5 | 11:40 | Haikyuties v Cerve Aces | Tequila Mockingbird | Deez Nets v Bumping Buds | Cinnamon Rolls |
-| 6 | 12:05 | Perros Calientes v Cerve Aces | Bumping Buds | Tequila Mockingbird v Cinnamon Rolls | Haikyuties |
-| 7 | 12:30 | Deez Nets v Haikyuties | Cerve Aces | Tequila Mockingbird v Bumping Buds | Perros Calientes |
+| Slot | Time | Court 1 | Court 2 |
+|:--|:--|:--|:--|
+| 1 | 10:00 | Cinnamon Rolls v Cerve Aces | Perros Calientes v Bumping Buds |
+| 2 | 10:25 | Haikyuties v Perros Calientes | Deez Nets v Tequila Mockingbird |
+| 3 | 10:50 | Deez Nets v Cerve Aces | Cinnamon Rolls v Bumping Buds |
+| 4 | 11:15 | Haikyuties v Cinnamon Rolls | Tequila Mockingbird v Perros Calientes |
+| 5 | 11:40 | Haikyuties v Cerve Aces | Deez Nets v Bumping Buds |
+| 6 | 12:05 | Perros Calientes v Cerve Aces | Tequila Mockingbird v Cinnamon Rolls |
+| 7 | 12:30 | Deez Nets v Haikyuties | Tequila Mockingbird v Bumping Buds |
 
 ### Per-team
 
-| Team | Your day, slot by slot | Plays | Refs | Free | Doesn't face |
-|:--|:--|:--|:--|:--|:--|
-| Deez Nets | R **P** **P** R **P** · **P** | 2, 3, 5, 7 | 1, 4 | 6 | Cinnamon Rolls, Perros Calientes |
-| Haikyuties | R **P** · **P** **P** R **P** | 2, 4, 5, 7 | 1, 6 | 3 | Tequila Mockingbird, Bumping Buds |
-| Tequila Mockingbird | · **P** R **P** R **P** **P** | 2, 4, 6, 7 | 3, 5 | 1 | Haikyuties, Cerve Aces |
-| Cinnamon Rolls | **P** R **P** **P** R **P** · | 1, 3, 4, 6 | 2, 5 | 7 | Deez Nets, Perros Calientes |
-| Perros Calientes | **P** **P** R **P** · **P** R | 1, 2, 4, 6 | 3, 7 | 5 | Deez Nets, Cinnamon Rolls |
-| Bumping Buds | **P** · **P** R **P** R **P** | 1, 3, 5, 7 | 4, 6 | 2 | Haikyuties, Cerve Aces |
-| Cerve Aces | **P** R **P** · **P** **P** R | 1, 3, 5, 6 | 2, 7 | 4 | Tequila Mockingbird, Bumping Buds |
+| Team | Your day, slot by slot | Plays | Off | Doesn't face |
+|:--|:--|:--|:--|:--|
+| Deez Nets | · **P** **P** · **P** · **P** | 2, 3, 5, 7 | 1, 4, 6 | Cinnamon Rolls, Perros Calientes |
+| Haikyuties | · **P** · **P** **P** · **P** | 2, 4, 5, 7 | 1, 3, 6 | Tequila Mockingbird, Bumping Buds |
+| Tequila Mockingbird | · **P** · **P** · **P** **P** | 2, 4, 6, 7 | 1, 3, 5 | Haikyuties, Cerve Aces |
+| Cinnamon Rolls | **P** · **P** **P** · **P** · | 1, 3, 4, 6 | 2, 5, 7 | Deez Nets, Perros Calientes |
+| Perros Calientes | **P** **P** · **P** · **P** · | 1, 2, 4, 6 | 3, 5, 7 | Deez Nets, Cinnamon Rolls |
+| Bumping Buds | **P** · **P** · **P** · **P** | 1, 3, 5, 7 | 2, 4, 6 | Haikyuties, Cerve Aces |
+| Cerve Aces | **P** · **P** · **P** **P** · | 1, 3, 5, 6 | 2, 4, 7 | Tequila Mockingbird, Bumping Buds |
 
-**P** = playing · **R** = refereeing · **·** = free. Every team plays 4, referees 2 and gets one slot completely off.
+**P** = playing · **·** = off. Every team plays 4 pool games. Games are self-called.
 
-The schedule is built so nobody grinds: you never play more than two slots back to back, never sit two slots in a row, and never referee twice running.
+The schedule is built so nobody grinds: you never play more than two slots back to back, and never sit two slots in a row.
 
 ---
 

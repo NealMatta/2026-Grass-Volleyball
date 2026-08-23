@@ -98,7 +98,7 @@ later — don't hold up the schedule over it.
 ## Format at a glance
 
 - **7 slots of pool play**, everyone plays 4 games
-- **When you're not playing you're usually refereeing** — 2 ref slots each, plus one slot fully off
+- **Games are self-called** — no referees; both teams keep score out loud
 - **Never more than 2 games in a row**, and never two slots off in a row
 - **12:55 break**, standings posted, bracket seeded automatically
 - **Semifinals at 1:05**, #1v#4 and #2v#3

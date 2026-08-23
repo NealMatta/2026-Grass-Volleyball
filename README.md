@@ -21,7 +21,7 @@ every roster from every tournament we've run.
 
 | | |
 |:--|:--|
-| **[Schedule](docs/SCHEDULE.md)** | Who you play, when, and which slots you referee |
+| **[Schedule](docs/SCHEDULE.md)** | Who you play, when, and which slots you're off |
 | **[Rules](docs/RULES.md)** | Adapted from the Montrose Classic for grass |
 | **[Format](docs/FORMAT.md)** | How pool play and the bracket work |
 | **[Logistics](docs/LOGISTICS.md)** | Parking, nets, what to bring |
@@ -31,7 +31,7 @@ every roster from every tournament we've run.
 - Be there **9:30** if you're on net setup, **10:00** to play.
 - Pool games to **21**, win by 2, cap 23. Bracket games to **25**.
 - **At least one woman on the court per team, at all times.** Applies when you're playing with 3 too.
-- **When you're not playing, you're usually refereeing.** Two ref slots each, plus one slot fully off.
+- **Games are self-called.** No referees — both teams keep score out loud, together.
 - Enter **both scores** after every game — point differential decides bracket seeding.
 - Bring water. There's no shade on the courts.
 
@@ -56,14 +56,13 @@ Seeds are signup order — they're just schedule IDs. Real seeding comes from po
 ## Format in one paragraph
 
 Seven teams, two courts, a bit over four hours. Pool play is a **near round robin** — each team
-plays 4 of the 6 others across 7 slots, and in every slot two of the three teams that aren't
-playing referee. Then the top four seeds go to a **single-elimination bracket** (#1v#4, #2v#3),
+plays 4 of the 6 others across 7 slots. Then the top four seeds go to a
+**single-elimination bracket** (#1v#4, #2v#3),
 with a 3rd-place game so a semifinal loss doesn't end your day. Nobody is eliminated before the
 bracket.
 
-The schedule also guarantees a rhythm: **never more than two games in a row, never two slots off in
-a row, never two ref slots in a row.** Nobody sits around for half the morning and then plays four
-straight.
+The schedule also guarantees a rhythm: **never more than two games in a row, and never two slots
+off in a row.** Nobody sits around for half the morning and then plays four straight.
 
 Montrose runs Tiered Swiss; we don't, because Swiss exists to approximate a round robin when you
 have too many teams to play everyone — and with seven teams you can still get most of the way there
@@ -131,8 +130,8 @@ npm run reset     # clear all scores
 ```
 
 **`npm run verify` after any schedule edit.** `verify-schedule.mjs` asserts every team plays
-exactly 4, referees exactly 2, appears once per slot, and that no pairing repeats — plus the three
-rhythm invariants (no 3 games in a row, no 2 rests in a row, no 2 ref slots in a row). It exists
+exactly 4, appears once per slot, and that no pairing repeats — plus the two rhythm invariants
+(no 3 games in a row, no 2 rests in a row). It exists
 because a hand-written version of the schedule table was wrong once already — Deez Nets had three
 games instead of four.
 

@@ -62,239 +62,239 @@ insert into public.teams (id, name, seed, captain, players, roster_pending, has_
   color_b = excluded.color_b, blurb = excluded.blurb;
 
 -- Games. Scores stay null until a captain submits them.
-insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
+insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'p1', 1, 'pool', 1, '10:00', null,
-  'cinnamon-rolls', 'cerve-aces', 'deez-nets',
+  'cinnamon-rolls', 'cerve-aces',
   null, null,
   null, null,
   null, null
 ) on conflict (id) do update set
   slot = excluded.slot, phase = excluded.phase, court = excluded.court,
   start_time = excluded.start_time, label = excluded.label,
-  team_a = excluded.team_a, team_b = excluded.team_b, ref_team = excluded.ref_team,
+  team_a = excluded.team_a, team_b = excluded.team_b,
   a_seed = excluded.a_seed, b_seed = excluded.b_seed,
   a_winner_of = excluded.a_winner_of, b_winner_of = excluded.b_winner_of,
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
-insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
+insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'p2', 1, 'pool', 2, '10:00', null,
-  'perros-calientes', 'bumping-buds', 'haikyuties',
+  'perros-calientes', 'bumping-buds',
   null, null,
   null, null,
   null, null
 ) on conflict (id) do update set
   slot = excluded.slot, phase = excluded.phase, court = excluded.court,
   start_time = excluded.start_time, label = excluded.label,
-  team_a = excluded.team_a, team_b = excluded.team_b, ref_team = excluded.ref_team,
+  team_a = excluded.team_a, team_b = excluded.team_b,
   a_seed = excluded.a_seed, b_seed = excluded.b_seed,
   a_winner_of = excluded.a_winner_of, b_winner_of = excluded.b_winner_of,
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
-insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
+insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'p3', 2, 'pool', 1, '10:25', null,
-  'haikyuties', 'perros-calientes', 'cinnamon-rolls',
+  'haikyuties', 'perros-calientes',
   null, null,
   null, null,
   null, null
 ) on conflict (id) do update set
   slot = excluded.slot, phase = excluded.phase, court = excluded.court,
   start_time = excluded.start_time, label = excluded.label,
-  team_a = excluded.team_a, team_b = excluded.team_b, ref_team = excluded.ref_team,
+  team_a = excluded.team_a, team_b = excluded.team_b,
   a_seed = excluded.a_seed, b_seed = excluded.b_seed,
   a_winner_of = excluded.a_winner_of, b_winner_of = excluded.b_winner_of,
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
-insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
+insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'p4', 2, 'pool', 2, '10:25', null,
-  'deez-nets', 'tequila-mockingbird', 'cerve-aces',
+  'deez-nets', 'tequila-mockingbird',
   null, null,
   null, null,
   null, null
 ) on conflict (id) do update set
   slot = excluded.slot, phase = excluded.phase, court = excluded.court,
   start_time = excluded.start_time, label = excluded.label,
-  team_a = excluded.team_a, team_b = excluded.team_b, ref_team = excluded.ref_team,
+  team_a = excluded.team_a, team_b = excluded.team_b,
   a_seed = excluded.a_seed, b_seed = excluded.b_seed,
   a_winner_of = excluded.a_winner_of, b_winner_of = excluded.b_winner_of,
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
-insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
+insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'p5', 3, 'pool', 1, '10:50', null,
-  'deez-nets', 'cerve-aces', 'perros-calientes',
+  'deez-nets', 'cerve-aces',
   null, null,
   null, null,
   null, null
 ) on conflict (id) do update set
   slot = excluded.slot, phase = excluded.phase, court = excluded.court,
   start_time = excluded.start_time, label = excluded.label,
-  team_a = excluded.team_a, team_b = excluded.team_b, ref_team = excluded.ref_team,
+  team_a = excluded.team_a, team_b = excluded.team_b,
   a_seed = excluded.a_seed, b_seed = excluded.b_seed,
   a_winner_of = excluded.a_winner_of, b_winner_of = excluded.b_winner_of,
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
-insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
+insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'p6', 3, 'pool', 2, '10:50', null,
-  'cinnamon-rolls', 'bumping-buds', 'tequila-mockingbird',
+  'cinnamon-rolls', 'bumping-buds',
   null, null,
   null, null,
   null, null
 ) on conflict (id) do update set
   slot = excluded.slot, phase = excluded.phase, court = excluded.court,
   start_time = excluded.start_time, label = excluded.label,
-  team_a = excluded.team_a, team_b = excluded.team_b, ref_team = excluded.ref_team,
+  team_a = excluded.team_a, team_b = excluded.team_b,
   a_seed = excluded.a_seed, b_seed = excluded.b_seed,
   a_winner_of = excluded.a_winner_of, b_winner_of = excluded.b_winner_of,
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
-insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
+insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'p7', 4, 'pool', 1, '11:15', null,
-  'haikyuties', 'cinnamon-rolls', 'deez-nets',
+  'haikyuties', 'cinnamon-rolls',
   null, null,
   null, null,
   null, null
 ) on conflict (id) do update set
   slot = excluded.slot, phase = excluded.phase, court = excluded.court,
   start_time = excluded.start_time, label = excluded.label,
-  team_a = excluded.team_a, team_b = excluded.team_b, ref_team = excluded.ref_team,
+  team_a = excluded.team_a, team_b = excluded.team_b,
   a_seed = excluded.a_seed, b_seed = excluded.b_seed,
   a_winner_of = excluded.a_winner_of, b_winner_of = excluded.b_winner_of,
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
-insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
+insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'p8', 4, 'pool', 2, '11:15', null,
-  'tequila-mockingbird', 'perros-calientes', 'bumping-buds',
+  'tequila-mockingbird', 'perros-calientes',
   null, null,
   null, null,
   null, null
 ) on conflict (id) do update set
   slot = excluded.slot, phase = excluded.phase, court = excluded.court,
   start_time = excluded.start_time, label = excluded.label,
-  team_a = excluded.team_a, team_b = excluded.team_b, ref_team = excluded.ref_team,
+  team_a = excluded.team_a, team_b = excluded.team_b,
   a_seed = excluded.a_seed, b_seed = excluded.b_seed,
   a_winner_of = excluded.a_winner_of, b_winner_of = excluded.b_winner_of,
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
-insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
+insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'p9', 5, 'pool', 1, '11:40', null,
-  'haikyuties', 'cerve-aces', 'tequila-mockingbird',
+  'haikyuties', 'cerve-aces',
   null, null,
   null, null,
   null, null
 ) on conflict (id) do update set
   slot = excluded.slot, phase = excluded.phase, court = excluded.court,
   start_time = excluded.start_time, label = excluded.label,
-  team_a = excluded.team_a, team_b = excluded.team_b, ref_team = excluded.ref_team,
+  team_a = excluded.team_a, team_b = excluded.team_b,
   a_seed = excluded.a_seed, b_seed = excluded.b_seed,
   a_winner_of = excluded.a_winner_of, b_winner_of = excluded.b_winner_of,
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
-insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
+insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'p10', 5, 'pool', 2, '11:40', null,
-  'deez-nets', 'bumping-buds', 'cinnamon-rolls',
+  'deez-nets', 'bumping-buds',
   null, null,
   null, null,
   null, null
 ) on conflict (id) do update set
   slot = excluded.slot, phase = excluded.phase, court = excluded.court,
   start_time = excluded.start_time, label = excluded.label,
-  team_a = excluded.team_a, team_b = excluded.team_b, ref_team = excluded.ref_team,
+  team_a = excluded.team_a, team_b = excluded.team_b,
   a_seed = excluded.a_seed, b_seed = excluded.b_seed,
   a_winner_of = excluded.a_winner_of, b_winner_of = excluded.b_winner_of,
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
-insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
+insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'p11', 6, 'pool', 1, '12:05', null,
-  'perros-calientes', 'cerve-aces', 'bumping-buds',
+  'perros-calientes', 'cerve-aces',
   null, null,
   null, null,
   null, null
 ) on conflict (id) do update set
   slot = excluded.slot, phase = excluded.phase, court = excluded.court,
   start_time = excluded.start_time, label = excluded.label,
-  team_a = excluded.team_a, team_b = excluded.team_b, ref_team = excluded.ref_team,
+  team_a = excluded.team_a, team_b = excluded.team_b,
   a_seed = excluded.a_seed, b_seed = excluded.b_seed,
   a_winner_of = excluded.a_winner_of, b_winner_of = excluded.b_winner_of,
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
-insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
+insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'p12', 6, 'pool', 2, '12:05', null,
-  'tequila-mockingbird', 'cinnamon-rolls', 'haikyuties',
+  'tequila-mockingbird', 'cinnamon-rolls',
   null, null,
   null, null,
   null, null
 ) on conflict (id) do update set
   slot = excluded.slot, phase = excluded.phase, court = excluded.court,
   start_time = excluded.start_time, label = excluded.label,
-  team_a = excluded.team_a, team_b = excluded.team_b, ref_team = excluded.ref_team,
+  team_a = excluded.team_a, team_b = excluded.team_b,
   a_seed = excluded.a_seed, b_seed = excluded.b_seed,
   a_winner_of = excluded.a_winner_of, b_winner_of = excluded.b_winner_of,
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
-insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
+insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'p13', 7, 'pool', 1, '12:30', null,
-  'deez-nets', 'haikyuties', 'cerve-aces',
+  'deez-nets', 'haikyuties',
   null, null,
   null, null,
   null, null
 ) on conflict (id) do update set
   slot = excluded.slot, phase = excluded.phase, court = excluded.court,
   start_time = excluded.start_time, label = excluded.label,
-  team_a = excluded.team_a, team_b = excluded.team_b, ref_team = excluded.ref_team,
+  team_a = excluded.team_a, team_b = excluded.team_b,
   a_seed = excluded.a_seed, b_seed = excluded.b_seed,
   a_winner_of = excluded.a_winner_of, b_winner_of = excluded.b_winner_of,
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
-insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
+insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'p14', 7, 'pool', 2, '12:30', null,
-  'tequila-mockingbird', 'bumping-buds', 'perros-calientes',
+  'tequila-mockingbird', 'bumping-buds',
   null, null,
   null, null,
   null, null
 ) on conflict (id) do update set
   slot = excluded.slot, phase = excluded.phase, court = excluded.court,
   start_time = excluded.start_time, label = excluded.label,
-  team_a = excluded.team_a, team_b = excluded.team_b, ref_team = excluded.ref_team,
+  team_a = excluded.team_a, team_b = excluded.team_b,
   a_seed = excluded.a_seed, b_seed = excluded.b_seed,
   a_winner_of = excluded.a_winner_of, b_winner_of = excluded.b_winner_of,
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
 
 -- Bracket rows reference semifinal ids, so they must land after the pool rows.
-insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
+insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'sf1', 8, 'bracket', 1, '1:05', 'Semifinal 1',
-  null, null, null,
+  null, null,
   1, 4,
   null, null,
   null, null
 ) on conflict (id) do update set
   slot = excluded.slot, phase = excluded.phase, court = excluded.court,
   start_time = excluded.start_time, label = excluded.label,
-  team_a = excluded.team_a, team_b = excluded.team_b, ref_team = excluded.ref_team,
+  team_a = excluded.team_a, team_b = excluded.team_b,
   a_seed = excluded.a_seed, b_seed = excluded.b_seed,
   a_winner_of = excluded.a_winner_of, b_winner_of = excluded.b_winner_of,
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
-insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
+insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'sf2', 8, 'bracket', 2, '1:05', 'Semifinal 2',
-  null, null, null,
+  null, null,
   2, 3,
   null, null,
   null, null
 ) on conflict (id) do update set
   slot = excluded.slot, phase = excluded.phase, court = excluded.court,
   start_time = excluded.start_time, label = excluded.label,
-  team_a = excluded.team_a, team_b = excluded.team_b, ref_team = excluded.ref_team,
+  team_a = excluded.team_a, team_b = excluded.team_b,
   a_seed = excluded.a_seed, b_seed = excluded.b_seed,
   a_winner_of = excluded.a_winner_of, b_winner_of = excluded.b_winner_of,
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
-insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
+insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'final', 9, 'bracket', 1, '1:40', 'Final',
-  null, null, null,
+  null, null,
   null, null,
   'sf1', 'sf2',
   null, null
 ) on conflict (id) do update set
   slot = excluded.slot, phase = excluded.phase, court = excluded.court,
   start_time = excluded.start_time, label = excluded.label,
-  team_a = excluded.team_a, team_b = excluded.team_b, ref_team = excluded.ref_team,
+  team_a = excluded.team_a, team_b = excluded.team_b,
   a_seed = excluded.a_seed, b_seed = excluded.b_seed,
   a_winner_of = excluded.a_winner_of, b_winner_of = excluded.b_winner_of,
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;
-insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, ref_team, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
+insert into public.games (id, slot, phase, court, start_time, label, team_a, team_b, a_seed, b_seed, a_winner_of, b_winner_of, a_loser_of, b_loser_of) values (
   'third', 9, 'bracket', 2, '1:40', '3rd Place',
-  null, null, null,
+  null, null,
   null, null,
   null, null,
   'sf1', 'sf2'
 ) on conflict (id) do update set
   slot = excluded.slot, phase = excluded.phase, court = excluded.court,
   start_time = excluded.start_time, label = excluded.label,
-  team_a = excluded.team_a, team_b = excluded.team_b, ref_team = excluded.ref_team,
+  team_a = excluded.team_a, team_b = excluded.team_b,
   a_seed = excluded.a_seed, b_seed = excluded.b_seed,
   a_winner_of = excluded.a_winner_of, b_winner_of = excluded.b_winner_of,
   a_loser_of = excluded.a_loser_of, b_loser_of = excluded.b_loser_of;

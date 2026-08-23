@@ -71,13 +71,13 @@ w();
 w(`Games to **${schedule.gameRules.pool.to}**, win by ${schedule.gameRules.pool.winBy}, ` +
   `cap ${schedule.gameRules.pool.cap}. Slots start ${SLOT_GAP} minutes apart.`);
 w();
-w('| Slot | Time | Court 1 | Ref | Court 2 | Ref |');
-w('|:--|:--|:--|:--|:--|:--|');
+w('| Slot | Time | Court 1 | Court 2 |');
+w('|:--|:--|:--|:--|');
 for (const s of schedule.slots.filter((x) => x.phase === 'pool')) {
   const [c1, c2] = [1, 2].map((c) => s.games.find((g) => g.court === c));
   w(
-    `| ${s.slot} | ${s.time} | ${name(c1.a)} v ${name(c1.b)} | ${name(c1.ref)} | ` +
-      `${name(c2.a)} v ${name(c2.b)} | ${name(c2.ref)} |`
+    `| ${s.slot} | ${s.time} | ${name(c1.a)} v ${name(c1.b)} | ` +
+      `${name(c2.a)} v ${name(c2.b)} |`
   );
 }
 w();
@@ -85,33 +85,31 @@ w();
 // --- Per-team -----------------------------------------------------------------
 w('### Per-team');
 w();
-w('| Team | Your day, slot by slot | Plays | Refs | Free | Doesn\'t face |');
-w('|:--|:--|:--|:--|:--|:--|');
+w('| Team | Your day, slot by slot | Plays | Off | Doesn\'t face |');
+w('|:--|:--|:--|:--|:--|');
 const poolSlots = schedule.slots.filter((x) => x.phase === 'pool');
 for (const id of ids) {
   const plays = poolSlots.filter((s) => s.games.some((g) => g.a === id || g.b === id)).map((s) => s.slot);
-  const refsAt = poolSlots.filter((s) => s.games.some((g) => g.ref === id)).map((s) => s.slot);
-  const free = poolSlots.map((s) => s.slot).filter((n) => !plays.includes(n) && !refsAt.includes(n));
+  const free = poolSlots.map((s) => s.slot).filter((n) => !plays.includes(n));
   const faced = poolSlots
     .flatMap((s) => s.games)
     .filter((g) => g.a === id || g.b === id)
     .map((g) => (g.a === id ? g.b : g.a));
   const missed = ids.filter((o) => o !== id && !faced.includes(o));
-  // Play / Ref / Free strip, in slot order — the quickest way to read your day.
+  // Play / off strip, in slot order — the quickest way to read your day.
   const strip = poolSlots
-    .map((s) => (plays.includes(s.slot) ? '**P**' : refsAt.includes(s.slot) ? 'R' : '·'))
+    .map((s) => (plays.includes(s.slot) ? '**P**' : '·'))
     .join(' ');
   w(
-    `| ${name(id)} | ${strip} | ${plays.join(', ')} | ${refsAt.join(', ')} | ` +
+    `| ${name(id)} | ${strip} | ${plays.join(', ')} | ` +
       `${free.join(', ')} | ${missed.map(name).join(', ')} |`
   );
 }
 w();
-w('**P** = playing · **R** = refereeing · **·** = free. Every team plays 4, referees 2 and gets one ' +
-  'slot completely off.');
+w('**P** = playing · **·** = off. Every team plays 4 pool games. Games are self-called.');
 w();
-w('The schedule is built so nobody grinds: you never play more than two slots back to back, never ' +
-  'sit two slots in a row, and never referee twice running.');
+w('The schedule is built so nobody grinds: you never play more than two slots back to back, and ' +
+  'never sit two slots in a row.');
 w();
 
 // --- Break + bracket ----------------------------------------------------------

@@ -65,8 +65,8 @@ These are the adaptations. Sand rules assume things that aren't true on a field.
 - If there's no line and the call is genuinely disputed: **replay the point.** No arguing. This is
   a park, not a sanctioned match.
 
-**Self-officiate the close stuff** — Call your own net touches, lifts, and foot faults. The assigned
-referee team handles **score, rotation, and in/out only**. Everything else is on the honor system.
+**Self-officiate everything** — There are no referees. Call your own net touches, lifts, foot
+faults and in/out. Both teams keep score out loud together. It's all on the honor system.
 
 **Overhead obstruction** (tree, branch, wire) —
 - Hits it **on the serve**: replay.
@@ -83,19 +83,20 @@ advantage, **switch at 11** in pool games. If the field is neutral, skip it — 
 
 ---
 
-## Refereeing
+## Calling your own games
 
-In every pool slot **three teams are free; two of them referee**, one per court. Every team
-referees exactly twice over the day and gets one slot completely off, so the load is even and
-nobody gets stuck.
+There are no referees. Every game is called by the two teams playing it.
 
-The referee team is responsible for:
-- Keeping score out loud
-- Watching the serve rotation
-- In/out calls
+That means both teams are responsible for:
+- **Keeping score out loud** — say it before every serve, so a disagreement surfaces after one
+  point rather than after ten
+- Watching your own serve rotation
+- In/out calls on your own side
+- Net touches, lifts and doubles — call them on yourself
 - **The one-woman-on-court minimum** — if a team can't field one, the point doesn't start
 
-Not responsible for: net touches, lifts, doubles. Those are self-called.
+Genuinely disputed, nobody's sure, no line to check? **Replay the point.** It costs thirty
+seconds and it's always better than arguing.
 
 ---
 

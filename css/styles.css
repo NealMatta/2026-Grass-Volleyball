@@ -291,8 +291,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
 .side.lost .score { color: var(--chalk-faint); }
 .side.tbd { color: var(--chalk-faint); font-stretch: 75%; font-weight: 700; font-size: .9rem; }
 
-.reffed { margin-top: .7rem; font-size: .8rem; color: var(--chalk-faint); }
-.reffed b { color: var(--chalk-dim); font-weight: 600; }
 
 /* ----------------------------------------------------------- standings ---- */
 
@@ -315,7 +313,6 @@ th:nth-child(2), td:nth-child(2) { text-align: left; }
 #schedule .result-cell { width: 5.5rem; white-space: nowrap; }
 
 #schedule .vs { color: var(--chalk-faint); }
-#schedule .ref-line { font-size: .75rem; color: var(--chalk-faint); margin-top: .15rem; }
 
 .result-cell {
   font-family: var(--f-display);

@@ -21,7 +21,6 @@ const schedule = read('data/schedule.json');
 
 const COURTS = schedule.tournament.courts;
 const GAMES_PER_TEAM = 4;
-const REFS_PER_TEAM = 2;
 
 const ids = teams.map((t) => t.id);
 const name = (id) => teams.find((t) => t.id === id)?.name ?? id;
@@ -38,18 +37,16 @@ const poolGames = poolSlots.flatMap((s) => s.games);
 
 // --- Team ids referenced by the schedule all exist ---------------------------
 const referenced = new Set();
-for (const g of poolGames) [g.a, g.b, g.ref].forEach((x) => referenced.add(x));
+for (const g of poolGames) [g.a, g.b].forEach((x) => referenced.add(x));
 const unknown = [...referenced].filter((id) => !ids.includes(id));
 check('All referenced team ids exist in teams.json', unknown.length === 0, unknown.join(', '));
 
 // --- Every team plays exactly 4 pool games -----------------------------------
 const plays = Object.fromEntries(ids.map((id) => [id, []]));
-const refs = Object.fromEntries(ids.map((id) => [id, []]));
 for (const slot of poolSlots) {
   for (const g of slot.games) {
     plays[g.a]?.push(slot.slot);
     plays[g.b]?.push(slot.slot);
-    refs[g.ref]?.push(slot.slot);
   }
 }
 for (const id of ids) {
@@ -60,18 +57,9 @@ for (const id of ids) {
   );
 }
 
-// --- Every team referees exactly 2 -------------------------------------------
-for (const id of ids) {
-  check(
-    `${name(id)} referees exactly ${REFS_PER_TEAM}`,
-    refs[id].length === REFS_PER_TEAM,
-    `refs ${refs[id].length} (slots ${refs[id].join(', ')})`
-  );
-}
-
 // --- No team appears twice in the same slot, in any role ---------------------
 for (const slot of poolSlots) {
-  const appearances = slot.games.flatMap((g) => [g.a, g.b, g.ref]);
+  const appearances = slot.games.flatMap((g) => [g.a, g.b]);
   const dupes = appearances.filter((x, i) => appearances.indexOf(x) !== i);
   check(
     `Slot ${slot.slot}: no team appears twice`,
@@ -80,31 +68,23 @@ for (const slot of poolSlots) {
   );
 }
 
-// --- The right number of teams are free per slot, and refs come from them ----
-// With 7 teams on 2 courts, 4 play and 3 are free — one more free team than
-// there are courts, so the referees are a *subset* of the free teams, not all
-// of them. Each slot has exactly one genuinely idle team.
+// --- The right number of teams are free per slot -----------------------------
+// With 7 teams on 2 courts, 4 play and 3 sit. Games are self-called, so a free
+// team is genuinely free.
 const FREE_PER_SLOT = ids.length - COURTS * 2;
 for (const slot of poolSlots) {
   const playing = new Set(slot.games.flatMap((g) => [g.a, g.b]));
   const free = ids.filter((id) => !playing.has(id));
-  const assignedRefs = slot.games.map((g) => g.ref);
   check(
     `Slot ${slot.slot}: exactly ${FREE_PER_SLOT} teams free`,
     free.length === FREE_PER_SLOT,
     `${free.length} free (${free.map(name).join(', ')})`
   );
-  check(
-    `Slot ${slot.slot}: every referee is a free team`,
-    assignedRefs.every((r) => free.includes(r)),
-    `free=[${free.map(name)}] refs=[${assignedRefs.map(name)}]`
-  );
 }
 
 // --- Rhythm: nobody grinds out a long run, nobody goes cold ------------------
-// The point of these three: a team should never sit three slots and then play
-// four straight. Play in bursts of at most 2, never rest back to back, and
-// never referee two slots running.
+// The point of these two: a team should never sit three slots and then play
+// four straight. Play in bursts of at most 2, and never rest back to back.
 const MAX_PLAY_RUN = 2;
 const slotNums = poolSlots.map((s) => s.slot);
 const runOf = (list) => {
@@ -129,11 +109,6 @@ for (const id of ids) {
     runOf(resting) <= 1,
     `rests ${resting.join(', ')}`
   );
-  check(
-    `${name(id)} never referees two slots in a row`,
-    runOf(refs[id]) <= 1,
-    `refs ${refs[id].join(', ')}`
-  );
 }
 
 // --- All 12 pairings distinct, and no team faces itself ----------------------
@@ -147,17 +122,6 @@ check(
   poolGames.length === (ids.length * GAMES_PER_TEAM) / 2,
   `got ${poolGames.length}`
 );
-
-// --- A referee is never one of the two teams playing that game ---------------
-for (const slot of poolSlots) {
-  for (const g of slot.games) {
-    check(
-      `Slot ${slot.slot} court ${g.court}: referee is not playing`,
-      g.ref !== g.a && g.ref !== g.b,
-      `${name(g.ref)} refs their own game`
-    );
-  }
-}
 
 // --- Game ids are unique across the whole tournament -------------------------
 const allIds = schedule.slots.flatMap((s) => s.games.map((g) => g.id));
@@ -177,7 +141,7 @@ for (const slot of schedule.slots) {
 
 // --- Report -------------------------------------------------------------------
 console.log('\n  Pool matrix — who each team faces\n');
-const header = ['Team'.padEnd(22), 'Rhythm'.padEnd(18), 'Refs'.padEnd(8), 'Misses'];
+const header = ['Team'.padEnd(22), 'Rhythm'.padEnd(18), 'Misses'];
 console.log('  ' + header.join(''));
 console.log('  ' + '─'.repeat(70));
 for (const id of ids) {
@@ -185,19 +149,11 @@ for (const id of ids) {
     .filter((g) => g.a === id || g.b === id)
     .map((g) => (g.a === id ? g.b : g.a));
   const missed = ids.filter((o) => o !== id && !faced.includes(o));
-  // P = playing, r = refereeing, · = genuinely free
-  const rhythm = slotNums
-    .map((n) => (plays[id].includes(n) ? 'P' : refs[id].includes(n) ? 'r' : '·'))
-    .join(' ');
-  console.log(
-    '  ' +
-      name(id).padEnd(22) +
-      rhythm.padEnd(18) +
-      `${refs[id].join(',')}`.padEnd(8) +
-      missed.map(name).join(', ')
-  );
+  // P = playing, · = off
+  const rhythm = slotNums.map((n) => (plays[id].includes(n) ? 'P' : '·')).join(' ');
+  console.log('  ' + name(id).padEnd(22) + rhythm.padEnd(18) + missed.map(name).join(', '));
 }
-console.log('\n  P = playing   r = refereeing   · = free\n');
+console.log('\n  P = playing   · = off\n');
 
 const passed = checks.length - failures.length;
 console.log(`\n  ${passed}/${checks.length} checks passed`);

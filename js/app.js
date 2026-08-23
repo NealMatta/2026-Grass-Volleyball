@@ -243,11 +243,6 @@ function gameCard(game, { live = false, resolved = null } = {}) {
     card.append(el('div', 'conceded-line', `${teamName(game.forfeitBy)} conceded`));
   }
 
-  if (game.refTeam) {
-    const ref = el('div', 'reffed');
-    ref.append('Referee: ', el('b', null, teamName(game.refTeam)));
-    card.append(ref);
-  }
   return card;
 }
 
@@ -275,8 +270,8 @@ function renderNow(slots) {
     $('#now .section-head h2').textContent = 'On the courts';
     heading.textContent =
       live === slot.slot
-        ? 'Playing right now. Whoever isn\'t playing is refereeing.'
-        : `Up next — slot ${slot.slot} at ${slot.time}. Two of the teams sitting out are refereeing.`;
+        ? 'Playing right now.'
+        : `Up next — slot ${slot.slot} at ${slot.time}.`;
   }
 
   const bracket = currentBracket();
@@ -594,10 +589,6 @@ function renderSchedule(slots) {
           el('span', 'vs', ' v '),
           el(g.status === 'final' && !aWins ? 'b' : 'span', null, bName)
         );
-        if (g.refTeam && g.status !== 'final') {
-          matchTd.append(el('div', 'ref-line', `ref: ${teamName(g.refTeam)}`));
-        }
-
         if (g.status === 'final' && g.forfeitBy) {
           // A game nobody played gets a word, not the nominal 1-0 it is stored as.
           resultTd.append(el('span', 'conceded-tag', 'Conceded'));
