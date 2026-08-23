@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>History · Neal's Grass Volleyball Tournament</title>
+<meta name="description" content="Every grass volleyball tournament we've run — champions, rosters, brackets and final standings.">
+<meta name="theme-color" content="#12351F">
+
+<meta property="og:title" content="History · Neal's Grass Volleyball Tournament">
+<meta property="og:description" content="Champion banners, full brackets and every roster, from every tournament.">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏐</text></svg>">
+</head>
+<body class="history-page">
+
+<div class="wrap">
+  <a class="backlink" href="index.html">← Back to the tournament</a>
+</div>
+
+<header class="pagehead">
+  <div class="wrap">
+    <p class="eyebrow">Neal's Grass Volleyball Tournament</p>
+    <h1>Every one we've<br><span class="year">ever played</span></h1>
+    <p class="pagehead-sub">There are no rafters at a lakefront park. What you string between two
+      poles is a net — so that's what the champions hang from. Tap a banner for that day's full record.</p>
+  </div>
+</header>
+
+<!-- The cable. Banners hang from it; it gets longer every time we run this. -->
+<section class="wall">
+  <div class="rig">
+    <span class="pole left" aria-hidden="true"></span>
+    <span class="pole right" aria-hidden="true"></span>
+    <svg class="cable" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M2 6 Q 500 46 998 6" fill="none" stroke="#B9C4AC" stroke-width="2" opacity=".75"/>
+      <path d="M2 11 Q 500 51 998 11" fill="none" stroke="#B9C4AC" stroke-width="1" opacity=".3"/>
+    </svg>
+    <div class="banners" id="banners" role="tablist" aria-label="Tournaments"></div>
+  </div>
+</section>
+
+<section class="detail"><div class="wrap detail-inner" id="detail"></div></section>
+<section class="past-teams"><div class="wrap past-teams-inner" id="past-teams"></div></section>
+
+<footer>
+  <p>Player contact details are never stored or shown here.</p>
+</footer>
+
+<script type="module" src="js/history.js"></script>
+</body>
+</html>

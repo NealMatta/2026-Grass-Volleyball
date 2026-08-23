@@ -1,7 +1,9 @@
 {
   "_comment": "Single source of truth for the schedule. scripts/verify-schedule.mjs asserts the invariants against this file — do not hand-edit without re-running it.",
   "tournament": {
-    "name": "2026 Grass Volleyball",
+    "name": "Neal's Grass Volleyball Tournament",
+    "slug": "grass-volleyball",
+    "status": "none",
     "date": "2026-08-22",
     "dayOfWeek": "Saturday",
     "startTime": "10:00",

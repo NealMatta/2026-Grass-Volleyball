@@ -97,7 +97,7 @@ export function mountAdmin(store) {
         col.append(el('div', 'when', `${g.label ?? `Slot ${g.slot}`} · ${g.time} · Court ${g.court}`));
         col.append(el('div', 'who', label(g)));
         btn.append(col);
-        btn.append(el('span', 'done', `${g.scoreA}–${g.scoreB}`));
+        btn.append(el('span', 'done', g.forfeitBy ? 'Conceded' : `${g.scoreA}–${g.scoreB}`));
         btn.addEventListener('click', () => { view = { name: 'score', gameId: g.id }; render(); });
         picker.append(btn);
       }
@@ -148,11 +148,51 @@ export function mountAdmin(store) {
       return { label, input };
     };
 
-    const A = mk(aId, game.scoreA);
-    const B = mk(bId, game.scoreB);
+    // A conceded game carries a nominal 1-0. Showing that in the score boxes
+    // would invite someone to "correct" it into a real-looking result.
+    const A = mk(aId, game.forfeitBy ? null : game.scoreA);
+    const B = mk(bId, game.forfeitBy ? null : game.scoreB);
+
+    if (game.forfeitBy) {
+      body.append(el('p', 'forfeit-note', `${teamName(game.forfeitBy)} conceded this game. ` +
+        'Entering scores below replaces that with a played result.'));
+    }
 
     pair.append(A.label, el('div', 'vs', 'v'), B.label);
     body.append(pair);
+
+    // Not every game gets played. Somebody doesn't show, or a team is done for
+    // the day and concedes. Without this the only way to record that was to
+    // invent a scoreline, which is how the 2026 third-place game ended up
+    // stored as a 1-0 that never happened.
+    const forfeitWrap = el('div', 'forfeit-block');
+    forfeitWrap.append(el('p', 'forfeit-head', 'Not played?'));
+
+    const forfeitRow = el('div', 'forfeit-row');
+    const concede = async (loserId, winnerId, btn) => {
+      btn.disabled = true;
+      btn.textContent = 'Saving…';
+      try {
+        await submitScore({ gameId, forfeitBy: loserId });
+        await store.refresh();
+        view = { name: 'list' };
+        render();
+        say(`${teamName(loserId)} conceded — ${teamName(winnerId)} takes it.`, 'ok');
+      } catch (err) {
+        btn.disabled = false;
+        btn.textContent = `${teamName(loserId)} conceded`;
+        say(err.message, 'error');
+      }
+    };
+
+    for (const [loser, winner] of [[aId, bId], [bId, aId]]) {
+      if (!loser || !winner) continue;
+      const b = el('button', 'btn ghost small', `${teamName(loser)} conceded`);
+      b.type = 'button';
+      b.addEventListener('click', () => concede(loser, winner, b));
+      forfeitRow.append(b);
+    }
+    forfeitWrap.append(forfeitRow);
 
     const save = el('button', 'btn', game.status === 'final' ? 'Update score' : 'Submit score');
     save.type = 'button';
@@ -179,6 +219,7 @@ export function mountAdmin(store) {
       }
     });
     body.append(save);
+    body.append(forfeitWrap);
 
     if (game.status === 'final') {
       const clear = el('button', 'btn ghost', 'Clear this result');

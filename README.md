@@ -1,6 +1,6 @@
-# 2026 Grass Volleyball
+# Neal's Grass Volleyball Tournament
 
-First (hopefully annual) grass volleyball tournament in Chicago.
+Grass volleyball in Chicago, run every month or two.
 
 **Saturday, August 22, 2026 · 10:00am · [AIDS Garden Chicago](https://maps.app.goo.gl/3XGj2SXXnHnxGyKL7)**
 
@@ -9,6 +9,9 @@ First (hopefully annual) grass volleyball tournament in Chicago.
 Live standings, bracket and schedule. Send this link to the captains.
 
 7 teams · 2 courts · every team plays 5–6 games · done by ~2:10pm
+
+**[History →](https://grass-volleyball-2026.netlify.app/history.html)** — champions, brackets and
+every roster from every tournament we've run.
 
 > **If it rains, it's cancelled.** Captains get a text by 8:00am.
 
@@ -83,6 +86,12 @@ wins, head-to-head, differential *and* points scored, the site says so and asks 
 winner rather than guessing. Once the semis start, hit **Lock seeding** so a late correction can't
 reshuffle a game already in progress.
 
+**A game that never happened** — a team doesn't show, or concedes — gets recorded with
+**Not played?** → *«Team» conceded*, rather than by inventing a scoreline. That stores a
+nominal 1–0 so standings still resolve a winner, and the site shows "Conceded" instead of
+a score. The 1–0 is deliberate: it decides the game without a match nobody played moving
+anyone's point differential.
+
 Mistyped a score? Tap the finished game and fix it. Everything here is reversible, which is what
 makes leaving the door open reasonable — a wrong number is a ten-second correction rather than
 something anyone has to go find the organiser about.
@@ -91,11 +100,27 @@ The trade-off, stated plainly: the site is public, so this trusts everyone who h
 only the people at the park. To put a passcode back, set an `ADMIN_PASSCODE` secret and reinstate
 the check marked in `supabase/functions/submit-score/index.ts`.
 
+## Between tournaments
+
+The live Supabase tables hold exactly one tournament. Running the next one wipes them, so
+every finished event is frozen into `data/history/<date>-<slug>.json` first — those files
+are the permanent record and the only copy once the tables are reset.
+
+`history.html` reads them directly: no database, no polling, so it keeps working even if
+the Supabase project is paused or gone.
+
+When nothing is booked, set `tournament.status` to `"none"` in `data/schedule.json`. The
+homepage then shows a "to be scheduled" placeholder, makes no database calls at all, and
+points people at the history page.
+
+**Full checklist: [docs/RUNNING-THE-NEXT-ONE.md](docs/RUNNING-THE-NEXT-ONE.md).**
+
 ## Development
 
 Plain HTML/CSS/JS, no framework. Supabase for live scores, Netlify for hosting.
 
 ```bash
+npm run archive   # freeze the finished tournament into data/history/ — do this FIRST
 npm run verify    # schedule invariants + standings/bracket unit tests
 npm run gen       # regenerate docs/SCHEDULE.md and supabase/seed.sql from data/
 npm run build     # assemble dist/
@@ -139,10 +164,14 @@ the service role key that never leaves the server.
 ### Layout
 
 ```
+index.html               the tournament currently being run
+history.html             every tournament we've ever run
+
 data/teams.json          rosters — names only
-data/schedule.json       the 9 slots, source of truth
+data/schedule.json       the slots + tournament meta, source of truth
+data/history/            frozen records of finished tournaments — the permanent copy
 data/raw/                gitignored — raw signup CSV
-scripts/                 schedule verification, doc generation, dry run
-docs/                    format, rules, schedule, logistics, paper scoresheet
+scripts/                 schedule verification, doc generation, archiving, dry run
+docs/                    format, rules, schedule, logistics, scoresheet, organiser runbook
 supabase/                schema, RLS policies, score submission function
 ```

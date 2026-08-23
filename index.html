@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>2026 Grass Volleyball</title>
-<meta name="description" content="Seven teams, two courts, one Saturday on the Chicago lakefront. Live scores, standings and bracket.">
+<title>Neal's Grass Volleyball Tournament</title>
+<meta name="description" content="Grass volleyball on the Chicago lakefront. Live scores, standings and bracket.">
 <meta name="theme-color" content="#12351F">
 
-<meta property="og:title" content="2026 Grass Volleyball">
-<meta property="og:description" content="Saturday August 22 · AIDS Garden Chicago · 7 teams, 2 courts, done by 2:10.">
+<meta property="og:title" content="Neal's Grass Volleyball Tournament">
+<meta property="og:description" content="Grass volleyball on the Chicago lakefront. Live scores, standings and bracket.">
 <meta property="og:type" content="website">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,24 +39,12 @@
   </svg>
 
   <div class="hero-inner">
-    <p class="eyebrow">First annual · Chicago</p>
-    <h1><span class="year">2026</span> Grass Volleyball</h1>
+    <p class="eyebrow" id="hero-eyebrow">Chicago</p>
+    <h1><span class="year">Neal&rsquo;s</span> Grass Volleyball</h1>
 
-    <div class="hero-meta">
-      <span>Saturday, August 22</span>
-      <span class="sep">·</span>
-      <span>10:00am</span>
-      <span class="sep">·</span>
-      <a class="pin" href="https://maps.app.goo.gl/3XGj2SXXnHnxGyKL7" target="_blank" rel="noopener">
-        <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true">
-          <path d="M8 0a8 8 0 0 0-8 8c0 5.5 8 12 8 12s8-6.5 8-12a8 8 0 0 0-8-8Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/>
-        </svg>
-        AIDS Garden Chicago
-      </a>
-    </div>
-
-    <p class="rain">Seven teams, two courts, five to six games each. Done by 2:10pm.<br>
-      If it rains, it's cancelled — captains get a text by 8am.</p>
+    <!-- Filled from data/schedule.json. Hidden entirely when nothing is booked. -->
+    <div class="hero-meta" id="hero-meta" hidden></div>
+    <p class="rain" id="hero-note" hidden></p>
   </div>
 </header>
 
@@ -72,11 +60,24 @@
       <a href="#schedule">Schedule</a>
       <a href="#rules">Rules</a>
       <a href="#logistics">Getting there</a>
+      <a href="history.html">History</a>
     </span>
   </div>
 </nav>
 
 <main>
+
+<!-- Between tournaments. js/app.js shows this and hides every live section
+     when data/schedule.json says no event is booked. -->
+<section class="section dormant" id="dormant" hidden>
+  <div class="dormant-card">
+    <p class="eyebrow">Next tournament</p>
+    <h2>To be scheduled</h2>
+    <p>Nothing on the calendar right now. Text Neal if you want in on the next one &mdash;
+      teams get put together a couple of weeks out.</p>
+    <a class="dormant-link" href="history.html">See every tournament we&rsquo;ve played &rarr;</a>
+  </div>
+</section>
 
 <section class="section" id="now">
   <div class="section-head">
@@ -259,6 +260,18 @@
   </div>
 </section>
 
+
+<section class="section" id="history-callout">
+  <a class="callout" href="history.html">
+    <span class="callout-text">
+      <span class="eyebrow">Past tournaments</span>
+      <strong>Champions, brackets and every roster</strong>
+      <span class="callout-sub">Every tournament we&rsquo;ve run, kept for good.</span>
+    </span>
+    <span class="callout-go" aria-hidden="true">&rarr;</span>
+  </a>
+</section>
+
 </main>
 
 <button class="admin-fab" id="admin-open">Enter a score</button>
@@ -272,7 +285,7 @@
 </dialog>
 
 <footer>
-  <p>Built for the first (hopefully annual) grass volleyball tournament in Chicago.<br>
+  <p>Grass volleyball in Chicago, whenever we can get a field.<br>
   Player contact details are never stored or shown here.</p>
 </footer>
 

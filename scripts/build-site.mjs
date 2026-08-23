@@ -21,10 +21,14 @@ const dist = join(root, 'dist');
 // Explicit allowlist. Adding a file to the site means adding it here.
 const INCLUDE = [
   'index.html',
+  'history.html',
   'css',
   'js',
   'data/teams.json',
   'data/schedule.json',
+  // Frozen records of finished tournaments. The live tables get wiped between
+  // events, so these files are the only copy — they have to ship.
+  'data/history',
 ];
 
 rmSync(dist, { recursive: true, force: true });

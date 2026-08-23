@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "archive": "node scripts/archive-tournament.mjs",
     "verify": "node scripts/verify-schedule.mjs && node scripts/test-standings.mjs",
     "gen": "node scripts/gen-schedule-doc.mjs && node scripts/gen-scoresheet.mjs && node scripts/gen-seed-sql.mjs",
     "build": "node scripts/build-site.mjs",

@@ -229,11 +229,19 @@ function gameCard(game, { live = false, resolved = null } = {}) {
   if (game.status === 'final') seenFinal.add(`${game.id}:${game.scoreA}-${game.scoreB}`);
 
   const wrap = el('div', 'matchup');
+  // A forfeited game is stored with a nominal 1-0 so standings still resolve a
+  // winner. Showing that number would read as a scoreline for a game that was
+  // never played, so the card names the concession instead.
+  const showScores = game.status === 'final' && !game.forfeitBy;
   wrap.append(
-    sideRow(a.teamId, game.status === 'final' ? game.scoreA : null, aWins, a.source, fresh),
-    sideRow(b.teamId, game.status === 'final' ? game.scoreB : null, !aWins, b.source, fresh)
+    sideRow(a.teamId, showScores ? game.scoreA : null, aWins, a.source, fresh),
+    sideRow(b.teamId, showScores ? game.scoreB : null, !aWins, b.source, fresh)
   );
   card.append(wrap);
+
+  if (game.forfeitBy) {
+    card.append(el('div', 'conceded-line', `${teamName(game.forfeitBy)} conceded`));
+  }
 
   if (game.refTeam) {
     const ref = el('div', 'reffed');
@@ -262,7 +270,7 @@ function renderNow(slots) {
 
   if (allDone) {
     $('#now .section-head h2').textContent = 'How it finished';
-    heading.textContent = 'That\'s a wrap. Same time next year.';
+    heading.textContent = 'That\'s a wrap. Thanks for coming out.';
   } else {
     $('#now .section-head h2').textContent = 'On the courts';
     heading.textContent =
@@ -590,7 +598,10 @@ function renderSchedule(slots) {
           matchTd.append(el('div', 'ref-line', `ref: ${teamName(g.refTeam)}`));
         }
 
-        if (g.status === 'final') {
+        if (g.status === 'final' && g.forfeitBy) {
+          // A game nobody played gets a word, not the nominal 1-0 it is stored as.
+          resultTd.append(el('span', 'conceded-tag', 'Conceded'));
+        } else if (g.status === 'final') {
           resultTd.append(el('span', aWins ? 'won' : 'lost', String(g.scoreA)));
           resultTd.append(el('span', 'dash', '–'));
           resultTd.append(el('span', aWins ? 'lost' : 'won', String(g.scoreB)));
@@ -604,9 +615,85 @@ function renderSchedule(slots) {
   }
 }
 
+/* ------------------------------------------------------------- dormant --- */
+
+/** Sections that only make sense while a tournament is actually happening. */
+const LIVE_SECTIONS = ['#now', '#standings', '#bracket', '#teams', '#schedule',
+                       '#rules', '#logistics', '#history-callout'];
+
+/** Is there a tournament booked? Explicit flag, not a date comparison — the
+ *  site should not flip itself over at midnight without anyone deciding to. */
+const isDormant = () => store.tournament?.status === 'none';
+
+/**
+ * Fill the hero from data/schedule.json, and switch the page between "a
+ * tournament is on" and "nothing booked yet". Everything dated lives in the
+ * data file so the next event is a data edit rather than a markup edit.
+ */
+function renderHero() {
+  const t = store.tournament;
+  const dormant = isDormant();
+
+  $('#dormant').hidden = !dormant;
+  for (const sel of LIVE_SECTIONS) {
+    const node = $(sel);
+    if (node) node.hidden = dormant;
+  }
+  $('.statusbar').hidden = dormant;
+  const fab = $('#admin-open');
+  if (fab) fab.hidden = dormant;
+
+  const meta = $('#hero-meta');
+  const note = $('#hero-note');
+
+  if (dormant || !t) {
+    meta.hidden = true;
+    note.hidden = true;
+    return;
+  }
+
+  meta.textContent = '';
+  const bits = [];
+  if (t.date) bits.push(longDate(t.date, t.dayOfWeek));
+  if (t.startTime) bits.push(t.startTime.replace(/^0/, '') + 'am');
+  for (const [i, b] of bits.entries()) {
+    if (i) meta.append(el('span', 'sep', '·'));
+    meta.append(el('span', null, b));
+  }
+  if (t.venue) {
+    meta.append(el('span', 'sep', '·'));
+    const pin = el('a', 'pin', t.venue);
+    pin.href = t.mapUrl ?? '#';
+    pin.target = '_blank';
+    pin.rel = 'noopener';
+    meta.append(pin);
+  }
+  meta.hidden = bits.length === 0 && !t.venue;
+
+  if (t.rainPolicy) {
+    note.textContent = t.rainPolicy;
+    note.hidden = false;
+  } else {
+    note.hidden = true;
+  }
+}
+
+/** "2026-08-22" -> "Saturday, August 22". Parsed by hand: the Date constructor
+ *  reads a bare ISO date as UTC, which renders as the day before in Chicago. */
+function longDate(iso, dayOfWeek) {
+  const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+                  'August', 'September', 'October', 'November', 'December'];
+  const [, m, d] = iso.split('-').map(Number);
+  const stem = `${MONTHS[m - 1]} ${d}`;
+  return dayOfWeek ? `${dayOfWeek}, ${stem}` : stem;
+}
+
 /* ----------------------------------------------------------------- run --- */
 
 function renderAll() {
+  renderHero();
+  if (isDormant()) return;   // nothing else on the page to draw
+
   const slots = slotsOf(store.games);
   renderStatus(slots);
   renderNow(slots);
@@ -635,15 +722,40 @@ async function refresh() {
 
 store.refresh = refresh;
 
-await refresh();
-mountAdmin(store);
-mountReveal();
+/**
+ * Between tournaments there is nothing live to show, so the page renders the
+ * placeholder and stops there — no Supabase request, no polling, no admin
+ * panel. Checked from data/schedule.json before anything else so a dormant
+ * site makes no database calls at all rather than making them and hiding the
+ * result.
+ */
+async function boot() {
+  let tournament = null;
+  try {
+    tournament = await (await fetch('data/schedule.json')).json().then((d) => d.tournament);
+  } catch {
+    // Unreadable schedule file: fall through and let the normal path try.
+  }
 
-setInterval(refresh, POLL_MS);
-// The live/next slot changes with the clock, not just with the data.
-setInterval(() => renderAll(), 30000);
+  if (tournament?.status === 'none') {
+    store.tournament = tournament;
+    renderHero();
+    mountReveal();
+    return;
+  }
 
-// Refresh immediately when someone returns to the tab.
-document.addEventListener('visibilitychange', () => {
-  if (!document.hidden) refresh();
-});
+  await refresh();
+  mountAdmin(store);
+  mountReveal();
+
+  setInterval(refresh, POLL_MS);
+  // The live/next slot changes with the clock, not just with the data.
+  setInterval(() => renderAll(), 30000);
+
+  // Refresh immediately when someone returns to the tab.
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) refresh();
+  });
+}
+
+await boot();

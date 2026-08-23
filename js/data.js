@@ -13,7 +13,7 @@
 const SUPABASE_URL = 'https://yxmkothzqvyptftedlen.supabase.co';
 
 // Public by design — this key only grants the read-only access defined by RLS.
-// All writes go through the submit-score function, which requires the passcode.
+// All writes go through the submit-score function.
 const SUPABASE_ANON_KEY =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl4bWtvdGh6cXZ5cHRmdGVkbGVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2NTYzMTIsImV4cCI6MjEwMjIzMjMxMn0.t-N0uqb0dWKKJCWtPZKmZ76SzYw1rt2gUIGYxgUTJeI';
 
@@ -53,6 +53,9 @@ const mapGame = (g) => ({
   bLoserOf: g.b_loser_of,
   scoreA: g.score_a,
   scoreB: g.score_b,
+  // Set when the game was never played and one side conceded. The scores stay
+  // nominal so standings still resolve a winner; only the display changes.
+  forfeitBy: g.forfeit_by ?? null,
   status: g.status,
 });
 
@@ -88,6 +91,7 @@ async function loadBundled() {
       bLoserOf: typeof g.b === 'object' ? g.b.loserOf ?? null : null,
       scoreA: null,
       scoreB: null,
+      forfeitBy: null,
       status: 'scheduled',
     }))
   );
@@ -146,9 +150,16 @@ async function callFunction(payload, failure) {
   return body;
 }
 
-/** Submit or correct a score. */
-export const submitScore = ({ gameId, scoreA, scoreB }) =>
-  callFunction({ action: 'score', gameId, scoreA, scoreB }, 'Submit failed');
+/**
+ * Submit or correct a score.
+ *
+ * Pass `forfeitBy` (a team id) instead of scores when the game was never
+ * played. The function writes a nominal 1-0 against that team so standings
+ * still resolve a winner, and flags the game so the site says "Conceded"
+ * rather than printing a scoreline nobody earned.
+ */
+export const submitScore = ({ gameId, scoreA, scoreB, forfeitBy = null }) =>
+  callFunction({ action: 'score', gameId, scoreA, scoreB, forfeitBy }, 'Submit failed');
 
 /** Reopen a final game so it can be corrected. */
 export const reopenGame = ({ gameId }) =>

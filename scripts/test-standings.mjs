@@ -6,6 +6,8 @@
  * Run: node scripts/test-standings.mjs
  */
 
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { computeStandings, unresolvedTies, poolComplete } from '../js/standings.js';
 import { computeBracket, winnerOf, finalPlacings } from '../js/bracket.js';
 
@@ -284,6 +286,25 @@ const deadHeat = () => {
 {
   check('11. no winner while scheduled', winnerOf({ status: 'scheduled', teamA: 'a', teamB: 'b' }), null);
   check('11. no winner for missing game', winnerOf(undefined), null);
+}
+
+// --- 12. The edge function's copy of standings.js has not drifted ------------
+//
+// The browser resolves the bracket live and the edge function has to reach the
+// same seed order, or the phone offers a semifinal the server then refuses to
+// score. They share the file by copy (edge functions can only import from under
+// supabase/functions/), so the copy is checked rather than trusted.
+{
+  const read = (rel) => readFileSync(fileURLToPath(new URL(rel, import.meta.url)), 'utf8');
+  const source = read('../js/standings.js');
+  const copy = read('../supabase/functions/_shared/standings.js');
+
+  check(
+    '12. supabase/functions/_shared/standings.js matches js/standings.js'
+      + ' (fix: cp js/standings.js supabase/functions/_shared/standings.js)',
+    copy.endsWith(source),
+    true
+  );
 }
 
 // --- Report ------------------------------------------------------------------
