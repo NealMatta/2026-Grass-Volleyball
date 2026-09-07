@@ -4,13 +4,13 @@ Grass volleyball in Chicago, run every month or two.
 
 **Saturday, August 22, 2026 · 10:00am · [AIDS Garden Chicago](https://maps.app.goo.gl/3XGj2SXXnHnxGyKL7)**
 
-### → [grass-volleyball-2026.netlify.app](https://grass-volleyball-2026.netlify.app)
+### → [neals-volleyball-chicago.netlify.app](https://neals-volleyball-chicago.netlify.app)
 
 Live standings, bracket and schedule. Send this link to the captains.
 
 7 teams · 2 courts · every team plays 5–6 games · done by ~2:10pm
 
-**[History →](https://grass-volleyball-2026.netlify.app/history.html)** — champions, brackets and
+**[History →](https://neals-volleyball-chicago.netlify.app/history.html)** — champions, brackets and
 every roster from every tournament we've run.
 
 > **If it rains, it's cancelled.** Captains get a text by 8:00am.
