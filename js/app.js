@@ -610,7 +610,7 @@ function renderSchedule(slots) {
 
 /** Sections that only make sense while a tournament is actually happening. */
 const LIVE_SECTIONS = ['#now', '#standings', '#bracket', '#teams', '#schedule',
-                       '#rules', '#logistics', '#history-callout'];
+                       '#rules', '#logistics', '#stay-updated', '#history-callout'];
 
 /** Is there a tournament booked? Explicit flag, not a date comparison — the
  *  site should not flip itself over at midnight without anyone deciding to. */

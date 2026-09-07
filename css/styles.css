@@ -781,6 +781,15 @@ footer a { color: var(--chalk-dim); }
 }
 .dormant-link:hover { color: var(--chalk); }
 
+/* Second way out of the dormant card. The form is the ask; the history is just
+   there for anyone who would rather look around before handing over a number. */
+.dormant-alt {
+  display: block; width: fit-content; margin: 1.1rem auto 0;
+  color: var(--chalk-faint); font-size: .82rem; text-decoration: none;
+  border-bottom: 1px solid currentColor; padding-bottom: .15rem;
+}
+.dormant-alt:hover { color: var(--chalk-dim); }
+
 /* The way to the history page while a tournament is running. */
 .callout {
   display: flex; align-items: center; justify-content: space-between; gap: 1rem;
