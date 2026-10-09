@@ -99,6 +99,14 @@ Bracket slots reference positions rather than teams, and resolve themselves:
 
 Keep the game ids (`p1`, `sf1`, `final`, `third`) — other things key off them.
 
+**Double elimination** uses four more ids, and the site switches to that layout when it sees `wf`:
+`wf` (winners' final), `le` (elimination match), `lf` (losers' final) and `decider`. The `decider`
+is the extra game played only if the losers' bracket team wins `final`; the site hides it and stops
+asking for a score when it isn't needed. October 2026's `data/schedule.json` is the worked example.
+
+**Best of three** is `"bestOf": 3` in `gameRules.bracket`. Those matches are stored as games won
+(2–0, 2–1) in the normal score columns, so nothing else changes.
+
 ---
 
 ## 3. Check it
@@ -126,7 +134,9 @@ Rewrites `docs/SCHEDULE.md`, `docs/scoresheet.md` and `supabase/seed.sql` from t
 files. Don't hand-edit those three — they're outputs.
 
 Then apply `supabase/seed.sql` to the database (Supabase dashboard → SQL editor, or
-`supabase db push`). That replaces the teams and games with the new tournament.
+`supabase db push`). That replaces the teams and games with the new tournament, and deletes any
+teams and games left over from the last one. Do step 1 first: the seed fails, safely, if an old
+score still points at a team it is trying to remove.
 
 ---
 

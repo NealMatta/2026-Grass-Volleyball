@@ -7,7 +7,7 @@
 
 import { fetchAll, POLL_MS } from './data.js';
 import { computeStandings, unresolvedTies, poolComplete } from './standings.js';
-import { computeBracket, finalPlacings } from './bracket.js';
+import { computeBracket, finalPlacings, isMoot, outstanding, titleGame, winnerOf } from './bracket.js';
 import { mountAdmin } from './admin.js';
 
 const $ = (sel) => document.querySelector(sel);
@@ -24,6 +24,7 @@ const store = {
   games: [],
   state: { bracketLocked: false, manualTiebreaks: {}, lockedSeeds: null },
   tournament: null,
+  rules: null,
   offline: false,
   byId: new Map(),
   refresh: null,
@@ -122,7 +123,8 @@ function slotDate(timeStr) {
   return new Date(Y, M - 1, D, hour, m, 0);
 }
 
-const SLOT_MINUTES = 25;
+/** How long a slot runs. Bracket slots are longer when matches are best of three. */
+const slotMinutes = (s) => store.rules?.[s.phase]?.slotMinutes ?? 25;
 
 /**
  * Which slot is live right now, purely from the clock. Returns null before the
@@ -133,7 +135,7 @@ function currentSlot(slots) {
   for (const s of slots) {
     const start = slotDate(s.time);
     if (!start) return null;
-    const end = new Date(start.getTime() + SLOT_MINUTES * 60000);
+    const end = new Date(start.getTime() + slotMinutes(s) * 60000);
     if (now >= start && now < end) return s.slot;
   }
   return null;
@@ -156,17 +158,13 @@ function renderStatus(slots) {
   const node = $('#status-text');
   node.textContent = '';
 
-  const firstUnplayed = store.games.find((g) => g.status !== 'final');
-  const done = store.games.every((g) => g.status === 'final');
+  const firstUnplayed = outstanding(store.games)[0];
+  const done = !firstUnplayed;
 
   if (done) {
     node.append('Tournament complete. ');
-    const champ = store.games.find((g) => g.id === 'final');
-    if (champ?.status === 'final') {
-      const w = champ.scoreA > champ.scoreB ? champ.teamA : champ.teamB;
-      const strong = el('strong', null, teamName(w));
-      node.append('Champion: ', strong);
-    }
+    const w = winnerOf(titleGame(store.games));
+    if (w) node.append('Champion: ', el('strong', null, teamName(w)));
     return;
   }
 
@@ -261,7 +259,7 @@ function renderNow(slots) {
   if (!slot) return;
 
   const heading = $('#now .section-head p');
-  const allDone = store.games.length > 0 && store.games.every((g) => g.status === 'final');
+  const allDone = store.games.length > 0 && outstanding(store.games).length === 0;
 
   if (allDone) {
     $('#now .section-head h2').textContent = 'How it finished';
@@ -420,6 +418,34 @@ function connector(kind) {
   return col;
 }
 
+/** A bracket column: a label over one or more match boxes. */
+function roundCol(label, games) {
+  const col = el('div', 'round');
+  const time = games.find(Boolean)?.time;
+  col.append(el('div', 'round-label', time ? `${label} · ${time}` : label));
+  const matches = el('div', 'matches');
+  for (const g of games) if (g) matches.append(matchBox(g));
+  col.append(matches);
+  return col;
+}
+
+function championCol(champId, pendingLabel = 'Winner of the final') {
+  const col = el('div', 'round champ-round');
+  col.append(el('div', 'round-label', 'Champion'));
+  const wrap = el('div', 'matches');
+  const champ = el('div', `champion${champId ? '' : ' pending'}`);
+  champ.append(el('div', 'trophy', '🏐'));
+  if (champId) {
+    champ.append(el('div', 'label', 'Champion'));
+    champ.append(el('div', 'name', teamName(champId)));
+  } else {
+    champ.append(el('div', 'label', pendingLabel));
+  }
+  wrap.append(champ);
+  col.append(wrap);
+  return col;
+}
+
 function renderBracket() {
   const grid = $('#bracket-grid');
   grid.textContent = '';
@@ -430,6 +456,7 @@ function renderBracket() {
   const sf2 = byId('sf2');
   const final = byId('final');
   const third = byId('third');
+  const title = titleGame(b.games);
 
   const note = $('#bracket .section-head p');
   if (b.locked) note.textContent = 'Seeding is locked. Late pool corrections no longer move the bracket.';
@@ -437,41 +464,42 @@ function renderBracket() {
   else if (b.poolComplete && b.unresolvedTies.length) note.textContent = 'Seeding is blocked by a dead heat — see standings.';
   else note.textContent = 'Seeded automatically the moment the last pool game is in.';
 
-  // --- the tree: semis -> final -> champion ---------------------------------
-  const tree = el('div', 'bracket-tree');
+  const bestOf = store.rules?.bracket?.bestOf;
+  if (bestOf) note.textContent += ` Matches are best of ${bestOf} — the numbers shown are games won.`;
 
-  const semisCol = el('div', 'round');
-  const semisTime = sf1?.time ?? sf2?.time;
-  semisCol.append(el('div', 'round-label', semisTime ? `Semifinals · ${semisTime}` : 'Semifinals'));
-  const semisMatches = el('div', 'matches');
-  if (sf1) semisMatches.append(matchBox(sf1));
-  if (sf2) semisMatches.append(matchBox(sf2));
-  semisCol.append(semisMatches);
+  const champId = winnerOf(title);
 
-  const finalCol = el('div', 'round');
-  finalCol.append(el('div', 'round-label', final?.time ? `Final · ${final.time}` : 'Final'));
-  const finalMatches = el('div', 'matches');
-  if (final) finalMatches.append(matchBox(final));
-  finalCol.append(finalMatches);
+  if (byId('wf')) {
+    // --- double elimination: three short trees, stacked ----------------------
+    const row = (label, ...cols) => {
+      const tree = el('div', 'bracket-tree short');
+      tree.append(...cols);
+      grid.append(el('div', 'round-label', label), tree);
+    };
 
-  const champCol = el('div', 'round champ-round');
-  champCol.append(el('div', 'round-label', 'Champion'));
-  const champWrap = el('div', 'matches');
+    row("Winners' bracket",
+      roundCol('Semifinals', [sf1, sf2]), connector('merge'), roundCol("Winners' final", [byId('wf')]));
 
-  const champId = final?.status === 'final' ? (final.scoreA > final.scoreB ? final.teamA : final.teamB) : null;
-  const champ = el('div', `champion${champId ? '' : ' pending'}`);
-  champ.append(el('div', 'trophy', '🏐'));
-  if (champId) {
-    champ.append(el('div', 'label', 'Champion'));
-    champ.append(el('div', 'name', teamName(champId)));
+    row("Losers' bracket — lose here and you're out",
+      roundCol('Elimination', [byId('le')]), connector('line'), roundCol("Losers' final", [byId('lf')]));
+
+    // The deciding game drops out of the picture once it's known to be moot.
+    const decider = byId('decider');
+    const champCols = [roundCol('Final', [final]), connector('line')];
+    const deciderOn = decider && !isMoot(decider, b.games);
+    if (deciderOn) champCols.push(roundCol('If needed', [decider]), connector('line'));
+    // Until the final is in, the deciding game may never happen — don't promise it.
+    const awaiting = deciderOn && final?.status === 'final' ? 'Winner of the deciding game' : undefined;
+    row('Championship', ...champCols, championCol(champId, awaiting));
   } else {
-    champ.append(el('div', 'label', 'Winner of the final'));
+    // --- single elimination: semis -> final -> champion ----------------------
+    const tree = el('div', 'bracket-tree');
+    tree.append(
+      roundCol('Semifinals', [sf1, sf2]), connector('merge'),
+      roundCol('Final', [final]), connector('line'), championCol(champId)
+    );
+    grid.append(tree);
   }
-  champWrap.append(champ);
-  champCol.append(champWrap);
-
-  tree.append(semisCol, connector('merge'), finalCol, connector('line'), champCol);
-  grid.append(tree);
 
   // --- 3rd place sits outside the tree; it isn't on the path to the title ---
   if (third) {
@@ -483,7 +511,7 @@ function renderBracket() {
 
   // --- final standings ------------------------------------------------------
   const places = finalPlacings(b).filter((p) => p.teamId);
-  if (places.length && final?.status === 'final') {
+  if (places.length && champId) {
     const list = el('ol', 'placings');
     for (const p of places) {
       const li = el('li');
@@ -564,7 +592,7 @@ function renderSchedule(slots) {
   for (const s of slots) {
     const tr = el('tr', 'slot-row');
     if (s.slot === live) tr.classList.add('is-live-row');
-    if (s.games.every((g) => g.status === 'final')) tr.classList.add('is-done-row');
+    if (s.games.every((g) => g.status === 'final' || isMoot(g, store.games))) tr.classList.add('is-done-row');
 
     tr.append(el('td', 'slot-n', String(s.slot)));
     tr.append(el('td', null, s.time));
@@ -597,7 +625,7 @@ function renderSchedule(slots) {
           resultTd.append(el('span', 'dash', '–'));
           resultTd.append(el('span', aWins ? 'lost' : 'won', String(g.scoreB)));
         } else {
-          resultTd.append(el('span', 'pending', '—'));
+          resultTd.append(el('span', 'pending', isMoot(g, store.games) ? 'Not needed' : '—'));
         }
       }
       tr.append(matchTd, resultTd);
@@ -686,8 +714,10 @@ function renderAll() {
   if (isDormant()) return;   // nothing else on the page to draw
 
   const slots = slotsOf(store.games);
-  renderStatus(slots);
-  renderNow(slots);
+  // A deciding game nobody has to play shouldn't show up as "on the courts".
+  const played = slotsOf(store.games.filter((g) => !isMoot(g, store.games)));
+  renderStatus(played);
+  renderNow(played);
   renderStandings();
   renderBracket();
   renderTeams();
@@ -701,6 +731,7 @@ async function refresh() {
     store.games = data.games;
     store.state = data.state;
     store.tournament = data.tournament;
+    store.rules = data.rules;
     store.offline = data.offline;
     store.byId = new Map(data.teams.map((t) => [t.id, t]));
     $('#offline').hidden = !data.offline;

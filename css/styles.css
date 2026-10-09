@@ -388,6 +388,11 @@ td.neg { color: var(--clay); }
   min-height: 20rem;
 }
 
+/* Double elimination stacks three small trees; none needs the tall canvas. */
+.bracket-tree.short { min-height: 0; }
+.bracket-tree.short .matches > * { margin: .4rem 0; }
+#bracket-grid > .round-label:first-child { margin-top: 0; }
+
 .bracket-tree .round {
   display: flex;
   flex-direction: column;

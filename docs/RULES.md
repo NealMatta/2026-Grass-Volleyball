@@ -29,14 +29,20 @@ Borrowed wholesale from Montrose, because they were right.
 | | Points | Win by | Cap |
 |:--|:--|:--|:--|
 | **Pool games** | 21 | 2 | 23 |
-| **Bracket games** | 25 | 2 | 27 |
+| **Bracket games** | 21 | 2 | 23 |
+| **Bracket, third game** | 15 | 2 | 17 |
+| **Deciding game** | 21 | 2 | 23 |
+
+- **Bracket matches are best of three**, and the bracket is double elimination — lose twice and
+  you're out. If the team from the losers' bracket wins the final, one deciding game settles it.
+  See [FORMAT.md](FORMAT.md).
 
 - **Both scores get recorded, not just the winner.** Point differential is the third tiebreaker for
   bracket seeding, so a 21-8 win is worth more than a 21-19 win. Play the whole game out.
 - Teams enter their score on the website right after the game ends. Paper sheets are at each court
   as a backup.
-- Slots start 25 minutes apart. Keep an eye on the clock — nine slots on two courts is what fits
-  the day.
+- Pool slots start 25 minutes apart. Bracket matches start as soon as both teams are free.
+- On the website a bracket match is entered as **games won** (2–0 or 2–1), not points.
 
 ## Ball handling
 
@@ -47,7 +53,7 @@ Borrowed wholesale from Montrose, because they were right.
 
 ## Timing
 
-- Water break between every slot. It's August on the lakefront — actually drink it.
+- Water break between every slot.
 
 ---
 

@@ -38,7 +38,8 @@ const shortDate = (iso) => {
 
 /** Bracket game id → what to call that round. */
 const STAGE = { qf1: 'Quarterfinal', qf2: 'Quarterfinal', qf3: 'Quarterfinal', qf4: 'Quarterfinal',
-                sf1: 'Semifinal', sf2: 'Semifinal', third: '3rd place', final: 'Final' };
+                sf1: 'Semifinal', sf2: 'Semifinal', third: '3rd place', final: 'Final',
+                wf: "Winners' final", le: 'Elimination', lf: "Losers' final", decider: 'Decider' };
 
 const records = new Map();   // slug -> full record, fetched once
 

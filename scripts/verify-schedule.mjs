@@ -20,9 +20,11 @@ const { teams } = read('data/teams.json');
 const schedule = read('data/schedule.json');
 
 const COURTS = schedule.tournament.courts;
-const GAMES_PER_TEAM = 4;
 
 const ids = teams.map((t) => t.id);
+// Four pool games each, or a full round robin if the field is too small for that.
+const GAMES_PER_TEAM = Math.min(4, ids.length - 1);
+
 const name = (id) => teams.find((t) => t.id === id)?.name ?? id;
 
 const failures = [];
@@ -97,7 +99,8 @@ const runOf = (list) => {
   }
   return best;
 };
-for (const id of ids) {
+// With nobody sitting out there is no rhythm to check — everyone plays every slot.
+for (const id of FREE_PER_SLOT > 0 ? ids : []) {
   const resting = slotNums.filter((n) => !plays[id].includes(n));
   check(
     `${name(id)} never plays more than ${MAX_PLAY_RUN} slots in a row`,

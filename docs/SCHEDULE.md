@@ -3,7 +3,7 @@
 
 # Schedule
 
-**Saturday, August 22, 2026 · 10:00am start**
+**Saturday, October 10, 2026 · 10:00am start**
 
 AIDS Garden Chicago — 3003 N Lakefront Trail, Chicago, IL 60657
 *Lake Shore Dr & Belmont Ave, just south of Belmont Harbor*
@@ -20,46 +20,44 @@ Games to **21**, win by 2, cap 23. Slots start 25 minutes apart.
 
 | Slot | Time | Court 1 | Court 2 |
 |:--|:--|:--|:--|
-| 1 | 10:00 | Cinnamon Rolls v Cerve Aces | Perros Calientes v Bumping Buds |
-| 2 | 10:25 | Haikyuties v Perros Calientes | Deez Nets v Tequila Mockingbird |
-| 3 | 10:50 | Deez Nets v Cerve Aces | Cinnamon Rolls v Bumping Buds |
-| 4 | 11:15 | Haikyuties v Cinnamon Rolls | Tequila Mockingbird v Perros Calientes |
-| 5 | 11:40 | Haikyuties v Cerve Aces | Deez Nets v Bumping Buds |
-| 6 | 12:05 | Perros Calientes v Cerve Aces | Tequila Mockingbird v Cinnamon Rolls |
-| 7 | 12:30 | Deez Nets v Haikyuties | Tequila Mockingbird v Bumping Buds |
+| 1 | 10:00 | Deez Nets v Cinnamon Rolls | Annie's Friends v AAA Roadside Assistance |
+| 2 | 10:25 | Deez Nets v AAA Roadside Assistance | Annie's Friends v Cinnamon Rolls |
+| 3 | 10:50 | Deez Nets v Annie's Friends | AAA Roadside Assistance v Cinnamon Rolls |
 
 ### Per-team
 
 | Team | Your day, slot by slot | Plays | Off | Doesn't face |
 |:--|:--|:--|:--|:--|
-| Deez Nets | · **P** **P** · **P** · **P** | 2, 3, 5, 7 | 1, 4, 6 | Cinnamon Rolls, Perros Calientes |
-| Haikyuties | · **P** · **P** **P** · **P** | 2, 4, 5, 7 | 1, 3, 6 | Tequila Mockingbird, Bumping Buds |
-| Tequila Mockingbird | · **P** · **P** · **P** **P** | 2, 4, 6, 7 | 1, 3, 5 | Haikyuties, Cerve Aces |
-| Cinnamon Rolls | **P** · **P** **P** · **P** · | 1, 3, 4, 6 | 2, 5, 7 | Deez Nets, Perros Calientes |
-| Perros Calientes | **P** **P** · **P** · **P** · | 1, 2, 4, 6 | 3, 5, 7 | Deez Nets, Cinnamon Rolls |
-| Bumping Buds | **P** · **P** · **P** · **P** | 1, 3, 5, 7 | 2, 4, 6 | Haikyuties, Cerve Aces |
-| Cerve Aces | **P** · **P** · **P** **P** · | 1, 3, 5, 6 | 2, 4, 7 | Tequila Mockingbird, Bumping Buds |
+| Deez Nets | **P** **P** **P** | 1, 2, 3 |  |  |
+| Annie's Friends | **P** **P** **P** | 1, 2, 3 |  |  |
+| AAA Roadside Assistance | **P** **P** **P** | 1, 2, 3 |  |  |
+| Cinnamon Rolls | **P** **P** **P** | 1, 2, 3 |  |  |
 
-**P** = playing · **·** = off. Every team plays 4 pool games. Games are self-called.
-
-The schedule is built so nobody grinds: you never play more than two slots back to back, and never sit two slots in a row.
+**P** = playing · **·** = off. Every team plays 3 pool games. Games are self-called.
 
 ---
 
-## 12:55 break — standings posted, bracket seeded
+## 11:15 break — standings posted, bracket seeded
 
 ## Bracket
 
-Games to **25**, win by 2, cap 27.
+Every match is **best of 3**. Games to **21**, win by 2, cap 23; a third game goes to **15**, cap 17.
 
 Seeds come from pool record. The site computes them automatically.
 
+**Double elimination.** Lose once and you drop to the losers' bracket; lose twice and you're out.
+
+**Deciding Game** — only played if the team from the losers' bracket wins the final. That is the winners' bracket team's first loss, so they play one more game to 21 (cap 23) for the title.
+
 | Slot | Time | Court 1 | Court 2 |
 |:--|:--|:--|:--|
-| 8 | 1:05 | **Semifinal 1** — Seed #1 v Seed #4 | **Semifinal 2** — Seed #2 v Seed #3 |
-| 9 | 1:40 | **Final** — Winner of SF1 v Winner of SF2 | **3rd Place** — Loser of SF1 v Loser of SF2 |
+| 4 | 11:25 | **Semifinal 1** — Seed #1 v Seed #4 | **Semifinal 2** — Seed #2 v Seed #3 |
+| 5 | 12:30 | **Winners' Final** — Winner of Semifinal 1 v Winner of Semifinal 2 | **Elimination Match** — Loser of Semifinal 1 v Loser of Semifinal 2 |
+| 6 | 1:35 | **Losers' Final** — Loser of Winners' Final v Winner of Elimination Match | — |
+| 7 | 2:40 | **Final** — Winner of Winners' Final v Winner of Losers' Final | — |
+| 8 | 3:45 | **Deciding Game** — Winner of Final v Loser of Final | — |
 
-Finishes by **2:10pm** — 4h10m start to finish.
+Finishes by **4:10pm** — 6h10m start to finish, or 3:45pm if the deciding game isn't needed. Bracket times assume every match goes three games; start the next one as soon as both teams are free.
 
 ---
 

@@ -23,12 +23,15 @@ const t = schedule.tournament;
 const name = (id) => teams.find((x) => x.id === id)?.name ?? id;
 const ids = teams.map((x) => x.id);
 
+const labelOf = (gameId) =>
+  schedule.slots.flatMap((s) => s.games).find((g) => g.id === gameId)?.label ?? gameId.toUpperCase();
+
 /** Render a bracket placeholder ({seed:1}, {winnerOf:'sf1'}) as human text. */
 const side = (s) => {
   if (typeof s === 'string') return name(s);
   if (s.seed) return `Seed #${s.seed}`;
-  if (s.winnerOf) return `Winner of ${s.winnerOf.toUpperCase()}`;
-  if (s.loserOf) return `Loser of ${s.loserOf.toUpperCase()}`;
+  if (s.winnerOf) return `Winner of ${labelOf(s.winnerOf)}`;
+  if (s.loserOf) return `Loser of ${labelOf(s.loserOf)}`;
   return '?';
 };
 
@@ -106,11 +109,14 @@ for (const id of ids) {
   );
 }
 w();
-w('**P** = playing · **·** = off. Every team plays 4 pool games. Games are self-called.');
+const poolEach = (poolSlots.flatMap((s) => s.games).length * 2) / ids.length;
+w(`**P** = playing · **·** = off. Every team plays ${poolEach} pool games. Games are self-called.`);
 w();
-w('The schedule is built so nobody grinds: you never play more than two slots back to back, and ' +
-  'never sit two slots in a row.');
-w();
+if (ids.length > t.courts * 2) {
+  w('The schedule is built so nobody grinds: you never play more than two slots back to back, and ' +
+    'never sit two slots in a row.');
+  w();
+}
 
 // --- Break + bracket ----------------------------------------------------------
 const breakNote = schedule.slots.find((s) => s.note)?.note;
@@ -122,16 +128,33 @@ if (breakNote) {
 }
 w('## Bracket');
 w();
-w(`Games to **${schedule.gameRules.bracket.to}**, win by ${schedule.gameRules.bracket.winBy}, ` +
-  `cap ${schedule.gameRules.bracket.cap}.`);
+const br = schedule.gameRules.bracket;
+const allGames = schedule.slots.flatMap((s) => s.games);
+const decider = allGames.find((g) => g.id === 'decider');
+if (br.bestOf) {
+  w(`Every match is **best of ${br.bestOf}**. Games to **${br.to}**, win by ${br.winBy}, cap ${br.cap}; ` +
+    `a third game goes to **${br.lastTo}**, cap ${br.lastCap}.`);
+} else {
+  w(`Games to **${br.to}**, win by ${br.winBy}, cap ${br.cap}.`);
+}
 w();
 w('Seeds come from pool record. The site computes them automatically.');
 w();
+if (allGames.some((g) => g.id === 'wf')) {
+  w("**Double elimination.** Lose once and you drop to the losers' bracket; lose twice and you're out.");
+  w();
+}
+if (decider) {
+  const d = schedule.gameRules.decider;
+  w(`**${decider.label}** — only played if the team from the losers' bracket wins the final. That is the ` +
+    `winners' bracket team's first loss, so they play one more game to ${d.to} (cap ${d.cap}) for the title.`);
+  w();
+}
 w('| Slot | Time | Court 1 | Court 2 |');
 w('|:--|:--|:--|:--|');
 for (const s of schedule.slots.filter((x) => x.phase === 'bracket')) {
   const [c1, c2] = [1, 2].map((c) => s.games.find((g) => g.court === c));
-  const cell = (g) => `**${g.label}** — ${side(g.a)} v ${side(g.b)}`;
+  const cell = (g) => (g ? `**${g.label}** — ${side(g.a)} v ${side(g.b)}` : '—');
   w(`| ${s.slot} | ${s.time} | ${cell(c1)} | ${cell(c2)} |`);
 }
 w();
@@ -149,10 +172,13 @@ const fmt = (mins) => {
 
 const lastSlot = schedule.slots[schedule.slots.length - 1];
 const startMins = toMinutes(schedule.slots[0].time);
-const endMins = toMinutes(lastSlot.time) + schedule.gameRules.bracket.slotMinutes;
+const lastRules = lastSlot.games.some((g) => g.id === 'decider') ? schedule.gameRules.decider : br;
+const endMins = toMinutes(lastSlot.time) + lastRules.slotMinutes;
 const totalH = Math.floor((endMins - startMins) / 60);
 const totalM = (endMins - startMins) % 60;
-w(`Finishes by **${fmt(endMins)}** — ${totalH}h${totalM > 0 ? `${totalM}m` : ''} start to finish.`);
+w(`Finishes by **${fmt(endMins)}** — ${totalH}h${totalM > 0 ? `${totalM}m` : ''} start to finish` +
+  `${decider ? `, or ${fmt(toMinutes(lastSlot.time))} if the deciding game isn't needed` : ''}. ` +
+  `${br.bestOf ? 'Bracket times assume every match goes three games; start the next one as soon as both teams are free.' : ''}`);
 w();
 w('---');
 w();

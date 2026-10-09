@@ -32,6 +32,15 @@ w();
 w('begin;');
 w();
 
+// Last tournament's leftovers. The upserts below only touch ids that still
+// exist, so without this a smaller field keeps the old games and teams around.
+// Games go first: they hold the foreign keys onto teams. Run `npm run reset`
+// before applying this — surviving game ids keep whatever score they had.
+const gameIds = schedule.slots.flatMap((s) => s.games.map((g) => g.id));
+w('-- Games and teams that are not part of this tournament.');
+w(`delete from public.games where id not in (${gameIds.map(q).join(', ')});`);
+w();
+
 // Teams -----------------------------------------------------------------------
 w('-- Teams. Names only: no emails, no phone numbers.');
 for (const t of teams) {
@@ -79,6 +88,8 @@ for (const r of rows.filter((x) => x.phase === 'pool')) w(r.sql);
 w();
 w('-- Bracket rows reference semifinal ids, so they must land after the pool rows.');
 for (const r of rows.filter((x) => x.phase === 'bracket')) w(r.sql);
+w();
+w(`delete from public.teams where id not in (${teams.map((t) => q(t.id)).join(', ')});`);
 w();
 w('commit;');
 w();

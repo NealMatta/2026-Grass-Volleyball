@@ -2,7 +2,7 @@
 
 ## Where and when
 
-**Saturday, August 22, 2026 · 10:00am sharp**
+**Saturday, October 10, 2026 · 10:00am sharp**
 
 **AIDS Garden Chicago**
 3003 N Lakefront Trail, Chicago, IL 60657
@@ -20,14 +20,13 @@ Be there by **9:30am** if you're helping set up nets. First serve is 10:00.
 
 It's on the Lakefront Trail, which means **there's no parking at the venue itself**. Options:
 
-- **Belmont Harbor lot** (off Belmont Ave, east of Lake Shore Dr) — closest, fills up early on an
-  August Saturday. Get there early or don't count on it.
-- **Street parking** in Lakeview east of Broadway — free but competitive on a summer weekend.
+- **Belmont Harbor lot** (off Belmont Ave, east of Lake Shore Dr) — closest, and it can fill up on
+  a nice Saturday. Get there early or don't count on it.
+- **Street parking** in Lakeview east of Broadway — free but competitive on a weekend.
 - **CTA:** Belmont Red/Brown/Purple, then the #77 Belmont bus east, then walk under Lake Shore Dr.
 - **Bike:** it's directly on the Lakefront Trail. Easily the least stressful option.
 
-Budget more time than you think. This is one of the busiest stretches of lakefront in the city on a
-summer Saturday.
+Budget more time than you think.
 
 ---
 
@@ -38,15 +37,14 @@ summer Saturday.
 | Net | Team | Captain |
 |:--|:--|:--|
 | 1 | Deez Nets | Michael Keo |
-| 2 | Tequila Mockingbird | Grant McLean |
+| 2 | Annie's Friends | Grant McLean |
 
-**If either net doesn't show, the tournament format breaks.** 14 pool games at 25 minutes each is
-close to 6 hours on a single court — it does not fit in the day. Michael and Grant: please confirm the week
-of, and if anyone else can bring a spare as backup, do.
+**If either net doesn't show, we're down to one court** and the day roughly doubles in length.
+Michael and Grant: please confirm, and if anyone else can bring a spare as backup, do.
 
 **Setup, 9:30am:** net owners plus one other team each.
-- Court 1: Deez Nets + Bumping Buds
-- Court 2: Tequila Mockingbird + Perros Calientes
+- Court 1: Deez Nets + Cinnamon Rolls
+- Court 2: Annie's Friends + AAA Roadside Assistance
 
 **Teardown:** whoever's still around. Champions don't get out of carrying things.
 
@@ -62,8 +60,8 @@ of, and if anyone else can bring a spare as backup, do.
 - Trash bags
 
 **Every team brings:**
-- Water. More than you think. It's August, it's the lakefront, there's no shade on the courts.
-- Sunscreen
+- Water. More than you think — it's a long day.
+- Layers. It's October on the lake.
 - A ball if you have one (spares are good)
 
 **Bring if you want — none of this is required, all of it makes the day better:**
@@ -76,7 +74,7 @@ of, and if anyone else can bring a spare as backup, do.
 
 ## Scoring, day-of
 
-Scores go on **the website** — Neal will share the link with all seven captains.
+Scores go on **the website** — Neal will share the link with all four captains.
 
 1. Game ends. Losing team's captain (or anyone) opens the site, taps **Enter a score**.
 2. Tap your game, type both scores, submit.
@@ -86,6 +84,8 @@ No login, no passcode — anyone can post a result.
 
 **Enter both scores, not just who won.** Point differential is the third tiebreaker for bracket
 seeding — a 21-8 win is worth more than a 21-19 win.
+
+**Bracket matches are best of three, and go in as games won** — 2–0 or 2–1, not points.
 
 Made a mistake? Tap the finished game and fix it.
 
@@ -97,13 +97,12 @@ later — don't hold up the schedule over it.
 
 ## Format at a glance
 
-- **7 slots of pool play**, everyone plays 4 games
+- **3 slots of pool play**, everyone plays everyone once
 - **Games are self-called** — no referees; both teams keep score out loud
-- **Never more than 2 games in a row**, and never two slots off in a row
-- **12:55 break**, standings posted, bracket seeded automatically
-- **Semifinals at 1:05**, #1v#4 and #2v#3
-- **Final + 3rd place game at 1:40**
-- **Done by ~2:10pm**
+- **11:15 break**, standings posted, bracket seeded automatically
+- **Double-elimination bracket from 11:25**, every match best of three
+- **Final around 2:40** — earlier if matches finish in two games
+- If the losers' bracket team wins the final, **one deciding game** settles it
 
 Full detail in [FORMAT.md](FORMAT.md), [SCHEDULE.md](SCHEDULE.md), and [RULES.md](RULES.md).
 
@@ -115,6 +114,5 @@ Full detail in [FORMAT.md](FORMAT.md), [SCHEDULE.md](SCHEDULE.md), and [RULES.md
 - [ ] **Confirm the setup spot works.** AIDS Garden is a 2.5-acre lakefront memorial park built
       around the Keith Haring sculpture, not an open athletic field, and the Park District generally
       wants a permit for organized events. The open grass near Belmont Harbor may be the better
-      pitch — worth walking it before the 22nd rather than finding out with 23 people standing there.
-- [ ] **Haikyuties roster** — two more players confirmed, names needed
+      pitch — worth knowing before a crowd is standing there.
 - [ ] Decide whether anyone's bringing a canopy

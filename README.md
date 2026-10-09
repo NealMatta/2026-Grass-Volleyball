@@ -2,13 +2,13 @@
 
 Grass volleyball in Chicago, run every month or two.
 
-**Saturday, August 22, 2026 · 10:00am · [AIDS Garden Chicago](https://maps.app.goo.gl/3XGj2SXXnHnxGyKL7)**
+**Saturday, October 10, 2026 · 10:00am · [AIDS Garden Chicago](https://maps.app.goo.gl/3XGj2SXXnHnxGyKL7)**
 
 ### → [neals-volleyball-chicago.netlify.app](https://neals-volleyball-chicago.netlify.app)
 
 Live standings, bracket and schedule. Send this link to the captains.
 
-7 teams · 2 courts · every team plays 5–6 games · done by ~2:10pm
+4 teams · 2 courts · round-robin pool play, then a best-of-three double-elimination bracket
 
 **[History →](https://neals-volleyball-chicago.netlify.app/history.html)** — champions, brackets and
 every roster from every tournament we've run.
@@ -29,7 +29,7 @@ every roster from every tournament we've run.
 **Day-of TL;DR**
 
 - Be there **9:30** if you're on net setup, **10:00** to play.
-- Pool games to **21**, win by 2, cap 23. Bracket games to **25**.
+- Pool games to **21**, win by 2, cap 23. Bracket matches are **best of three**, double elimination.
 - **At least one woman on the court per team, at all times.** Applies when you're playing with 3 too.
 - **Games are self-called.** No referees — both teams keep score out loud, together.
 - Enter **both scores** after every game — point differential decides bracket seeding.
@@ -42,12 +42,9 @@ every roster from every tournament we've run.
 | Seed | Team | Captain | Net |
 |:--|:--|:--|:--:|
 | 1 | Deez Nets | Michael Keo | ✅ |
-| 2 | Haikyuties | Janna Remperas | |
-| 3 | Tequila Mockingbird | Grant McLean | ✅ |
+| 2 | Annie's Friends | Grant McLean | ✅ |
+| 3 | AAA Roadside Assistance | Nick Mitchell | |
 | 4 | Cinnamon Rolls | Neal Matta | |
-| 5 | Perros Calientes | Alfonso | |
-| 6 | Bumping Buds | Jamie Kolar | |
-| 7 | Cerve Aces | Luke | |
 
 Seeds are signup order — they're just schedule IDs. Real seeding comes from pool record.
 
@@ -55,18 +52,11 @@ Seeds are signup order — they're just schedule IDs. Real seeding comes from po
 
 ## Format in one paragraph
 
-Seven teams, two courts, a bit over four hours. Pool play is a **near round robin** — each team
-plays 4 of the 6 others across 7 slots. Then the top four seeds go to a
-**single-elimination bracket** (#1v#4, #2v#3),
-with a 3rd-place game so a semifinal loss doesn't end your day. Nobody is eliminated before the
-bracket.
+Four teams, two courts. Pool play is a **full round robin** — everyone plays everyone once. Then
+all four go into a **double-elimination bracket** where every match is **best of three**: lose once
+and you drop to the losers' bracket, lose twice and you're out. If the team from the losers' bracket
+wins the final, one deciding game settles the title.
 
-The schedule also guarantees a rhythm: **never more than two games in a row, and never two slots
-off in a row.** Nobody sits around for half the morning and then plays four straight.
-
-Montrose runs Tiered Swiss; we don't, because Swiss exists to approximate a round robin when you
-have too many teams to play everyone — and with seven teams you can still get most of the way there
-by just playing.
 Details and the reasoning in [FORMAT.md](docs/FORMAT.md).
 
 ---
@@ -80,7 +70,7 @@ No login, no passcode. Anyone can post a result.
 3. Enter **both** scores, submit
 4. Standings and the bracket update for everyone within 15 seconds
 
-The bracket seeds itself the moment the 14th pool score lands. If two teams finish dead level on
+The bracket seeds itself the moment the last pool score lands. If two teams finish dead level on
 wins, head-to-head, differential *and* points scored, the site says so and asks you to pick the
 winner rather than guessing. Once the semis start, hit **Lock seeding** so a late correction can't
 reshuffle a game already in progress.

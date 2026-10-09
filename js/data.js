@@ -99,13 +99,14 @@ async function loadBundled() {
     games,
     state: { bracketLocked: false, manualTiebreaks: {}, lockedSeeds: null },
     tournament: scheduleDoc.tournament,
+    rules: scheduleDoc.gameRules,
     offline: true,
   };
 }
 
 /** Everything the page needs, in one round trip each. */
 export async function fetchAll() {
-  const tournamentPromise = getJSON('data/schedule.json').then((d) => d.tournament).catch(() => null);
+  const schedulePromise = getJSON('data/schedule.json').catch(() => null);
 
   try {
     const [teams, games, state] = await Promise.all([
@@ -123,7 +124,8 @@ export async function fetchAll() {
         manualTiebreaks: s.manual_tiebreaks ?? {},
         lockedSeeds: s.locked_seeds ?? null,
       },
-      tournament: await tournamentPromise,
+      tournament: (await schedulePromise)?.tournament ?? null,
+      rules: (await schedulePromise)?.gameRules ?? null,
       offline: false,
     };
   } catch (err) {

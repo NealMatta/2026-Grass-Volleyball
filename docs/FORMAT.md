@@ -1,136 +1,91 @@
 # Format
 
-**7 teams · 2 courts · ~4¼ hours · every team plays 5–6 games**
+**4 teams · 2 courts · every team plays 3 pool games and at least 2 bracket matches**
+
+This is the October 10, 2026 format. August ran seven teams with a single-elimination bracket;
+that writeup is in the git history.
 
 ---
 
-## The problem this format solves
+## Pool play — 3 slots, 6 games
 
-Neal wanted single elimination *and* for everyone to play as much as possible. Those conflict
-directly — in a 7-team single-elimination bracket, most of the field plays one game and goes home.
+A full round robin: everyone plays everyone once. Games to 21, win by 2, cap 23. With four teams on
+two courts nobody sits out, so the three slots run back to back from 10:00 to 11:15.
 
-The resolution: **nobody is eliminated until the bracket, and the bracket has a placement game so a
-knocked-out team still plays again.**
+Pool record only decides seeding. Nobody is eliminated.
 
-## Why not Montrose's Tiered Swiss
+## Bracket — double elimination, best of three
 
-Montrose runs Tiered Swiss. That's the right call for them and the wrong one for us.
+Every bracket match is **best of three**: games to 21 (cap 23), and a third game, if it's needed,
+to 15 (cap 17).
 
-Swiss exists to *approximate* a round robin when you have too many teams to play everyone. With 7
-teams, you can still get most of the way there by just playing. Montrose's own writeup admits the
-weakness — *"please note this will be an ish because if everyone goes 1-1 everytime I will do my
-best."* A near-round-robin
-has no pairing problem to solve, produces no rematches, and gives clean bracket seeding.
-
-So: **near round robin → seeded bracket.**
-
----
-
-## Structure
-
-### Pool play — 7 slots, 14 games
-
-Each team plays **4 of the 6** other teams. In every slot exactly 4 teams play and **3 are off** —
-genuinely off, because games are self-called.
-
-| Team | Your day, slot by slot | Plays | Off | Doesn't face |
-|:--|:--|:--|:--|:--|
-| Deez Nets | · **P** **P** · **P** · **P** | 2, 3, 5, 7 | 1, 4, 6 | Cinnamon Rolls, Perros Calientes |
-| Haikyuties | · **P** · **P** **P** · **P** | 2, 4, 5, 7 | 1, 3, 6 | Tequila Mockingbird, Bumping Buds |
-| Tequila Mockingbird | · **P** · **P** · **P** **P** | 2, 4, 6, 7 | 1, 3, 5 | Haikyuties, Cerve Aces |
-| Cinnamon Rolls | **P** · **P** **P** · **P** · | 1, 3, 4, 6 | 2, 5, 7 | Deez Nets, Perros Calientes |
-| Perros Calientes | **P** **P** · **P** · **P** · | 1, 2, 4, 6 | 3, 5, 7 | Deez Nets, Cinnamon Rolls |
-| Bumping Buds | **P** · **P** · **P** · **P** | 1, 3, 5, 7 | 2, 4, 6 | Haikyuties, Cerve Aces |
-| Cerve Aces | **P** · **P** · **P** **P** · | 1, 3, 5, 6 | 2, 4, 7 | Tequila Mockingbird, Bumping Buds |
-
-**P** = playing · **·** = off.
-
-Every team plays 4 pool games. Games are self-called, so a slot off is genuinely off.
-
-### The rhythm rule
-
-A balanced schedule isn't enough on its own — "you play 4 games" is no comfort if those four are
-back to back after sitting for three slots. So the schedule is built to three more constraints:
-
-- **Never more than 2 games in a row.** You play at most a pair, then you're off.
-- **Never two slots off in a row.** You don't go cold waiting around.
-
-Read any row above left to right and you'll see the same shape: short bursts of play broken up by a
-slot off. `scripts/verify-schedule.mjs` asserts both — they're invariants, not good intentions.
-
-### Why 4 games each and not more
-
-Seven teams on two courts is a hard arithmetic constraint. Every game uses 2 teams, so for everyone
-to play the *same* number of games, `7 × games` has to come out even — meaning games per team has
-to be an even number. Four works: 14 games, 7 slots. The next option up is six, which is a full
-round robin — 21 games, 10½ slots, roughly 4½ hours of pool play before the bracket even starts.
-That doesn't fit the day.
-
-So 4 it is. The total game count still goes up: 12 games with six teams, **14 with seven**.
-
-Seven of the twenty-one possible pairings don't happen — that's the cost of fitting into an
-afternoon on 2 courts. With no draft or pre-ranking, which seven get dropped is arbitrary.
-
-> These invariants are enforced by `scripts/verify-schedule.mjs`, not by trust. Run it after any
-> schedule edit. A hand-written version of this table was wrong once already.
-
-### Bracket — 2 slots
-
-Seeded 1–7 by pool record. **Auto-computed by the site** the moment the 14th pool game is entered.
+**Lose once and you drop to the losers' bracket. Lose twice and you're out.**
 
 ```
-        Semifinals              Final
+  Winners' bracket
   #1 ──┐
        ├── SF1 winner ──┐
-  #4 ──┘                │
-                        ├── CHAMPION
-  #2 ──┐                │
-       ├── SF2 winner ──┘
-  #3 ──┘
-
-  SF1 loser ──┐
-              ├── 3rd place
-  SF2 loser ──┘
-
-  #5, #6 and #7 finish on pool record.
+  #4 ──┘                ├── Winners' Final winner ──────────┐
+  #2 ──┐                │                                   │
+       ├── SF2 winner ──┘                                   ├── FINAL
+  #3 ──┘                                                    │
+                                                            │
+  Losers' bracket                                           │
+  SF1 loser ──┐                                             │
+              ├── Elimination winner ──┐                    │
+  SF2 loser ──┘                        ├── Losers' Final ───┘
+            Winners' Final loser ──────┘
 ```
 
-**Game count per team:** 4 pool + 1–2 bracket = **5–6 games**.
+### The deciding game
 
-Seeds #5, #6 and #7 don't get a bracket game. Both courts are busy for both bracket slots, so
-there is no room for a placement game below the top four — that would need a third court or a
-longer day. This is the real cost of the seventh team: three teams finish after pool play instead
-of two.
+The team that reaches the final through the winners' bracket hasn't lost yet. The team from the
+losers' bracket has lost once. So:
+
+- If the **winners' bracket team wins the final**, they're champions. Done.
+- If the **losers' bracket team wins the final**, both teams now have one loss, and they play
+  **one more game to 21** (cap 23). Winner takes the title.
+
+The site handles this on its own: the deciding game shows as "if needed", disappears if the
+winners' bracket team wins the final, and becomes the next game to score if they don't.
+
+### Placings
+
+1st and 2nd come from the final (or the deciding game). 3rd is whoever loses the Losers' Final.
+4th is whoever loses the Elimination Match. There is no 3rd place game.
 
 ---
 
 ## Timeline
 
-| Slot | Time | Phase |
+| Slot | Time | What |
 |:--|:--|:--|
-| 1 | 10:00 | Pool |
-| 2 | 10:25 | Pool |
-| 3 | 10:50 | Pool |
-| 4 | 11:15 | Pool |
-| 5 | 11:40 | Pool |
-| 6 | 12:05 | Pool |
-| 7 | 12:30 | Pool |
-| — | 12:55 | **Break — standings posted, bracket seeded** |
-| 8 | 1:05 | Semifinals |
-| 9 | 1:40 | **Final** + 3rd place |
+| 1–3 | 10:00, 10:25, 10:50 | Pool play |
+| — | 11:15 | **Break — standings posted, bracket seeded** |
+| 4 | 11:25 | Semifinals (both courts) |
+| 5 | 12:30 | Winners' Final · Elimination Match |
+| 6 | 1:35 | Losers' Final |
+| 7 | 2:40 | **Final** |
+| 8 | 3:45 | Deciding game, if needed |
 
-Done **~2:10pm**. Total ~4h10m.
+Bracket slots are 65 minutes, which is every match going to a third game. Most won't, so **start
+the next match as soon as both teams are free** rather than waiting for the clock. Worst case the
+day ends around 4:10pm; if matches finish in two it will be well before that.
 
-The seventh team costs 25 minutes: one extra pool slot, and everything after it shifts back.
+---
 
-Slots are 25 minutes, which includes swapping teams on and off. There is no slack in the day — nine
-slots on two courts is exactly what fits between 10:00 and 2:10.
+## Scoring a best-of-three on the site
+
+The site records a bracket match as **games won** — 2–0 or 2–1 — not points. Write the points for
+each game on the paper scoresheet if you want them kept.
+
+The deciding game is a single game, so it's entered as points like a pool game.
 
 ---
 
 ## Seeding
 
-Pool record ranks all seven teams. Tiebreakers apply in order:
+Pool record ranks all four teams. Tiebreakers apply in order:
 
 1. **Wins**
 2. **Head-to-head**
@@ -141,22 +96,14 @@ Pool record ranks all seven teams. Tiebreakers apply in order:
 Steps 1–4 are computed by the site. Step 5 can't be — if two teams are level through all four, the
 site flags it and Neal settles it with the captains.
 
-**This is why both scores are recorded, not just the winner.** A 21-8 win and a 21-19 win are the
-same in the standings column and very different in the seeding. Play games out.
-
 ---
 
 ## If something goes wrong
 
-**A net doesn't show up.** Down to one court, the format does not fit — 14 pool games at 25 minutes
-is nearly 6 hours on a single court. Fallback: drop to a pod format (pods of 4 and 3, each team
-plays 2–3, top team from each pod plus best record to a short final round). Decide before 10am, not
-at noon.
+**A net doesn't show up.** One court still works with four teams, it just takes longer: pool play
+becomes six slots instead of three. Cut bracket matches to a single game to 21 to get the time back.
 
-**A team doesn't show up.** With 6 teams, fall back to the six-team schedule — 6 slots, 12 games,
-everyone plays 4, done by ~1:45. It's in the git history; regenerate it rather than
-improvise. With 5 teams, run a true full round robin — 10 games, 5 slots, everyone plays everyone,
-top 2 to a final.
+**A team doesn't show up.** With three teams, play a double round robin (everyone plays everyone
+twice) and send the top two to a best-of-three final.
 
-**A team is short players.** They play with 3. It's in the rules — but the one-woman-on-court
-minimum still applies at 3, so a team that can't field one has to borrow a player.
+**A team is short players.** They play with 3. The one-woman-on-court minimum still applies.

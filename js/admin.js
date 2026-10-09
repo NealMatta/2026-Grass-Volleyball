@@ -9,7 +9,7 @@
 
 import { submitScore, reopenGame, updateState } from './data.js';
 import { computeStandings, unresolvedTies, tieKey } from './standings.js';
-import { computeBracket } from './bracket.js';
+import { computeBracket, outstanding } from './bracket.js';
 
 const el = (tag, cls, text) => {
   const n = document.createElement(tag);
@@ -60,7 +60,7 @@ export function mountAdmin(store) {
     };
 
     // Unplayed games first, in schedule order — the next one to score is at the top.
-    const pending = store.games.filter((g) => g.status !== 'final');
+    const pending = outstanding(store.games);
     const done = store.games.filter((g) => g.status === 'final');
 
     if (pending.length) {
@@ -130,9 +130,15 @@ export function mountAdmin(store) {
     back.addEventListener('click', () => { view = { name: 'list' }; render(); });
     body.append(back);
 
-    const cap = game.phase === 'pool' ? 23 : 27;
-    const target = game.phase === 'pool' ? 21 : 25;
-    body.append(el('p', null, `To ${target}, win by 2, cap ${cap}.`));
+    const rules = store.rules?.[game.id === 'decider' ? 'decider' : game.phase] ?? {};
+    // A best-of-three match is recorded as games won (2–0 or 2–1), not points.
+    const need = rules.bestOf ? Math.ceil(rules.bestOf / 2) : null;
+    if (need) {
+      body.append(el('p', null, `Best of ${rules.bestOf}. Enter games won: ${need}–0 or ${need}–1.`));
+      body.append(el('p', null, `Games to ${rules.to}, cap ${rules.cap}; a third game goes to ${rules.lastTo}, cap ${rules.lastCap}.`));
+    } else if (rules.to) {
+      body.append(el('p', null, `To ${rules.to}, win by ${rules.winBy}, cap ${rules.cap}.`));
+    }
 
     const pair = el('div', 'score-pair');
 
@@ -203,6 +209,9 @@ export function mountAdmin(store) {
       if (A.input.value === '' || B.input.value === '') return say('Enter both scores.', 'error');
       if (!Number.isInteger(scoreA) || !Number.isInteger(scoreB)) return say('Whole numbers only.', 'error');
       if (scoreA === scoreB) return say('Volleyball has no ties — one team has to win.', 'error');
+      if (need && (Math.max(scoreA, scoreB) !== need || Math.min(scoreA, scoreB) < 0)) {
+        return say(`This match is best of ${rules.bestOf} — enter games won, e.g. ${need}–1, not points.`, 'error');
+      }
 
       save.disabled = true;
       save.textContent = 'Saving…';

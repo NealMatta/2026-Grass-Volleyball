@@ -9,7 +9,7 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { computeStandings, unresolvedTies, poolComplete } from '../js/standings.js';
-import { computeBracket, winnerOf, finalPlacings } from '../js/bracket.js';
+import { computeBracket, winnerOf, finalPlacings, isMoot, outstanding } from '../js/bracket.js';
 
 let pass = 0;
 const failures = [];
@@ -280,6 +280,42 @@ const deadHeat = () => {
     { place: 6, teamId: 'f' },
     { place: 7, teamId: 'g' },
   ]);
+}
+
+// --- 10c. Double elimination -------------------------------------------------
+// Bracket matches are best of three, stored as games won. `a` wins the
+// winners' bracket; `c` comes back through the losers' bracket.
+{
+  const m = (id, teamA, scoreA, teamB, scoreB) => ({ id, phase: 'bracket', status: 'final', teamA, teamB, scoreA, scoreB });
+  const open = (id) => ({ id, phase: 'bracket', status: 'scheduled', teamA: null, teamB: null, scoreA: null, scoreB: null });
+  const upTo = [
+    m('sf1', 'a', 2, 'd', 0), m('sf2', 'b', 1, 'c', 2),
+    m('wf', 'a', 2, 'c', 1), m('le', 'd', 0, 'b', 2),
+    m('lf', 'c', 2, 'b', 1),
+  ];
+  const seeds = ['a', 'b', 'c', 'd'];
+
+  // Winners' bracket team wins the final: over, no deciding game.
+  const straight = [...upTo, m('final', 'a', 2, 'c', 0), open('decider')];
+  check('10c. deciding game is moot when the winners\' bracket team wins', isMoot(straight.at(-1), straight), true);
+  check('10c. nothing outstanding', outstanding(straight).length, 0);
+  check('10c. placings', finalPlacings({ seeds, games: straight }), [
+    { place: 1, teamId: 'a' }, { place: 2, teamId: 'c' }, { place: 3, teamId: 'b' }, { place: 4, teamId: 'd' },
+  ]);
+
+  // Losers' bracket team wins the final: the deciding game is on.
+  const forced = [...upTo, m('final', 'a', 1, 'c', 2), open('decider')];
+  check('10c. deciding game needed when the losers\' bracket team wins', isMoot(forced.at(-1), forced), false);
+  check('10c. deciding game is outstanding', outstanding(forced).map((x) => x.id), ['decider']);
+  check('10c. no champion until it is played', finalPlacings({ seeds, games: forced }).map((p) => p.place), [3, 4]);
+
+  const settled = [...upTo, m('final', 'a', 1, 'c', 2), m('decider', 'c', 19, 'a', 21)];
+  check('10c. deciding game settles the title', finalPlacings({ seeds, games: settled }).slice(0, 2), [
+    { place: 1, teamId: 'a' }, { place: 2, teamId: 'c' },
+  ]);
+
+  // Before the final, nobody knows yet — the deciding game is not moot.
+  check('10c. not moot before the final', isMoot(open('decider'), [...upTo, open('final'), open('decider')]), false);
 }
 
 // --- 11. winnerOf guards -----------------------------------------------------

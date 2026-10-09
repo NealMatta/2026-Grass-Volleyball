@@ -26,12 +26,15 @@ const name = (id) => teams.find((x) => x.id === id)?.name ?? id;
 const BLANK = '____________';
 const SCORE = '____';
 
+const labelOf = (gameId) =>
+  schedule.slots.flatMap((s) => s.games).find((g) => g.id === gameId)?.label ?? gameId.toUpperCase();
+
 /** Render a bracket placeholder ({seed:1}, {winnerOf:'sf1'}) as human text. */
 const side = (s) => {
   if (typeof s === 'string') return name(s);
   if (s.seed) return `#${s.seed}`;
-  if (s.winnerOf) return `W ${s.winnerOf.toUpperCase()}`;
-  if (s.loserOf) return `L ${s.loserOf.toUpperCase()}`;
+  if (s.winnerOf) return `W ${labelOf(s.winnerOf)}`;
+  if (s.loserOf) return `L ${labelOf(s.loserOf)}`;
   return '?';
 };
 
@@ -106,22 +109,47 @@ w();
 // --- Bracket ------------------------------------------------------------------
 w('## Bracket');
 w();
-w('| Slot | Time | Court | Game | Team A | Score | Team B | Score |');
-w('|:--|:--|:--:|:--|:--|:--:|:--|:--:|');
-for (const s of schedule.slots.filter((x) => x.phase === 'bracket')) {
-  for (const g of s.games) {
-    const label = `**${g.label}** — ${side(g.a)} v ${side(g.b)}`;
-    w(`| ${s.slot} | ${s.time} | ${g.court} | ${label} | ${BLANK} | ${SCORE} | ${BLANK} | ${SCORE} |`);
+if (bracket.bestOf) {
+  // One line per team, a box per game, so the paper holds the real points even
+  // though the site only records games won.
+  w('| Slot | Time | Court | Match | Team | Game 1 | Game 2 | Game 3 | Games won |');
+  w('|:--|:--|:--:|:--|:--|:--:|:--:|:--:|:--:|');
+  for (const s of schedule.slots.filter((x) => x.phase === 'bracket')) {
+    for (const g of s.games) {
+      const label = `**${g.label}** — ${side(g.a)} v ${side(g.b)}`;
+      if (g.id === 'decider') {
+        w(`| ${s.slot} | ${s.time} | ${g.court} | ${label} | ${BLANK} | ${SCORE} | | | |`);
+        w(`| | | | *only if the losers' bracket team won the Final* | ${BLANK} | ${SCORE} | | | |`);
+        continue;
+      }
+      w(`| ${s.slot} | ${s.time} | ${g.court} | ${label} | ${BLANK} | ${SCORE} | ${SCORE} | ${SCORE} | ${SCORE} |`);
+      w(`| | | | | ${BLANK} | ${SCORE} | ${SCORE} | ${SCORE} | ${SCORE} |`);
+    }
   }
+  w();
+  w(`Bracket matches: **best of ${bracket.bestOf}**. Games to ${bracket.to}, win by ${bracket.winBy}, ` +
+    `cap ${bracket.cap}; a third game goes to ${bracket.lastTo}, cap ${bracket.lastCap}. ` +
+    'On the website, enter **games won** (2-0 or 2-1), not points.');
+} else {
+  w('| Slot | Time | Court | Game | Team A | Score | Team B | Score |');
+  w('|:--|:--|:--:|:--|:--|:--:|:--|:--:|');
+  for (const s of schedule.slots.filter((x) => x.phase === 'bracket')) {
+    for (const g of s.games) {
+      const label = `**${g.label}** — ${side(g.a)} v ${side(g.b)}`;
+      w(`| ${s.slot} | ${s.time} | ${g.court} | ${label} | ${BLANK} | ${SCORE} | ${BLANK} | ${SCORE} |`);
+    }
+  }
+  w();
+  w(`Bracket games: **to ${bracket.to}**, win by ${bracket.winBy}, cap ${bracket.cap}.`);
 }
 w();
-w(`Bracket games: **to ${bracket.to}**, win by ${bracket.winBy}, cap ${bracket.cap}.`);
-w();
-w(
-  `Seeds #5-#${teams.length} finish on pool record — there is no slot for a placement game below ` +
-    'the top four.'
-);
-w();
+if (teams.length > 4) {
+  w(
+    `Seeds #5-#${teams.length} finish on pool record — there is no slot for a placement game below ` +
+      'the top four.'
+  );
+  w();
+}
 w('---');
 w();
 w('## Champion');

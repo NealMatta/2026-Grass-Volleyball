@@ -3,8 +3,8 @@
   "tournament": {
     "name": "Neal's Grass Volleyball Tournament",
     "slug": "grass-volleyball",
-    "status": "none",
-    "date": "2026-08-22",
+    "status": "scheduled",
+    "date": "2026-10-10",
     "dayOfWeek": "Saturday",
     "startTime": "10:00",
     "venue": "AIDS Garden Chicago",
@@ -16,7 +16,8 @@
   },
   "gameRules": {
     "pool": { "to": 21, "winBy": 2, "cap": 23, "slotMinutes": 25 },
-    "bracket": { "to": 25, "winBy": 2, "cap": 27, "slotMinutes": 30 }
+    "bracket": { "bestOf": 3, "to": 21, "winBy": 2, "cap": 23, "lastTo": 15, "lastCap": 17, "slotMinutes": 65 },
+    "decider": { "to": 21, "winBy": 2, "cap": 23, "slotMinutes": 25 }
   },
   "tiebreakers": [
     "Wins",
@@ -31,8 +32,8 @@
       "time": "10:00",
       "phase": "pool",
       "games": [
-        { "id": "p1", "court": 1, "a": "cinnamon-rolls", "b": "cerve-aces" },
-        { "id": "p2", "court": 2, "a": "perros-calientes", "b": "bumping-buds" }
+        { "id": "p1", "court": 1, "a": "deez-nets", "b": "cinnamon-rolls" },
+        { "id": "p2", "court": 2, "a": "annies-friends", "b": "aaa-roadside-assistance" }
       ]
     },
     {
@@ -40,8 +41,8 @@
       "time": "10:25",
       "phase": "pool",
       "games": [
-        { "id": "p3", "court": 1, "a": "haikyuties", "b": "perros-calientes" },
-        { "id": "p4", "court": 2, "a": "deez-nets", "b": "tequila-mockingbird" }
+        { "id": "p3", "court": 1, "a": "deez-nets", "b": "aaa-roadside-assistance" },
+        { "id": "p4", "court": 2, "a": "annies-friends", "b": "cinnamon-rolls" }
       ]
     },
     {
@@ -49,63 +50,51 @@
       "time": "10:50",
       "phase": "pool",
       "games": [
-        { "id": "p5", "court": 1, "a": "deez-nets", "b": "cerve-aces" },
-        { "id": "p6", "court": 2, "a": "cinnamon-rolls", "b": "bumping-buds" }
+        { "id": "p5", "court": 1, "a": "deez-nets", "b": "annies-friends" },
+        { "id": "p6", "court": 2, "a": "aaa-roadside-assistance", "b": "cinnamon-rolls" }
       ]
     },
     {
       "slot": 4,
-      "time": "11:15",
-      "phase": "pool",
-      "games": [
-        { "id": "p7", "court": 1, "a": "haikyuties", "b": "cinnamon-rolls" },
-        { "id": "p8", "court": 2, "a": "tequila-mockingbird", "b": "perros-calientes" }
-      ]
-    },
-    {
-      "slot": 5,
-      "time": "11:40",
-      "phase": "pool",
-      "games": [
-        { "id": "p9", "court": 1, "a": "haikyuties", "b": "cerve-aces" },
-        { "id": "p10", "court": 2, "a": "deez-nets", "b": "bumping-buds" }
-      ]
-    },
-    {
-      "slot": 6,
-      "time": "12:05",
-      "phase": "pool",
-      "games": [
-        { "id": "p11", "court": 1, "a": "perros-calientes", "b": "cerve-aces" },
-        { "id": "p12", "court": 2, "a": "tequila-mockingbird", "b": "cinnamon-rolls" }
-      ]
-    },
-    {
-      "slot": 7,
-      "time": "12:30",
-      "phase": "pool",
-      "games": [
-        { "id": "p13", "court": 1, "a": "deez-nets", "b": "haikyuties" },
-        { "id": "p14", "court": 2, "a": "tequila-mockingbird", "b": "bumping-buds" }
-      ]
-    },
-    {
-      "slot": 8,
-      "time": "1:05",
+      "time": "11:25",
       "phase": "bracket",
-      "note": "12:55 break — standings posted, bracket seeded",
+      "note": "11:15 break — standings posted, bracket seeded",
       "games": [
         { "id": "sf1", "court": 1, "label": "Semifinal 1", "a": { "seed": 1 }, "b": { "seed": 4 } },
         { "id": "sf2", "court": 2, "label": "Semifinal 2", "a": { "seed": 2 }, "b": { "seed": 3 } }
       ]
     },
     {
-      "slot": 9,
-      "time": "1:40",
+      "slot": 5,
+      "time": "12:30",
       "phase": "bracket",
       "games": [
-        { "id": "final", "court": 1, "label": "Final", "a": { "winnerOf": "sf1" }, "b": { "winnerOf": "sf2" } },
-        { "id": "third", "court": 2, "label": "3rd Place", "a": { "loserOf": "sf1" }, "b": { "loserOf": "sf2" } }
+        { "id": "wf", "court": 1, "label": "Winners' Final", "a": { "winnerOf": "sf1" }, "b": { "winnerOf": "sf2" } },
+        { "id": "le", "court": 2, "label": "Elimination Match", "a": { "loserOf": "sf1" }, "b": { "loserOf": "sf2" } }
+      ]
+    },
+    {
+      "slot": 6,
+      "time": "1:35",
+      "phase": "bracket",
+      "games": [
+        { "id": "lf", "court": 1, "label": "Losers' Final", "a": { "loserOf": "wf" }, "b": { "winnerOf": "le" } }
+      ]
+    },
+    {
+      "slot": 7,
+      "time": "2:40",
+      "phase": "bracket",
+      "games": [
+        { "id": "final", "court": 1, "label": "Final", "a": { "winnerOf": "wf" }, "b": { "winnerOf": "lf" } }
+      ]
+    },
+    {
+      "slot": 8,
+      "time": "3:45",
+      "phase": "bracket",
+      "games": [
+        { "id": "decider", "court": 1, "label": "Deciding Game", "a": { "winnerOf": "final" }, "b": { "loserOf": "final" } }
       ]
     }
   ]

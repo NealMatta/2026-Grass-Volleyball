@@ -3,7 +3,7 @@
 
 # Score Sheet — Court ______
 
-**Neal's Grass Volleyball Tournament · Saturday, August 22 · AIDS Garden Chicago**
+**Neal's Grass Volleyball Tournament · Saturday, October 10 · AIDS Garden Chicago**
 
 Paper backup. Use this if the website isn't cooperating — cell signal at the lakefront isn't
 guaranteed and phones die. Hand it to Neal at the break.
@@ -22,41 +22,30 @@ team can't field one, the point does not start.
 
 | Slot | Time | Team A | Score | Team B | Score | Winner |
 |:--|:--|:--|:--:|:--|:--:|:--|
-| 1 | 10:00 | Cinnamon Rolls | ____ | Cerve Aces | ____ | ____________ |
-| 2 | 10:25 | Haikyuties | ____ | Perros Calientes | ____ | ____________ |
-| 3 | 10:50 | Deez Nets | ____ | Cerve Aces | ____ | ____________ |
-| 4 | 11:15 | Haikyuties | ____ | Cinnamon Rolls | ____ | ____________ |
-| 5 | 11:40 | Haikyuties | ____ | Cerve Aces | ____ | ____________ |
-| 6 | 12:05 | Perros Calientes | ____ | Cerve Aces | ____ | ____________ |
-| 7 | 12:30 | Deez Nets | ____ | Haikyuties | ____ | ____________ |
+| 1 | 10:00 | Deez Nets | ____ | Cinnamon Rolls | ____ | ____________ |
+| 2 | 10:25 | Deez Nets | ____ | AAA Roadside Assistance | ____ | ____________ |
+| 3 | 10:50 | Deez Nets | ____ | Annie's Friends | ____ | ____________ |
 
 ### Court 2
 
 | Slot | Time | Team A | Score | Team B | Score | Winner |
 |:--|:--|:--|:--:|:--|:--:|:--|
-| 1 | 10:00 | Perros Calientes | ____ | Bumping Buds | ____ | ____________ |
-| 2 | 10:25 | Deez Nets | ____ | Tequila Mockingbird | ____ | ____________ |
-| 3 | 10:50 | Cinnamon Rolls | ____ | Bumping Buds | ____ | ____________ |
-| 4 | 11:15 | Tequila Mockingbird | ____ | Perros Calientes | ____ | ____________ |
-| 5 | 11:40 | Deez Nets | ____ | Bumping Buds | ____ | ____________ |
-| 6 | 12:05 | Tequila Mockingbird | ____ | Cinnamon Rolls | ____ | ____________ |
-| 7 | 12:30 | Tequila Mockingbird | ____ | Bumping Buds | ____ | ____________ |
+| 1 | 10:00 | Annie's Friends | ____ | AAA Roadside Assistance | ____ | ____________ |
+| 2 | 10:25 | Annie's Friends | ____ | Cinnamon Rolls | ____ | ____________ |
+| 3 | 10:50 | AAA Roadside Assistance | ____ | Cinnamon Rolls | ____ | ____________ |
 
 Pool games: **to 21**, win by 2, cap 23. Slots start 25 minutes apart.
 
 ---
 
-## Standings worksheet (12:55 break)
+## Standings worksheet (11:15 break)
 
 | Team | W | L | Points For | Points Against | Diff | Seed |
 |:--|:--:|:--:|:--:|:--:|:--:|:--:|
 | Deez Nets | | | | | | |
-| Haikyuties | | | | | | |
-| Tequila Mockingbird | | | | | | |
+| Annie's Friends | | | | | | |
+| AAA Roadside Assistance | | | | | | |
 | Cinnamon Rolls | | | | | | |
-| Perros Calientes | | | | | | |
-| Bumping Buds | | | | | | |
-| Cerve Aces | | | | | | |
 
 **Tiebreakers, in order:** 1. Wins → 2. Head-to-head → 3. Point differential → 4. Points scored → 5. Rock paper scissors
 
@@ -64,16 +53,24 @@ Pool games: **to 21**, win by 2, cap 23. Slots start 25 minutes apart.
 
 ## Bracket
 
-| Slot | Time | Court | Game | Team A | Score | Team B | Score |
-|:--|:--|:--:|:--|:--|:--:|:--|:--:|
-| 8 | 1:05 | 1 | **Semifinal 1** — #1 v #4 | ____________ | ____ | ____________ | ____ |
-| 8 | 1:05 | 2 | **Semifinal 2** — #2 v #3 | ____________ | ____ | ____________ | ____ |
-| 9 | 1:40 | 1 | **Final** — W SF1 v W SF2 | ____________ | ____ | ____________ | ____ |
-| 9 | 1:40 | 2 | **3rd Place** — L SF1 v L SF2 | ____________ | ____ | ____________ | ____ |
+| Slot | Time | Court | Match | Team | Game 1 | Game 2 | Game 3 | Games won |
+|:--|:--|:--:|:--|:--|:--:|:--:|:--:|:--:|
+| 4 | 11:25 | 1 | **Semifinal 1** — #1 v #4 | ____________ | ____ | ____ | ____ | ____ |
+| | | | | ____________ | ____ | ____ | ____ | ____ |
+| 4 | 11:25 | 2 | **Semifinal 2** — #2 v #3 | ____________ | ____ | ____ | ____ | ____ |
+| | | | | ____________ | ____ | ____ | ____ | ____ |
+| 5 | 12:30 | 1 | **Winners' Final** — W Semifinal 1 v W Semifinal 2 | ____________ | ____ | ____ | ____ | ____ |
+| | | | | ____________ | ____ | ____ | ____ | ____ |
+| 5 | 12:30 | 2 | **Elimination Match** — L Semifinal 1 v L Semifinal 2 | ____________ | ____ | ____ | ____ | ____ |
+| | | | | ____________ | ____ | ____ | ____ | ____ |
+| 6 | 1:35 | 1 | **Losers' Final** — L Winners' Final v W Elimination Match | ____________ | ____ | ____ | ____ | ____ |
+| | | | | ____________ | ____ | ____ | ____ | ____ |
+| 7 | 2:40 | 1 | **Final** — W Winners' Final v W Losers' Final | ____________ | ____ | ____ | ____ | ____ |
+| | | | | ____________ | ____ | ____ | ____ | ____ |
+| 8 | 3:45 | 1 | **Deciding Game** — W Final v L Final | ____________ | ____ | | | |
+| | | | *only if the losers' bracket team won the Final* | ____________ | ____ | | | |
 
-Bracket games: **to 25**, win by 2, cap 27.
-
-Seeds #5-#7 finish on pool record — there is no slot for a placement game below the top four.
+Bracket matches: **best of 3**. Games to 21, win by 2, cap 23; a third game goes to 15, cap 17. On the website, enter **games won** (2-0 or 2-1), not points.
 
 ---
 

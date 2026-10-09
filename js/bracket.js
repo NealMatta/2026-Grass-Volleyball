@@ -22,6 +22,29 @@ export function loserOf(game) {
 }
 
 /**
+ * Double elimination only. The deciding game is played only if the team that
+ * came through the losers' bracket wins the final — that hands the winners'
+ * bracket team its first loss, so they go once more. If the winners' bracket
+ * team takes the final, the deciding game is moot and never played.
+ */
+export function isMoot(game, games) {
+  if (game?.id !== 'decider') return false;
+  const byId = (id) => games.find((g) => g.id === id);
+  const champ = winnerOf(byId('final'));
+  return Boolean(champ) && champ === winnerOf(byId('wf'));
+}
+
+/** Games that still need a score. A moot deciding game is not one of them. */
+export const outstanding = (games) =>
+  games.filter((g) => g.status !== 'final' && !isMoot(g, games));
+
+/** The game that settled the title: the deciding game if it was needed, else the final. */
+export function titleGame(games) {
+  const decider = games.find((g) => g.id === 'decider');
+  return decider && !isMoot(decider, games) ? decider : games.find((g) => g.id === 'final');
+}
+
+/**
  * Resolve one side of a bracket game to a team id, or null if not yet known.
  * Returns { teamId, source } — source is the label to show while unresolved
  * ("Seed #1", "Winner of SF1").
@@ -91,8 +114,10 @@ export function computeBracket(teams, games, { manualTiebreaks = {}, lockedSeeds
 /** Final placings, once everything that can be decided has been. */
 export function finalPlacings(bracket) {
   const find = (id) => bracket.games.find((g) => g.id === id);
-  const final = find('final');
+  const final = titleGame(bracket.games);
   const third = find('third');
+  const losersFinal = find('lf');
+  const elimination = find('le');
 
   const placings = [];
   if (final?.status === 'final') {
@@ -103,6 +128,9 @@ export function finalPlacings(bracket) {
     placings.push({ place: 3, teamId: winnerOf(third) });
     placings.push({ place: 4, teamId: loserOf(third) });
   }
+  // Double elimination has no 3rd place game: whoever went out last is 3rd.
+  if (losersFinal?.status === 'final') placings.push({ place: 3, teamId: loserOf(losersFinal) });
+  if (elimination?.status === 'final') placings.push({ place: 4, teamId: loserOf(elimination) });
   // Everyone below the top four places on pool record alone — the bracket is
   // four teams and both courts are busy for both bracket slots, so there is no
   // room for a 5th place game. Works for any field size.

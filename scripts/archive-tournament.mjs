@@ -23,7 +23,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 import { computeStandings } from '../js/standings.js';
-import { computeBracket, finalPlacings, winnerOf, loserOf } from '../js/bracket.js';
+import { computeBracket, finalPlacings, winnerOf, loserOf, outstanding, isMoot, titleGame } from '../js/bracket.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const historyDir = join(root, 'data', 'history');
@@ -130,7 +130,7 @@ async function main() {
     process.exit(1);
   }
 
-  const unplayed = games.filter((g) => g.status !== 'final');
+  const unplayed = outstanding(games);
   if (unplayed.length && !FORCE) {
     console.error(`  ✗ ${unplayed.length} game${unplayed.length > 1 ? 's are' : ' is'} still unplayed:`);
     for (const g of unplayed) console.error(`     ${g.id}${g.label ? ` (${g.label})` : ''}`);
@@ -151,9 +151,11 @@ async function main() {
     .filter((p) => p.place <= 3)
     .map((p) => {
       const team = byId.get(p.teamId);
-      const decider = bracket.games.find(
-        (g) => (g.id === 'final' && p.place <= 2) || (g.id === 'third' && p.place === 3)
-      );
+      // 3rd is the winner of a 3rd place game, or in double elimination the
+      // loser of the losers' final.
+      const decider = p.place <= 2
+        ? titleGame(bracket.games)
+        : bracket.games.find((g) => g.id === 'third' || g.id === 'lf');
       return {
         place: p.place,
         teamId: p.teamId,
@@ -229,7 +231,8 @@ async function main() {
     })),
 
     // Every game, pool and bracket, exactly as played.
-    games: games.map((g) => ({
+    // A deciding game that was never needed is not part of what happened.
+    games: games.filter((g) => !isMoot(g, games)).map((g) => ({
       id: g.id,
       slot: g.slot,
       phase: g.phase,
