@@ -9,6 +9,11 @@
   "mapUrl": "https://maps.app.goo.gl/3XGj2SXXnHnxGyKL7",
   "courts": 2,
   "archivedAt": "2026-10-10",
+  "recap": [
+    "Four teams, one lakefront lawn, and a bracket that refused to end quietly. Pool play went full rock-paper-scissors: AAA beat Deez Nets, Deez Nets beat Annie's Friends, Annie's Friends beat AAA, and all three finished 2–1. AAA came out on top of the circle by two points.",
+    "From there, AAA Roadside Assistance did what roadside assistance does and kept showing up, edging Cinnamon Rolls and then Deez Nets in three sets each to reach the final unbeaten. Annie's Friends took the scenic route. Swept in the semis, they climbed back through the losers' bracket, got their revenge on Deez Nets 2–0, then beat AAA to force one last game to 21. AAA towed it home 21–17.",
+    "Cinnamon Rolls leave without a win but with the best excuse on the field: they took a set off both finalists and lost to the champions 22–20 in pool play. Soft in the middle, very hard to put away."
+  ],
   "teams": [
     {
       "id": "deez-nets",

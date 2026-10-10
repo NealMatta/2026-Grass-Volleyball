@@ -1062,6 +1062,18 @@ footer a { color: var(--chalk-dim); }
   font-size: .85rem; color: var(--chalk-dim);
 }
 
+/* A few hand-written lines on how the day went, above the numbers. */
+.history-page .recap {
+  max-width: 62ch; margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+  padding-left: 1rem; border-left: 4px solid var(--sun);
+}
+.history-page .recap h3 {
+  font-size: .8rem; font-stretch: 62%; font-weight: 700;
+  letter-spacing: .2em; color: var(--sun); margin-bottom: .7rem;
+}
+.history-page .recap p { color: var(--chalk); line-height: 1.6; font-size: 1rem; }
+.history-page .recap p + p { margin-top: .75rem; }
+
 .history-page .cols { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(1.75rem, 4vw, 2.75rem); }
 @media (min-width: 62rem) { .history-page .cols { grid-template-columns: 1fr 1fr; } }
 

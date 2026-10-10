@@ -108,6 +108,12 @@ function renderRecord(t) {
       <span class="when">${esc(t.venue ?? '')}${DOT}${t.teams.length} teams${DOT}${t.games.length} games</span>
     </div>
 
+    ${Array.isArray(t.recap) && t.recap.length ? `
+      <div class="recap">
+        <h3>How the day went</h3>
+        ${t.recap.map((para) => `<p>${esc(para)}</p>`).join('')}
+      </div>` : ''}
+
     <div class="cols">
       <div class="block">
         <h3>Where everyone finished</h3>
