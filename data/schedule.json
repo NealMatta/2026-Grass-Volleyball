@@ -3,7 +3,7 @@
   "tournament": {
     "name": "Neal's Grass Volleyball Tournament",
     "slug": "grass-volleyball",
-    "status": "scheduled",
+    "status": "none",
     "date": "2026-10-10",
     "dayOfWeek": "Saturday",
     "startTime": "10:00",
