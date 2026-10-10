@@ -97,6 +97,10 @@ function markSelected(slug) {
 
 function renderRecord(t) {
   const bracket = t.games.filter((g) => g.phase === 'bracket' && g.status === 'final');
+  // The game that decided the title: the deciding game in double elimination
+  // when it was needed (archives drop it when it wasn't), otherwise the final.
+  const titleId = bracket.some((g) => g.id === 'decider') ? 'decider' : 'final';
+  const qualifiedCount = t.pool.filter((r) => r.qualified).length;
 
   $('#detail').innerHTML = `
     <div class="detail-head">
@@ -130,7 +134,7 @@ function renderRecord(t) {
               ? `<span class="conceded">${esc(g.forfeitByName)} conceded</span>`
               : `<span class="final-score">${Math.max(g.scoreA, g.scoreB)}–${Math.min(g.scoreA, g.scoreB)}</span>`;
             return `
-              <div class="leg ${g.id === 'final' ? 'decider' : ''}">
+              <div class="leg ${g.id === titleId ? 'decider' : ''}">
                 <span class="stage">${esc(STAGE[g.id] ?? g.label ?? '')}</span>
                 <span class="matchup"><span class="w">${esc(won)}</span>
                   <span class="l">over ${esc(lost)}</span></span>
@@ -161,7 +165,9 @@ function renderRecord(t) {
             </tbody>
           </table>
         </div>
-        <p class="pos-note">Top four made the bracket. Bold rows qualified.</p>
+        <p class="pos-note">${qualifiedCount >= t.pool.length
+          ? 'Every team made the bracket.'
+          : `Top ${qualifiedCount} made the bracket. Bold rows qualified.`}</p>
       </div>
     </div>`;
 }
